@@ -5,7 +5,7 @@
 -- Dumped from database version 16.1 (Debian 16.1-1.pgdg120+1)
 -- Dumped by pg_dump version 16.1 (Ubuntu 16.1-1.pgdg22.04+1)
 
--- Started on 2023-11-26 15:14:52 CET
+-- Started on 2023-11-30 12:58:11 CET
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,10 +23,13 @@ SET row_security = off;
 -- Name: public; Type: SCHEMA; Schema: -; Owner: pg_database_owner
 --
 
+--CREATE SCHEMA public;
+
+
 ALTER SCHEMA public OWNER TO pg_database_owner;
 
 --
--- TOC entry 3481 (class 0 OID 0)
+-- TOC entry 3485 (class 0 OID 0)
 -- Dependencies: 4
 -- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: pg_database_owner
 --
@@ -39,7 +42,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 218 (class 1259 OID 16648)
+-- TOC entry 216 (class 1259 OID 16389)
 -- Name: account_types; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -52,7 +55,7 @@ CREATE TABLE public.account_types (
 ALTER TABLE public.account_types OWNER TO postgres;
 
 --
--- TOC entry 229 (class 1259 OID 16792)
+-- TOC entry 215 (class 1259 OID 16388)
 -- Name: account_types_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -67,11 +70,12 @@ ALTER TABLE public.account_types ALTER COLUMN type_id ADD GENERATED ALWAYS AS ID
 
 
 --
--- TOC entry 219 (class 1259 OID 16653)
+-- TOC entry 218 (class 1259 OID 16395)
 -- Name: accounts; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.accounts (
+    account_id integer NOT NULL,
     email character varying(30) NOT NULL,
     password character varying(50) NOT NULL,
     type integer NOT NULL,
@@ -83,12 +87,27 @@ CREATE TABLE public.accounts (
 ALTER TABLE public.accounts OWNER TO postgres;
 
 --
--- TOC entry 227 (class 1259 OID 16696)
+-- TOC entry 217 (class 1259 OID 16394)
+-- Name: accounts_account_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.accounts ALTER COLUMN account_id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.accounts_account_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 219 (class 1259 OID 16400)
 -- Name: baskets; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.baskets (
-    customer character varying(30) NOT NULL,
+    customer integer NOT NULL,
     dish_id integer NOT NULL
 );
 
@@ -96,7 +115,7 @@ CREATE TABLE public.baskets (
 ALTER TABLE public.baskets OWNER TO postgres;
 
 --
--- TOC entry 226 (class 1259 OID 16688)
+-- TOC entry 221 (class 1259 OID 16404)
 -- Name: complaints; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -111,7 +130,7 @@ CREATE TABLE public.complaints (
 ALTER TABLE public.complaints OWNER TO postgres;
 
 --
--- TOC entry 230 (class 1259 OID 16793)
+-- TOC entry 220 (class 1259 OID 16403)
 -- Name: complaints_complaint_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -126,11 +145,12 @@ ALTER TABLE public.complaints ALTER COLUMN complaint_id ADD GENERATED ALWAYS AS 
 
 
 --
--- TOC entry 224 (class 1259 OID 16676)
+-- TOC entry 223 (class 1259 OID 16413)
 -- Name: discounts; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.discounts (
+    discount_id integer NOT NULL,
     code character varying(10) NOT NULL,
     discount numeric(4,2) NOT NULL
 );
@@ -139,7 +159,22 @@ CREATE TABLE public.discounts (
 ALTER TABLE public.discounts OWNER TO postgres;
 
 --
--- TOC entry 217 (class 1259 OID 16643)
+-- TOC entry 222 (class 1259 OID 16412)
+-- Name: discounts_discount_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.discounts ALTER COLUMN discount_id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.discounts_discount_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 225 (class 1259 OID 16419)
 -- Name: dish_types; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -152,7 +187,7 @@ CREATE TABLE public.dish_types (
 ALTER TABLE public.dish_types OWNER TO postgres;
 
 --
--- TOC entry 231 (class 1259 OID 16794)
+-- TOC entry 224 (class 1259 OID 16418)
 -- Name: dish_types_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -167,7 +202,7 @@ ALTER TABLE public.dish_types ALTER COLUMN type_id ADD GENERATED ALWAYS AS IDENT
 
 
 --
--- TOC entry 216 (class 1259 OID 16638)
+-- TOC entry 227 (class 1259 OID 16425)
 -- Name: dishes; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -185,7 +220,7 @@ CREATE TABLE public.dishes (
 ALTER TABLE public.dishes OWNER TO postgres;
 
 --
--- TOC entry 232 (class 1259 OID 16795)
+-- TOC entry 226 (class 1259 OID 16424)
 -- Name: dishes_dish_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -200,20 +235,20 @@ ALTER TABLE public.dishes ALTER COLUMN dish_id ADD GENERATED ALWAYS AS IDENTITY 
 
 
 --
--- TOC entry 222 (class 1259 OID 16668)
+-- TOC entry 228 (class 1259 OID 16430)
 -- Name: favorites; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.favorites (
     dish_id integer NOT NULL,
-    customer character varying(30) NOT NULL
+    customer integer NOT NULL
 );
 
 
 ALTER TABLE public.favorites OWNER TO postgres;
 
 --
--- TOC entry 228 (class 1259 OID 16699)
+-- TOC entry 229 (class 1259 OID 16433)
 -- Name: ordered_dishes; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -226,21 +261,21 @@ CREATE TABLE public.ordered_dishes (
 ALTER TABLE public.ordered_dishes OWNER TO postgres;
 
 --
--- TOC entry 220 (class 1259 OID 16658)
+-- TOC entry 231 (class 1259 OID 16437)
 -- Name: orders; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.orders (
     order_id integer NOT NULL,
     status integer NOT NULL,
-    customer character varying(30) NOT NULL,
+    customer integer NOT NULL,
     total numeric(7,2) NOT NULL,
     payment_method integer NOT NULL,
     street character(40) NOT NULL,
     street_number integer NOT NULL,
     apartment integer,
     city character varying(40) NOT NULL,
-    discount_code character varying(10),
+    discount integer,
     tip numeric(7,2)
 );
 
@@ -248,7 +283,7 @@ CREATE TABLE public.orders (
 ALTER TABLE public.orders OWNER TO postgres;
 
 --
--- TOC entry 233 (class 1259 OID 16796)
+-- TOC entry 230 (class 1259 OID 16436)
 -- Name: orders_order_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -263,7 +298,7 @@ ALTER TABLE public.orders ALTER COLUMN order_id ADD GENERATED ALWAYS AS IDENTITY
 
 
 --
--- TOC entry 221 (class 1259 OID 16663)
+-- TOC entry 233 (class 1259 OID 16443)
 -- Name: payment_methods; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -272,14 +307,14 @@ CREATE TABLE public.payment_methods (
     card_number numeric(16,0) NOT NULL,
     expiry_date date NOT NULL,
     cvv numeric(3,0) NOT NULL,
-    customer character varying(30) NOT NULL
+    customer integer NOT NULL
 );
 
 
 ALTER TABLE public.payment_methods OWNER TO postgres;
 
 --
--- TOC entry 234 (class 1259 OID 16797)
+-- TOC entry 232 (class 1259 OID 16442)
 -- Name: payment_methods_method_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -294,7 +329,7 @@ ALTER TABLE public.payment_methods ALTER COLUMN method_id ADD GENERATED ALWAYS A
 
 
 --
--- TOC entry 215 (class 1259 OID 16633)
+-- TOC entry 235 (class 1259 OID 16449)
 -- Name: restaurants; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -311,7 +346,7 @@ CREATE TABLE public.restaurants (
 ALTER TABLE public.restaurants OWNER TO postgres;
 
 --
--- TOC entry 235 (class 1259 OID 16798)
+-- TOC entry 234 (class 1259 OID 16448)
 -- Name: restaurants_restaurant_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -326,14 +361,14 @@ ALTER TABLE public.restaurants ALTER COLUMN restaurant_id ADD GENERATED ALWAYS A
 
 
 --
--- TOC entry 225 (class 1259 OID 16681)
+-- TOC entry 237 (class 1259 OID 16455)
 -- Name: reviews; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.reviews (
     review_id integer NOT NULL,
     resturant_id integer NOT NULL,
-    customer character varying(30) NOT NULL,
+    customer integer NOT NULL,
     stars integer NOT NULL,
     description character varying(500)
 );
@@ -342,7 +377,7 @@ CREATE TABLE public.reviews (
 ALTER TABLE public.reviews OWNER TO postgres;
 
 --
--- TOC entry 236 (class 1259 OID 16799)
+-- TOC entry 236 (class 1259 OID 16454)
 -- Name: reviews_review_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -357,7 +392,7 @@ ALTER TABLE public.reviews ALTER COLUMN review_id ADD GENERATED ALWAYS AS IDENTI
 
 
 --
--- TOC entry 223 (class 1259 OID 16671)
+-- TOC entry 239 (class 1259 OID 16463)
 -- Name: statuses; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -370,7 +405,7 @@ CREATE TABLE public.statuses (
 ALTER TABLE public.statuses OWNER TO postgres;
 
 --
--- TOC entry 237 (class 1259 OID 16800)
+-- TOC entry 238 (class 1259 OID 16462)
 -- Name: statuses_status_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -385,12 +420,12 @@ ALTER TABLE public.statuses ALTER COLUMN status_id ADD GENERATED ALWAYS AS IDENT
 
 
 --
--- TOC entry 238 (class 1259 OID 16801)
+-- TOC entry 240 (class 1259 OID 16468)
 -- Name: workers; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.workers (
-    worker character varying(30),
+    worker integer NOT NULL,
     restaurant_id integer
 );
 
@@ -398,8 +433,8 @@ CREATE TABLE public.workers (
 ALTER TABLE public.workers OWNER TO postgres;
 
 --
--- TOC entry 3455 (class 0 OID 16648)
--- Dependencies: 218
+-- TOC entry 3455 (class 0 OID 16389)
+-- Dependencies: 216
 -- Data for Name: account_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -408,42 +443,42 @@ INSERT INTO public.account_types OVERRIDING SYSTEM VALUE VALUES (2, 'Pracownik')
 
 
 --
--- TOC entry 3456 (class 0 OID 16653)
--- Dependencies: 219
+-- TOC entry 3457 (class 0 OID 16395)
+-- Dependencies: 218
 -- Data for Name: accounts; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.accounts VALUES ('admin@example.com', 'admin', 2, NULL, NULL);
+INSERT INTO public.accounts OVERRIDING SYSTEM VALUE VALUES (1, 'admin@example.com', 'admin', 2, NULL, NULL);
 
 
 --
--- TOC entry 3464 (class 0 OID 16696)
--- Dependencies: 227
+-- TOC entry 3458 (class 0 OID 16400)
+-- Dependencies: 219
 -- Data for Name: baskets; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
 
 --
--- TOC entry 3463 (class 0 OID 16688)
--- Dependencies: 226
+-- TOC entry 3460 (class 0 OID 16404)
+-- Dependencies: 221
 -- Data for Name: complaints; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
 
 --
--- TOC entry 3461 (class 0 OID 16676)
--- Dependencies: 224
+-- TOC entry 3462 (class 0 OID 16413)
+-- Dependencies: 223
 -- Data for Name: discounts; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.discounts VALUES ('MINUS20', 20.00);
+INSERT INTO public.discounts OVERRIDING SYSTEM VALUE VALUES (1, 'MINUS20', 20.00);
 
 
 --
--- TOC entry 3454 (class 0 OID 16643)
--- Dependencies: 217
+-- TOC entry 3464 (class 0 OID 16419)
+-- Dependencies: 225
 -- Data for Name: dish_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -457,8 +492,8 @@ INSERT INTO public.dish_types OVERRIDING SYSTEM VALUE VALUES (7, 'Napoje');
 
 
 --
--- TOC entry 3453 (class 0 OID 16638)
--- Dependencies: 216
+-- TOC entry 3466 (class 0 OID 16425)
+-- Dependencies: 227
 -- Data for Name: dishes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -526,40 +561,40 @@ INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (61, 'Piwo', 5, 7, NULL
 
 
 --
--- TOC entry 3459 (class 0 OID 16668)
--- Dependencies: 222
+-- TOC entry 3467 (class 0 OID 16430)
+-- Dependencies: 228
 -- Data for Name: favorites; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
 
 --
--- TOC entry 3465 (class 0 OID 16699)
--- Dependencies: 228
+-- TOC entry 3468 (class 0 OID 16433)
+-- Dependencies: 229
 -- Data for Name: ordered_dishes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
 
 --
--- TOC entry 3457 (class 0 OID 16658)
--- Dependencies: 220
+-- TOC entry 3470 (class 0 OID 16437)
+-- Dependencies: 231
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
 
 --
--- TOC entry 3458 (class 0 OID 16663)
--- Dependencies: 221
+-- TOC entry 3472 (class 0 OID 16443)
+-- Dependencies: 233
 -- Data for Name: payment_methods; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
 
 --
--- TOC entry 3452 (class 0 OID 16633)
--- Dependencies: 215
+-- TOC entry 3474 (class 0 OID 16449)
+-- Dependencies: 235
 -- Data for Name: restaurants; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -571,16 +606,16 @@ INSERT INTO public.restaurants OVERRIDING SYSTEM VALUE VALUES (5, 'Restauracja g
 
 
 --
--- TOC entry 3462 (class 0 OID 16681)
--- Dependencies: 225
+-- TOC entry 3476 (class 0 OID 16455)
+-- Dependencies: 237
 -- Data for Name: reviews; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
 
 --
--- TOC entry 3460 (class 0 OID 16671)
--- Dependencies: 223
+-- TOC entry 3478 (class 0 OID 16463)
+-- Dependencies: 239
 -- Data for Name: statuses; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -595,30 +630,39 @@ INSERT INTO public.statuses OVERRIDING SYSTEM VALUE VALUES (8, 'Zareklamowane');
 
 
 --
--- TOC entry 3475 (class 0 OID 16801)
--- Dependencies: 238
+-- TOC entry 3479 (class 0 OID 16468)
+-- Dependencies: 240
 -- Data for Name: workers; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.workers VALUES ('admin@example.com', 1);
-INSERT INTO public.workers VALUES ('admin@example.com', 2);
-INSERT INTO public.workers VALUES ('admin@example.com', 3);
-INSERT INTO public.workers VALUES ('admin@example.com', 4);
-INSERT INTO public.workers VALUES ('admin@example.com', 5);
+INSERT INTO public.workers VALUES (1, 1);
+INSERT INTO public.workers VALUES (1, 2);
+INSERT INTO public.workers VALUES (1, 3);
+INSERT INTO public.workers VALUES (1, 4);
+INSERT INTO public.workers VALUES (1, 5);
 
 
 --
--- TOC entry 3482 (class 0 OID 0)
--- Dependencies: 229
+-- TOC entry 3486 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: account_types_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.account_types_type_id_seq', 2, true);
+SELECT pg_catalog.setval('public.account_types_type_id_seq', 1, false);
 
 
 --
--- TOC entry 3483 (class 0 OID 0)
--- Dependencies: 230
+-- TOC entry 3487 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: accounts_account_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.accounts_account_id_seq', 1, false);
+
+
+--
+-- TOC entry 3488 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: complaints_complaint_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -626,26 +670,35 @@ SELECT pg_catalog.setval('public.complaints_complaint_id_seq', 1, false);
 
 
 --
--- TOC entry 3484 (class 0 OID 0)
--- Dependencies: 231
+-- TOC entry 3489 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: discounts_discount_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.discounts_discount_id_seq', 1, false);
+
+
+--
+-- TOC entry 3490 (class 0 OID 0)
+-- Dependencies: 224
 -- Name: dish_types_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.dish_types_type_id_seq', 7, true);
+SELECT pg_catalog.setval('public.dish_types_type_id_seq', 1, false);
 
 
 --
--- TOC entry 3485 (class 0 OID 0)
--- Dependencies: 232
+-- TOC entry 3491 (class 0 OID 0)
+-- Dependencies: 226
 -- Name: dishes_dish_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.dishes_dish_id_seq', 61, true);
+SELECT pg_catalog.setval('public.dishes_dish_id_seq', 1, false);
 
 
 --
--- TOC entry 3486 (class 0 OID 0)
--- Dependencies: 233
+-- TOC entry 3492 (class 0 OID 0)
+-- Dependencies: 230
 -- Name: orders_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -653,8 +706,8 @@ SELECT pg_catalog.setval('public.orders_order_id_seq', 1, false);
 
 
 --
--- TOC entry 3487 (class 0 OID 0)
--- Dependencies: 234
+-- TOC entry 3493 (class 0 OID 0)
+-- Dependencies: 232
 -- Name: payment_methods_method_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -662,16 +715,16 @@ SELECT pg_catalog.setval('public.payment_methods_method_id_seq', 1, false);
 
 
 --
--- TOC entry 3488 (class 0 OID 0)
--- Dependencies: 235
+-- TOC entry 3494 (class 0 OID 0)
+-- Dependencies: 234
 -- Name: restaurants_restaurant_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.restaurants_restaurant_id_seq', 5, true);
+SELECT pg_catalog.setval('public.restaurants_restaurant_id_seq', 1, false);
 
 
 --
--- TOC entry 3489 (class 0 OID 0)
+-- TOC entry 3495 (class 0 OID 0)
 -- Dependencies: 236
 -- Name: reviews_review_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -680,16 +733,16 @@ SELECT pg_catalog.setval('public.reviews_review_id_seq', 1, false);
 
 
 --
--- TOC entry 3490 (class 0 OID 0)
--- Dependencies: 237
+-- TOC entry 3496 (class 0 OID 0)
+-- Dependencies: 238
 -- Name: statuses_status_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.statuses_status_id_seq', 8, true);
+SELECT pg_catalog.setval('public.statuses_status_id_seq', 1, false);
 
 
 --
--- TOC entry 3275 (class 2606 OID 16652)
+-- TOC entry 3271 (class 2606 OID 16393)
 -- Name: account_types account_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -698,16 +751,16 @@ ALTER TABLE ONLY public.account_types
 
 
 --
--- TOC entry 3277 (class 2606 OID 16657)
+-- TOC entry 3273 (class 2606 OID 16399)
 -- Name: accounts accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.accounts
-    ADD CONSTRAINT accounts_pkey PRIMARY KEY (email);
+    ADD CONSTRAINT accounts_pkey PRIMARY KEY (account_id);
 
 
 --
--- TOC entry 3289 (class 2606 OID 16695)
+-- TOC entry 3275 (class 2606 OID 16411)
 -- Name: complaints complaints_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -716,16 +769,16 @@ ALTER TABLE ONLY public.complaints
 
 
 --
--- TOC entry 3285 (class 2606 OID 16680)
+-- TOC entry 3277 (class 2606 OID 16417)
 -- Name: discounts discounts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.discounts
-    ADD CONSTRAINT discounts_pkey PRIMARY KEY (code);
+    ADD CONSTRAINT discounts_pkey PRIMARY KEY (discount_id);
 
 
 --
--- TOC entry 3273 (class 2606 OID 16647)
+-- TOC entry 3279 (class 2606 OID 16423)
 -- Name: dish_types dish_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -734,7 +787,7 @@ ALTER TABLE ONLY public.dish_types
 
 
 --
--- TOC entry 3271 (class 2606 OID 16642)
+-- TOC entry 3281 (class 2606 OID 16429)
 -- Name: dishes dishes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -743,7 +796,7 @@ ALTER TABLE ONLY public.dishes
 
 
 --
--- TOC entry 3279 (class 2606 OID 16662)
+-- TOC entry 3283 (class 2606 OID 16441)
 -- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -752,7 +805,7 @@ ALTER TABLE ONLY public.orders
 
 
 --
--- TOC entry 3281 (class 2606 OID 16667)
+-- TOC entry 3285 (class 2606 OID 16447)
 -- Name: payment_methods payment_methods_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -761,7 +814,7 @@ ALTER TABLE ONLY public.payment_methods
 
 
 --
--- TOC entry 3269 (class 2606 OID 16637)
+-- TOC entry 3287 (class 2606 OID 16453)
 -- Name: restaurants restaurants_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -770,7 +823,7 @@ ALTER TABLE ONLY public.restaurants
 
 
 --
--- TOC entry 3287 (class 2606 OID 16687)
+-- TOC entry 3289 (class 2606 OID 16461)
 -- Name: reviews reviews_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -779,7 +832,7 @@ ALTER TABLE ONLY public.reviews
 
 
 --
--- TOC entry 3283 (class 2606 OID 16675)
+-- TOC entry 3291 (class 2606 OID 16467)
 -- Name: statuses statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -788,177 +841,177 @@ ALTER TABLE ONLY public.statuses
 
 
 --
--- TOC entry 3293 (class 2606 OID 16722)
--- Name: orders customer_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.orders
-    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(email) NOT VALID;
-
-
---
--- TOC entry 3297 (class 2606 OID 16742)
--- Name: payment_methods customer_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.payment_methods
-    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(email) NOT VALID;
-
-
---
--- TOC entry 3298 (class 2606 OID 16752)
--- Name: favorites customer_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.favorites
-    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(email) NOT VALID;
-
-
---
--- TOC entry 3300 (class 2606 OID 16762)
--- Name: reviews customer_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.reviews
-    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(email) NOT VALID;
-
-
---
--- TOC entry 3303 (class 2606 OID 16777)
+-- TOC entry 3293 (class 2606 OID 16481)
 -- Name: baskets customer_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.baskets
-    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(email) NOT VALID;
+    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- TOC entry 3294 (class 2606 OID 16732)
--- Name: orders discount_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.orders
-    ADD CONSTRAINT discount_fk FOREIGN KEY (discount_code) REFERENCES public.discounts(code) NOT VALID;
-
-
---
--- TOC entry 3299 (class 2606 OID 16747)
--- Name: favorites dish_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- TOC entry 3298 (class 2606 OID 16506)
+-- Name: favorites customer_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.favorites
-    ADD CONSTRAINT dish_fk FOREIGN KEY (dish_id) REFERENCES public.dishes(dish_id) NOT VALID;
+    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- TOC entry 3304 (class 2606 OID 16772)
+-- TOC entry 3302 (class 2606 OID 16531)
+-- Name: orders customer_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3306 (class 2606 OID 16541)
+-- Name: payment_methods customer_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.payment_methods
+    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3307 (class 2606 OID 16551)
+-- Name: reviews customer_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reviews
+    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3303 (class 2606 OID 16536)
+-- Name: orders discount_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT discount_id FOREIGN KEY (discount) REFERENCES public.discounts(discount_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3294 (class 2606 OID 16476)
 -- Name: baskets dish_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.baskets
-    ADD CONSTRAINT dish_fk FOREIGN KEY (dish_id) REFERENCES public.dishes(dish_id) NOT VALID;
+    ADD CONSTRAINT dish_fk FOREIGN KEY (dish_id) REFERENCES public.dishes(dish_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- TOC entry 3305 (class 2606 OID 16787)
+-- TOC entry 3299 (class 2606 OID 16501)
+-- Name: favorites dish_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.favorites
+    ADD CONSTRAINT dish_fk FOREIGN KEY (dish_id) REFERENCES public.dishes(dish_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3300 (class 2606 OID 16511)
 -- Name: ordered_dishes dish_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ordered_dishes
-    ADD CONSTRAINT dish_fk FOREIGN KEY (dish_id) REFERENCES public.dishes(dish_id) NOT VALID;
+    ADD CONSTRAINT dish_fk FOREIGN KEY (dish_id) REFERENCES public.dishes(dish_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- TOC entry 3302 (class 2606 OID 16767)
+-- TOC entry 3295 (class 2606 OID 16486)
 -- Name: complaints order_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.complaints
-    ADD CONSTRAINT order_fk FOREIGN KEY (order_id) REFERENCES public.orders(order_id) NOT VALID;
+    ADD CONSTRAINT order_fk FOREIGN KEY (order_id) REFERENCES public.orders(order_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- TOC entry 3306 (class 2606 OID 16782)
+-- TOC entry 3301 (class 2606 OID 16516)
 -- Name: ordered_dishes order_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.ordered_dishes
-    ADD CONSTRAINT order_fk FOREIGN KEY (order_id) REFERENCES public.orders(order_id) NOT VALID;
+    ADD CONSTRAINT order_fk FOREIGN KEY (order_id) REFERENCES public.orders(order_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- TOC entry 3295 (class 2606 OID 16737)
+-- TOC entry 3304 (class 2606 OID 16521)
 -- Name: orders payment_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.orders
-    ADD CONSTRAINT payment_fk FOREIGN KEY (payment_method) REFERENCES public.payment_methods(method_id) NOT VALID;
+    ADD CONSTRAINT payment_fk FOREIGN KEY (payment_method) REFERENCES public.payment_methods(method_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- TOC entry 3290 (class 2606 OID 16702)
+-- TOC entry 3296 (class 2606 OID 16491)
 -- Name: dishes restaurant_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.dishes
-    ADD CONSTRAINT restaurant_fk FOREIGN KEY (restaurant_id) REFERENCES public.restaurants(restaurant_id) NOT VALID;
+    ADD CONSTRAINT restaurant_fk FOREIGN KEY (restaurant_id) REFERENCES public.restaurants(restaurant_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- TOC entry 3301 (class 2606 OID 16757)
+-- TOC entry 3308 (class 2606 OID 16546)
 -- Name: reviews restaurant_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.reviews
-    ADD CONSTRAINT restaurant_fk FOREIGN KEY (resturant_id) REFERENCES public.restaurants(restaurant_id) NOT VALID;
+    ADD CONSTRAINT restaurant_fk FOREIGN KEY (resturant_id) REFERENCES public.restaurants(restaurant_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- TOC entry 3307 (class 2606 OID 16809)
+-- TOC entry 3309 (class 2606 OID 16556)
 -- Name: workers restaurant_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.workers
-    ADD CONSTRAINT restaurant_fk FOREIGN KEY (restaurant_id) REFERENCES public.restaurants(restaurant_id);
+    ADD CONSTRAINT restaurant_fk FOREIGN KEY (restaurant_id) REFERENCES public.restaurants(restaurant_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- TOC entry 3296 (class 2606 OID 16727)
+-- TOC entry 3305 (class 2606 OID 16526)
 -- Name: orders status_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.orders
-    ADD CONSTRAINT status_fk FOREIGN KEY (status) REFERENCES public.statuses(status_id) NOT VALID;
+    ADD CONSTRAINT status_fk FOREIGN KEY (status) REFERENCES public.statuses(status_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- TOC entry 3291 (class 2606 OID 16707)
--- Name: dishes type_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.dishes
-    ADD CONSTRAINT type_fk FOREIGN KEY (type_id) REFERENCES public.dish_types(type_id) NOT VALID;
-
-
---
--- TOC entry 3292 (class 2606 OID 16712)
+-- TOC entry 3292 (class 2606 OID 16471)
 -- Name: accounts type_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.accounts
-    ADD CONSTRAINT type_fk FOREIGN KEY (type) REFERENCES public.account_types(type_id) NOT VALID;
+    ADD CONSTRAINT type_fk FOREIGN KEY (type) REFERENCES public.account_types(type_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- TOC entry 3308 (class 2606 OID 16804)
+-- TOC entry 3297 (class 2606 OID 16496)
+-- Name: dishes type_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dishes
+    ADD CONSTRAINT type_fk FOREIGN KEY (type_id) REFERENCES public.dish_types(type_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3310 (class 2606 OID 16561)
 -- Name: workers worker_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.workers
-    ADD CONSTRAINT worker_fk FOREIGN KEY (worker) REFERENCES public.accounts(email);
+    ADD CONSTRAINT worker_fk FOREIGN KEY (worker) REFERENCES public.accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
--- Completed on 2023-11-26 15:14:52 CET
+-- Completed on 2023-11-30 12:58:12 CET
 
 --
 -- PostgreSQL database dump complete
