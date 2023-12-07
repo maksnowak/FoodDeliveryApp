@@ -1,0 +1,46 @@
+package pap2023z.z09.database;
+
+import jakarta.persistence.*;
+
+import java.util.Objects;
+
+@Entity
+@Table(name = "account_types", schema = "public", catalog = "postgres")
+public class AccountTypesEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "type_id")
+    private int typeId;
+    @Basic
+    @Column(name = "name")
+    private String name;
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AccountTypesEntity that = (AccountTypesEntity) o;
+        return typeId == that.typeId && Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(typeId, name);
+    }
+}

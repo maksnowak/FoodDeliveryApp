@@ -1,0 +1,26 @@
+<hibernate-configuration xmlns="http://www.hibernate.org/xsd/hibernate-configuration">
+    <session-factory>
+        <property name="hibernate.dialect">
+            org.hibernate.dialect.PostgreSQLDialect
+        </property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">admin</property>
+        <mapping class="pap2023z.z09.database.AccountTypesEntity"/>
+        <mapping class="pap2023z.z09.database.AccountsEntity"/>
+        <mapping class="pap2023z.z09.database.BasketsEntity"/>
+        <mapping class="pap2023z.z09.database.ComplaintsEntity"/>
+        <mapping class="pap2023z.z09.database.DiscountsEntity"/>
+        <mapping class="pap2023z.z09.database.DishTypesEntity"/>
+        <mapping class="pap2023z.z09.database.DishesEntity"/>
+        <mapping class="pap2023z.z09.database.FavoritesEntity"/>
+        <mapping class="pap2023z.z09.database.OrderedDishesEntity"/>
+        <mapping class="pap2023z.z09.database.OrdersEntity"/>
+        <mapping class="pap2023z.z09.database.PaymentMethodsEntity"/>
+        <mapping class="pap2023z.z09.database.RestaurantsEntity"/>
+        <mapping class="pap2023z.z09.database.ReviewsEntity"/>
+        <mapping class="pap2023z.z09.database.StatusesEntity"/>
+        <mapping class="pap2023z.z09.database.WorkersEntity"/>
+    </session-factory>
+</hibernate-configuration>
