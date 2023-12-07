@@ -846,7 +846,7 @@ ALTER TABLE ONLY public.statuses
 --
 
 ALTER TABLE ONLY public.baskets
-    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(account_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -855,7 +855,7 @@ ALTER TABLE ONLY public.baskets
 --
 
 ALTER TABLE ONLY public.favorites
-    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(account_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -864,7 +864,7 @@ ALTER TABLE ONLY public.favorites
 --
 
 ALTER TABLE ONLY public.orders
-    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(account_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -873,7 +873,7 @@ ALTER TABLE ONLY public.orders
 --
 
 ALTER TABLE ONLY public.payment_methods
-    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(account_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -882,7 +882,7 @@ ALTER TABLE ONLY public.payment_methods
 --
 
 ALTER TABLE ONLY public.reviews
-    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(account_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT customer_fk FOREIGN KEY (customer) REFERENCES public.accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -891,7 +891,7 @@ ALTER TABLE ONLY public.reviews
 --
 
 ALTER TABLE ONLY public.orders
-    ADD CONSTRAINT discount_id FOREIGN KEY (discount) REFERENCES public.discounts(discount_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT discount_id FOREIGN KEY (discount) REFERENCES public.discounts(discount_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -900,7 +900,7 @@ ALTER TABLE ONLY public.orders
 --
 
 ALTER TABLE ONLY public.baskets
-    ADD CONSTRAINT dish_fk FOREIGN KEY (dish_id) REFERENCES public.dishes(dish_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT dish_fk FOREIGN KEY (dish_id) REFERENCES public.dishes(dish_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -909,7 +909,7 @@ ALTER TABLE ONLY public.baskets
 --
 
 ALTER TABLE ONLY public.favorites
-    ADD CONSTRAINT dish_fk FOREIGN KEY (dish_id) REFERENCES public.dishes(dish_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT dish_fk FOREIGN KEY (dish_id) REFERENCES public.dishes(dish_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -918,7 +918,7 @@ ALTER TABLE ONLY public.favorites
 --
 
 ALTER TABLE ONLY public.ordered_dishes
-    ADD CONSTRAINT dish_fk FOREIGN KEY (dish_id) REFERENCES public.dishes(dish_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT dish_fk FOREIGN KEY (dish_id) REFERENCES public.dishes(dish_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -927,7 +927,7 @@ ALTER TABLE ONLY public.ordered_dishes
 --
 
 ALTER TABLE ONLY public.complaints
-    ADD CONSTRAINT order_fk FOREIGN KEY (order_id) REFERENCES public.orders(order_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT order_fk FOREIGN KEY (order_id) REFERENCES public.orders(order_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -936,7 +936,7 @@ ALTER TABLE ONLY public.complaints
 --
 
 ALTER TABLE ONLY public.ordered_dishes
-    ADD CONSTRAINT order_fk FOREIGN KEY (order_id) REFERENCES public.orders(order_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT order_fk FOREIGN KEY (order_id) REFERENCES public.orders(order_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -945,7 +945,7 @@ ALTER TABLE ONLY public.ordered_dishes
 --
 
 ALTER TABLE ONLY public.orders
-    ADD CONSTRAINT payment_fk FOREIGN KEY (payment_method) REFERENCES public.payment_methods(method_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT payment_fk FOREIGN KEY (payment_method) REFERENCES public.payment_methods(method_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -954,7 +954,7 @@ ALTER TABLE ONLY public.orders
 --
 
 ALTER TABLE ONLY public.dishes
-    ADD CONSTRAINT restaurant_fk FOREIGN KEY (restaurant_id) REFERENCES public.restaurants(restaurant_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT restaurant_fk FOREIGN KEY (restaurant_id) REFERENCES public.restaurants(restaurant_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -963,7 +963,7 @@ ALTER TABLE ONLY public.dishes
 --
 
 ALTER TABLE ONLY public.reviews
-    ADD CONSTRAINT restaurant_fk FOREIGN KEY (resturant_id) REFERENCES public.restaurants(restaurant_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT restaurant_fk FOREIGN KEY (resturant_id) REFERENCES public.restaurants(restaurant_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -972,7 +972,7 @@ ALTER TABLE ONLY public.reviews
 --
 
 ALTER TABLE ONLY public.workers
-    ADD CONSTRAINT restaurant_fk FOREIGN KEY (restaurant_id) REFERENCES public.restaurants(restaurant_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT restaurant_fk FOREIGN KEY (restaurant_id) REFERENCES public.restaurants(restaurant_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -981,7 +981,7 @@ ALTER TABLE ONLY public.workers
 --
 
 ALTER TABLE ONLY public.orders
-    ADD CONSTRAINT status_fk FOREIGN KEY (status) REFERENCES public.statuses(status_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT status_fk FOREIGN KEY (status) REFERENCES public.statuses(status_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -990,7 +990,7 @@ ALTER TABLE ONLY public.orders
 --
 
 ALTER TABLE ONLY public.accounts
-    ADD CONSTRAINT type_fk FOREIGN KEY (type) REFERENCES public.account_types(type_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT type_fk FOREIGN KEY (type) REFERENCES public.account_types(type_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -999,7 +999,7 @@ ALTER TABLE ONLY public.accounts
 --
 
 ALTER TABLE ONLY public.dishes
-    ADD CONSTRAINT type_fk FOREIGN KEY (type_id) REFERENCES public.dish_types(type_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT type_fk FOREIGN KEY (type_id) REFERENCES public.dish_types(type_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -1008,7 +1008,7 @@ ALTER TABLE ONLY public.dishes
 --
 
 ALTER TABLE ONLY public.workers
-    ADD CONSTRAINT worker_fk FOREIGN KEY (worker) REFERENCES public.accounts(account_id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+    ADD CONSTRAINT worker_fk FOREIGN KEY (worker) REFERENCES public.accounts(account_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 -- Completed on 2023-11-30 12:58:12 CET
