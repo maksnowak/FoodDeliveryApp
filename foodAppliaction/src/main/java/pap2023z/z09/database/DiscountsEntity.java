@@ -3,6 +3,7 @@ package pap2023z.z09.database;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -18,6 +19,8 @@ public class DiscountsEntity {
     @Basic
     @Column(name = "discount", nullable = false, precision = 2)
     private BigDecimal discount;
+    @OneToMany(mappedBy = "discountsByDiscount")
+    private Collection<OrdersEntity> ordersByDiscountId;
 
     public int getDiscountId() {
         return discountId;
@@ -54,5 +57,13 @@ public class DiscountsEntity {
     @Override
     public int hashCode() {
         return Objects.hash(discountId, code, discount);
+    }
+
+    public Collection<OrdersEntity> getOrdersByDiscountId() {
+        return ordersByDiscountId;
+    }
+
+    public void setOrdersByDiscountId(Collection<OrdersEntity> ordersByDiscountId) {
+        this.ordersByDiscountId = ordersByDiscountId;
     }
 }

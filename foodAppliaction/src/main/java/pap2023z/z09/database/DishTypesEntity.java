@@ -2,6 +2,7 @@ package pap2023z.z09.database;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +15,8 @@ public class DishTypesEntity {
     @Basic
     @Column(name = "name", nullable = false, length = 20)
     private String name;
+    @OneToMany(mappedBy = "dishTypesByTypeId")
+    private Collection<DishesEntity> dishesByTypeId;
 
     public int getTypeId() {
         return typeId;
@@ -42,5 +45,13 @@ public class DishTypesEntity {
     @Override
     public int hashCode() {
         return Objects.hash(typeId, name);
+    }
+
+    public Collection<DishesEntity> getDishesByTypeId() {
+        return dishesByTypeId;
+    }
+
+    public void setDishesByTypeId(Collection<DishesEntity> dishesByTypeId) {
+        this.dishesByTypeId = dishesByTypeId;
     }
 }

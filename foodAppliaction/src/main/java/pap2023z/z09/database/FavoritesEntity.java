@@ -17,6 +17,12 @@ public class FavoritesEntity {
     @Id
     @Column(name = "id", nullable = false)
     private int id;
+    @ManyToOne
+    @JoinColumn(name = "dish_id", referencedColumnName = "dish_id", nullable = false)
+    private DishesEntity dishesByDishId;
+    @ManyToOne
+    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false)
+    private AccountsEntity accountsByCustomer;
 
     public int getDishId() {
         return dishId;
@@ -53,5 +59,21 @@ public class FavoritesEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public DishesEntity getDishesByDishId() {
+        return dishesByDishId;
+    }
+
+    public void setDishesByDishId(DishesEntity dishesByDishId) {
+        this.dishesByDishId = dishesByDishId;
+    }
+
+    public AccountsEntity getAccountsByCustomer() {
+        return accountsByCustomer;
+    }
+
+    public void setAccountsByCustomer(AccountsEntity accountsByCustomer) {
+        this.accountsByCustomer = accountsByCustomer;
     }
 }

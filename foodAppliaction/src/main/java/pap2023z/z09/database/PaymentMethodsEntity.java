@@ -3,6 +3,7 @@ package pap2023z.z09.database;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -24,6 +25,11 @@ public class PaymentMethodsEntity {
     @Basic
     @Column(name = "customer", nullable = false)
     private int customer;
+    @OneToMany(mappedBy = "paymentMethodsByPaymentMethod")
+    private Collection<OrdersEntity> ordersByMethodId;
+    @ManyToOne
+    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false)
+    private AccountsEntity accountsByCustomer;
 
     public int getMethodId() {
         return methodId;
@@ -76,5 +82,21 @@ public class PaymentMethodsEntity {
     @Override
     public int hashCode() {
         return Objects.hash(methodId, cardNumber, expiryDate, cvv, customer);
+    }
+
+    public Collection<OrdersEntity> getOrdersByMethodId() {
+        return ordersByMethodId;
+    }
+
+    public void setOrdersByMethodId(Collection<OrdersEntity> ordersByMethodId) {
+        this.ordersByMethodId = ordersByMethodId;
+    }
+
+    public AccountsEntity getAccountsByCustomer() {
+        return accountsByCustomer;
+    }
+
+    public void setAccountsByCustomer(AccountsEntity accountsByCustomer) {
+        this.accountsByCustomer = accountsByCustomer;
     }
 }

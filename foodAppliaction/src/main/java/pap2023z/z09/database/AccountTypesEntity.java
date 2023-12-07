@@ -2,6 +2,7 @@ package pap2023z.z09.database;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +15,8 @@ public class AccountTypesEntity {
     @Basic
     @Column(name = "name", nullable = false, length = 20)
     private String name;
+    @OneToMany(mappedBy = "accountTypesByType")
+    private Collection<AccountsEntity> accountsByTypeId;
 
     public int getTypeId() {
         return typeId;
@@ -42,5 +45,13 @@ public class AccountTypesEntity {
     @Override
     public int hashCode() {
         return Objects.hash(typeId, name);
+    }
+
+    public Collection<AccountsEntity> getAccountsByTypeId() {
+        return accountsByTypeId;
+    }
+
+    public void setAccountsByTypeId(Collection<AccountsEntity> accountsByTypeId) {
+        this.accountsByTypeId = accountsByTypeId;
     }
 }

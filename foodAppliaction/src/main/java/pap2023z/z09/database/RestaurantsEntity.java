@@ -3,6 +3,7 @@ package pap2023z.z09.database;
 import jakarta.persistence.*;
 
 import java.sql.Time;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -27,6 +28,12 @@ public class RestaurantsEntity {
     @Basic
     @Column(name = "closes_weekends", nullable = true)
     private Time closesWeekends;
+    @OneToMany(mappedBy = "restaurantsByRestaurantId")
+    private Collection<DishesEntity> dishesByRestaurantId;
+    @OneToMany(mappedBy = "restaurantsByResturantId")
+    private Collection<ReviewsEntity> reviewsByRestaurantId;
+    @OneToMany(mappedBy = "restaurantsByRestaurantId")
+    private Collection<WorkersEntity> workersByRestaurantId;
 
     public int getRestaurantId() {
         return restaurantId;
@@ -87,5 +94,29 @@ public class RestaurantsEntity {
     @Override
     public int hashCode() {
         return Objects.hash(restaurantId, name, opensWeekdays, closesWeekdays, opensWeekends, closesWeekends);
+    }
+
+    public Collection<DishesEntity> getDishesByRestaurantId() {
+        return dishesByRestaurantId;
+    }
+
+    public void setDishesByRestaurantId(Collection<DishesEntity> dishesByRestaurantId) {
+        this.dishesByRestaurantId = dishesByRestaurantId;
+    }
+
+    public Collection<ReviewsEntity> getReviewsByRestaurantId() {
+        return reviewsByRestaurantId;
+    }
+
+    public void setReviewsByRestaurantId(Collection<ReviewsEntity> reviewsByRestaurantId) {
+        this.reviewsByRestaurantId = reviewsByRestaurantId;
+    }
+
+    public Collection<WorkersEntity> getWorkersByRestaurantId() {
+        return workersByRestaurantId;
+    }
+
+    public void setWorkersByRestaurantId(Collection<WorkersEntity> workersByRestaurantId) {
+        this.workersByRestaurantId = workersByRestaurantId;
     }
 }

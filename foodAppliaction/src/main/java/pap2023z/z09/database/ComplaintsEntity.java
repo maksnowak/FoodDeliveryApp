@@ -20,6 +20,9 @@ public class ComplaintsEntity {
     @Basic
     @Column(name = "is_open", nullable = false)
     private boolean isOpen;
+    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false)
+    private OrdersEntity ordersByOrderId;
 
     public int getComplaintId() {
         return complaintId;
@@ -64,5 +67,13 @@ public class ComplaintsEntity {
     @Override
     public int hashCode() {
         return Objects.hash(complaintId, orderId, description, isOpen);
+    }
+
+    public OrdersEntity getOrdersByOrderId() {
+        return ordersByOrderId;
+    }
+
+    public void setOrdersByOrderId(OrdersEntity ordersByOrderId) {
+        this.ordersByOrderId = ordersByOrderId;
     }
 }

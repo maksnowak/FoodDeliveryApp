@@ -3,6 +3,7 @@ package pap2023z.z09.database;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -30,6 +31,18 @@ public class DishesEntity {
     @Basic
     @Column(name = "kcal", nullable = true, precision = 1)
     private BigDecimal kcal;
+    @OneToMany(mappedBy = "dishesByDishId")
+    private Collection<BasketsEntity> basketsByDishId;
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id", nullable = false)
+    private RestaurantsEntity restaurantsByRestaurantId;
+    @ManyToOne
+    @JoinColumn(name = "type_id", referencedColumnName = "type_id", nullable = false)
+    private DishTypesEntity dishTypesByTypeId;
+    @OneToMany(mappedBy = "dishesByDishId")
+    private Collection<FavoritesEntity> favoritesByDishId;
+    @OneToMany(mappedBy = "dishesByDishId")
+    private Collection<OrderedDishesEntity> orderedDishesByDishId;
 
     public int getDishId() {
         return dishId;
@@ -98,5 +111,45 @@ public class DishesEntity {
     @Override
     public int hashCode() {
         return Objects.hash(dishId, name, restaurantId, typeId, vegetarian, price, kcal);
+    }
+
+    public Collection<BasketsEntity> getBasketsByDishId() {
+        return basketsByDishId;
+    }
+
+    public void setBasketsByDishId(Collection<BasketsEntity> basketsByDishId) {
+        this.basketsByDishId = basketsByDishId;
+    }
+
+    public RestaurantsEntity getRestaurantsByRestaurantId() {
+        return restaurantsByRestaurantId;
+    }
+
+    public void setRestaurantsByRestaurantId(RestaurantsEntity restaurantsByRestaurantId) {
+        this.restaurantsByRestaurantId = restaurantsByRestaurantId;
+    }
+
+    public DishTypesEntity getDishTypesByTypeId() {
+        return dishTypesByTypeId;
+    }
+
+    public void setDishTypesByTypeId(DishTypesEntity dishTypesByTypeId) {
+        this.dishTypesByTypeId = dishTypesByTypeId;
+    }
+
+    public Collection<FavoritesEntity> getFavoritesByDishId() {
+        return favoritesByDishId;
+    }
+
+    public void setFavoritesByDishId(Collection<FavoritesEntity> favoritesByDishId) {
+        this.favoritesByDishId = favoritesByDishId;
+    }
+
+    public Collection<OrderedDishesEntity> getOrderedDishesByDishId() {
+        return orderedDishesByDishId;
+    }
+
+    public void setOrderedDishesByDishId(Collection<OrderedDishesEntity> orderedDishesByDishId) {
+        this.orderedDishesByDishId = orderedDishesByDishId;
     }
 }

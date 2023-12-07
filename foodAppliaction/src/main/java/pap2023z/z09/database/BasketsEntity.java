@@ -17,6 +17,12 @@ public class BasketsEntity {
     @Id
     @Column(name = "id", nullable = false)
     private int id;
+    @ManyToOne
+    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false)
+    private AccountsEntity accountsByCustomer;
+    @ManyToOne
+    @JoinColumn(name = "dish_id", referencedColumnName = "dish_id", nullable = false)
+    private DishesEntity dishesByDishId;
 
     public int getCustomer() {
         return customer;
@@ -53,5 +59,21 @@ public class BasketsEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public AccountsEntity getAccountsByCustomer() {
+        return accountsByCustomer;
+    }
+
+    public void setAccountsByCustomer(AccountsEntity accountsByCustomer) {
+        this.accountsByCustomer = accountsByCustomer;
+    }
+
+    public DishesEntity getDishesByDishId() {
+        return dishesByDishId;
+    }
+
+    public void setDishesByDishId(DishesEntity dishesByDishId) {
+        this.dishesByDishId = dishesByDishId;
     }
 }

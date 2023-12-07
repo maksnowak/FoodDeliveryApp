@@ -17,6 +17,12 @@ public class WorkersEntity {
     @Id
     @Column(name = "id", nullable = false)
     private int id;
+    @ManyToOne
+    @JoinColumn(name = "worker", referencedColumnName = "account_id", nullable = false)
+    private AccountsEntity accountsByWorker;
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
+    private RestaurantsEntity restaurantsByRestaurantId;
 
     public int getWorker() {
         return worker;
@@ -53,5 +59,21 @@ public class WorkersEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public AccountsEntity getAccountsByWorker() {
+        return accountsByWorker;
+    }
+
+    public void setAccountsByWorker(AccountsEntity accountsByWorker) {
+        this.accountsByWorker = accountsByWorker;
+    }
+
+    public RestaurantsEntity getRestaurantsByRestaurantId() {
+        return restaurantsByRestaurantId;
+    }
+
+    public void setRestaurantsByRestaurantId(RestaurantsEntity restaurantsByRestaurantId) {
+        this.restaurantsByRestaurantId = restaurantsByRestaurantId;
     }
 }

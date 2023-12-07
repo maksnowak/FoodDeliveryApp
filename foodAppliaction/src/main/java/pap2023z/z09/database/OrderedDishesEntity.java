@@ -17,6 +17,12 @@ public class OrderedDishesEntity {
     @Id
     @Column(name = "id", nullable = false)
     private int id;
+    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    private OrdersEntity ordersByOrderId;
+    @ManyToOne
+    @JoinColumn(name = "dish_id", referencedColumnName = "dish_id")
+    private DishesEntity dishesByDishId;
 
     public Integer getOrderId() {
         return orderId;
@@ -53,5 +59,21 @@ public class OrderedDishesEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public OrdersEntity getOrdersByOrderId() {
+        return ordersByOrderId;
+    }
+
+    public void setOrdersByOrderId(OrdersEntity ordersByOrderId) {
+        this.ordersByOrderId = ordersByOrderId;
+    }
+
+    public DishesEntity getDishesByDishId() {
+        return dishesByDishId;
+    }
+
+    public void setDishesByDishId(DishesEntity dishesByDishId) {
+        this.dishesByDishId = dishesByDishId;
     }
 }

@@ -23,6 +23,12 @@ public class ReviewsEntity {
     @Basic
     @Column(name = "description", nullable = true, length = 500)
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "resturant_id", referencedColumnName = "restaurant_id", nullable = false)
+    private RestaurantsEntity restaurantsByResturantId;
+    @ManyToOne
+    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false)
+    private AccountsEntity accountsByCustomer;
 
     public int getReviewId() {
         return reviewId;
@@ -75,5 +81,21 @@ public class ReviewsEntity {
     @Override
     public int hashCode() {
         return Objects.hash(reviewId, resturantId, customer, stars, description);
+    }
+
+    public RestaurantsEntity getRestaurantsByResturantId() {
+        return restaurantsByResturantId;
+    }
+
+    public void setRestaurantsByResturantId(RestaurantsEntity restaurantsByResturantId) {
+        this.restaurantsByResturantId = restaurantsByResturantId;
+    }
+
+    public AccountsEntity getAccountsByCustomer() {
+        return accountsByCustomer;
+    }
+
+    public void setAccountsByCustomer(AccountsEntity accountsByCustomer) {
+        this.accountsByCustomer = accountsByCustomer;
     }
 }

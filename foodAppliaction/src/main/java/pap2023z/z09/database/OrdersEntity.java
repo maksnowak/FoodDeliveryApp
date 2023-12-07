@@ -3,6 +3,7 @@ package pap2023z.z09.database;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -42,6 +43,22 @@ public class OrdersEntity {
     @Basic
     @Column(name = "tip", nullable = true, precision = 2)
     private BigDecimal tip;
+    @OneToMany(mappedBy = "ordersByOrderId")
+    private Collection<ComplaintsEntity> complaintsByOrderId;
+    @OneToMany(mappedBy = "ordersByOrderId")
+    private Collection<OrderedDishesEntity> orderedDishesByOrderId;
+    @ManyToOne
+    @JoinColumn(name = "status", referencedColumnName = "status_id", nullable = false)
+    private StatusesEntity statusesByStatus;
+    @ManyToOne
+    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false)
+    private AccountsEntity accountsByCustomer;
+    @ManyToOne
+    @JoinColumn(name = "payment_method", referencedColumnName = "method_id", nullable = false)
+    private PaymentMethodsEntity paymentMethodsByPaymentMethod;
+    @ManyToOne
+    @JoinColumn(name = "discount", referencedColumnName = "discount_id")
+    private DiscountsEntity discountsByDiscount;
 
     public int getOrderId() {
         return orderId;
@@ -142,5 +159,53 @@ public class OrdersEntity {
     @Override
     public int hashCode() {
         return Objects.hash(orderId, status, customer, total, paymentMethod, street, streetNumber, apartment, city, discount, tip);
+    }
+
+    public Collection<ComplaintsEntity> getComplaintsByOrderId() {
+        return complaintsByOrderId;
+    }
+
+    public void setComplaintsByOrderId(Collection<ComplaintsEntity> complaintsByOrderId) {
+        this.complaintsByOrderId = complaintsByOrderId;
+    }
+
+    public Collection<OrderedDishesEntity> getOrderedDishesByOrderId() {
+        return orderedDishesByOrderId;
+    }
+
+    public void setOrderedDishesByOrderId(Collection<OrderedDishesEntity> orderedDishesByOrderId) {
+        this.orderedDishesByOrderId = orderedDishesByOrderId;
+    }
+
+    public StatusesEntity getStatusesByStatus() {
+        return statusesByStatus;
+    }
+
+    public void setStatusesByStatus(StatusesEntity statusesByStatus) {
+        this.statusesByStatus = statusesByStatus;
+    }
+
+    public AccountsEntity getAccountsByCustomer() {
+        return accountsByCustomer;
+    }
+
+    public void setAccountsByCustomer(AccountsEntity accountsByCustomer) {
+        this.accountsByCustomer = accountsByCustomer;
+    }
+
+    public PaymentMethodsEntity getPaymentMethodsByPaymentMethod() {
+        return paymentMethodsByPaymentMethod;
+    }
+
+    public void setPaymentMethodsByPaymentMethod(PaymentMethodsEntity paymentMethodsByPaymentMethod) {
+        this.paymentMethodsByPaymentMethod = paymentMethodsByPaymentMethod;
+    }
+
+    public DiscountsEntity getDiscountsByDiscount() {
+        return discountsByDiscount;
+    }
+
+    public void setDiscountsByDiscount(DiscountsEntity discountsByDiscount) {
+        this.discountsByDiscount = discountsByDiscount;
     }
 }

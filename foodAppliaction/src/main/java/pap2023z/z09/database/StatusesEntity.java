@@ -2,6 +2,7 @@ package pap2023z.z09.database;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +15,8 @@ public class StatusesEntity {
     @Basic
     @Column(name = "name", nullable = false, length = 20)
     private String name;
+    @OneToMany(mappedBy = "statusesByStatus")
+    private Collection<OrdersEntity> ordersByStatusId;
 
     public int getStatusId() {
         return statusId;
@@ -42,5 +45,13 @@ public class StatusesEntity {
     @Override
     public int hashCode() {
         return Objects.hash(statusId, name);
+    }
+
+    public Collection<OrdersEntity> getOrdersByStatusId() {
+        return ordersByStatusId;
+    }
+
+    public void setOrdersByStatusId(Collection<OrdersEntity> ordersByStatusId) {
+        this.ordersByStatusId = ordersByStatusId;
     }
 }

@@ -2,6 +2,7 @@ package pap2023z.z09.database;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -26,6 +27,21 @@ public class AccountsEntity {
     @Basic
     @Column(name = "surname", nullable = true, length = 20)
     private String surname;
+    @ManyToOne
+    @JoinColumn(name = "type", referencedColumnName = "type_id", nullable = false)
+    private AccountTypesEntity accountTypesByType;
+    @OneToMany(mappedBy = "accountsByCustomer")
+    private Collection<BasketsEntity> basketsByAccountId;
+    @OneToMany(mappedBy = "accountsByCustomer")
+    private Collection<FavoritesEntity> favoritesByAccountId;
+    @OneToMany(mappedBy = "accountsByCustomer")
+    private Collection<OrdersEntity> ordersByAccountId;
+    @OneToMany(mappedBy = "accountsByCustomer")
+    private Collection<PaymentMethodsEntity> paymentMethodsByAccountId;
+    @OneToMany(mappedBy = "accountsByCustomer")
+    private Collection<ReviewsEntity> reviewsByAccountId;
+    @OneToMany(mappedBy = "accountsByWorker")
+    private Collection<WorkersEntity> workersByAccountId;
 
     public int getAccountId() {
         return accountId;
@@ -86,5 +102,61 @@ public class AccountsEntity {
     @Override
     public int hashCode() {
         return Objects.hash(accountId, email, password, type, name, surname);
+    }
+
+    public AccountTypesEntity getAccountTypesByType() {
+        return accountTypesByType;
+    }
+
+    public void setAccountTypesByType(AccountTypesEntity accountTypesByType) {
+        this.accountTypesByType = accountTypesByType;
+    }
+
+    public Collection<BasketsEntity> getBasketsByAccountId() {
+        return basketsByAccountId;
+    }
+
+    public void setBasketsByAccountId(Collection<BasketsEntity> basketsByAccountId) {
+        this.basketsByAccountId = basketsByAccountId;
+    }
+
+    public Collection<FavoritesEntity> getFavoritesByAccountId() {
+        return favoritesByAccountId;
+    }
+
+    public void setFavoritesByAccountId(Collection<FavoritesEntity> favoritesByAccountId) {
+        this.favoritesByAccountId = favoritesByAccountId;
+    }
+
+    public Collection<OrdersEntity> getOrdersByAccountId() {
+        return ordersByAccountId;
+    }
+
+    public void setOrdersByAccountId(Collection<OrdersEntity> ordersByAccountId) {
+        this.ordersByAccountId = ordersByAccountId;
+    }
+
+    public Collection<PaymentMethodsEntity> getPaymentMethodsByAccountId() {
+        return paymentMethodsByAccountId;
+    }
+
+    public void setPaymentMethodsByAccountId(Collection<PaymentMethodsEntity> paymentMethodsByAccountId) {
+        this.paymentMethodsByAccountId = paymentMethodsByAccountId;
+    }
+
+    public Collection<ReviewsEntity> getReviewsByAccountId() {
+        return reviewsByAccountId;
+    }
+
+    public void setReviewsByAccountId(Collection<ReviewsEntity> reviewsByAccountId) {
+        this.reviewsByAccountId = reviewsByAccountId;
+    }
+
+    public Collection<WorkersEntity> getWorkersByAccountId() {
+        return workersByAccountId;
+    }
+
+    public void setWorkersByAccountId(Collection<WorkersEntity> workersByAccountId) {
+        this.workersByAccountId = workersByAccountId;
     }
 }
