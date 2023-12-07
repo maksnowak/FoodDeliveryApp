@@ -10,13 +10,13 @@ import java.util.Objects;
 public class DiscountsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "discount_id")
+    @Column(name = "discount_id", nullable = false)
     private int discountId;
     @Basic
-    @Column(name = "code")
+    @Column(name = "code", nullable = false, length = 10)
     private String code;
     @Basic
-    @Column(name = "discount")
+    @Column(name = "discount", nullable = false, precision = 2)
     private BigDecimal discount;
 
     public int getDiscountId() {

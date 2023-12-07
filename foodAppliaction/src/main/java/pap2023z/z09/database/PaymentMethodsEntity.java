@@ -10,19 +10,19 @@ import java.util.Objects;
 public class PaymentMethodsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "method_id")
+    @Column(name = "method_id", nullable = false)
     private int methodId;
     @Basic
-    @Column(name = "card_number")
+    @Column(name = "card_number", nullable = false, precision = 0)
     private int cardNumber;
     @Basic
-    @Column(name = "expiry_date")
+    @Column(name = "expiry_date", nullable = false)
     private Date expiryDate;
     @Basic
-    @Column(name = "cvv")
+    @Column(name = "cvv", nullable = false, precision = 0)
     private int cvv;
     @Basic
-    @Column(name = "customer")
+    @Column(name = "customer", nullable = false)
     private int customer;
 
     public int getMethodId() {

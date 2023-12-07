@@ -10,37 +10,37 @@ import java.util.Objects;
 public class OrdersEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "order_id")
+    @Column(name = "order_id", nullable = false)
     private int orderId;
     @Basic
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private int status;
     @Basic
-    @Column(name = "customer")
+    @Column(name = "customer", nullable = false)
     private int customer;
     @Basic
-    @Column(name = "total")
+    @Column(name = "total", nullable = false, precision = 2)
     private BigDecimal total;
     @Basic
-    @Column(name = "payment_method")
+    @Column(name = "payment_method", nullable = false)
     private int paymentMethod;
     @Basic
-    @Column(name = "street")
+    @Column(name = "street", nullable = false, length = 40)
     private String street;
     @Basic
-    @Column(name = "street_number")
+    @Column(name = "street_number", nullable = false)
     private int streetNumber;
     @Basic
-    @Column(name = "apartment")
+    @Column(name = "apartment", nullable = true)
     private Integer apartment;
     @Basic
-    @Column(name = "city")
+    @Column(name = "city", nullable = false, length = 40)
     private String city;
     @Basic
-    @Column(name = "discount")
+    @Column(name = "discount", nullable = true)
     private Integer discount;
     @Basic
-    @Column(name = "tip")
+    @Column(name = "tip", nullable = true, precision = 2)
     private BigDecimal tip;
 
     public int getOrderId() {

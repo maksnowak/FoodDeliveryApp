@@ -1,9 +1,6 @@
 package pap2023z.z09.database;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -11,11 +8,15 @@ import java.util.Objects;
 @Table(name = "baskets", schema = "public", catalog = "postgres")
 public class BasketsEntity {
     @Basic
-    @Column(name = "customer")
+    @Column(name = "customer", nullable = false)
     private int customer;
     @Basic
-    @Column(name = "dish_id")
+    @Column(name = "dish_id", nullable = false)
     private int dishId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "id", nullable = false)
+    private int id;
 
     public int getCustomer() {
         return customer;
@@ -44,5 +45,13 @@ public class BasketsEntity {
     @Override
     public int hashCode() {
         return Objects.hash(customer, dishId);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

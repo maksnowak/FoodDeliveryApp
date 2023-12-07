@@ -10,22 +10,22 @@ import java.util.Objects;
 public class RestaurantsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "restaurant_id")
+    @Column(name = "restaurant_id", nullable = false)
     private int restaurantId;
     @Basic
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 60)
     private String name;
     @Basic
-    @Column(name = "opens_weekdays")
+    @Column(name = "opens_weekdays", nullable = true)
     private Time opensWeekdays;
     @Basic
-    @Column(name = "closes_weekdays")
+    @Column(name = "closes_weekdays", nullable = true)
     private Time closesWeekdays;
     @Basic
-    @Column(name = "opens_weekends")
+    @Column(name = "opens_weekends", nullable = true)
     private Time opensWeekends;
     @Basic
-    @Column(name = "closes_weekends")
+    @Column(name = "closes_weekends", nullable = true)
     private Time closesWeekends;
 
     public int getRestaurantId() {

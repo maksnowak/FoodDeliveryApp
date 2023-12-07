@@ -10,25 +10,25 @@ import java.util.Objects;
 public class DishesEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "dish_id")
+    @Column(name = "dish_id", nullable = false)
     private int dishId;
     @Basic
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 60)
     private String name;
     @Basic
-    @Column(name = "restaurant_id")
+    @Column(name = "restaurant_id", nullable = false)
     private int restaurantId;
     @Basic
-    @Column(name = "type_id")
+    @Column(name = "type_id", nullable = false)
     private int typeId;
     @Basic
-    @Column(name = "vegetarian")
+    @Column(name = "vegetarian", nullable = true)
     private Boolean vegetarian;
     @Basic
-    @Column(name = "price")
+    @Column(name = "price", nullable = false, precision = 2)
     private BigDecimal price;
     @Basic
-    @Column(name = "kcal")
+    @Column(name = "kcal", nullable = true, precision = 1)
     private BigDecimal kcal;
 
     public int getDishId() {

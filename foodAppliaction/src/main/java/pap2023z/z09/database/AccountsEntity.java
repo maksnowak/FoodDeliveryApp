@@ -9,22 +9,22 @@ import java.util.Objects;
 public class AccountsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "account_id")
+    @Column(name = "account_id", nullable = false)
     private int accountId;
     @Basic
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, length = 30)
     private String email;
     @Basic
-    @Column(name = "password")
+    @Column(name = "password", nullable = false, length = 50)
     private String password;
     @Basic
-    @Column(name = "type")
+    @Column(name = "type", nullable = false)
     private int type;
     @Basic
-    @Column(name = "name")
+    @Column(name = "name", nullable = true, length = 20)
     private String name;
     @Basic
-    @Column(name = "surname")
+    @Column(name = "surname", nullable = true, length = 20)
     private String surname;
 
     public int getAccountId() {

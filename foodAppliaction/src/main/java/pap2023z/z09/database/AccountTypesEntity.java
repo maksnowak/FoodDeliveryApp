@@ -9,10 +9,10 @@ import java.util.Objects;
 public class AccountTypesEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "type_id")
+    @Column(name = "type_id", nullable = false)
     private int typeId;
     @Basic
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 20)
     private String name;
 
     public int getTypeId() {

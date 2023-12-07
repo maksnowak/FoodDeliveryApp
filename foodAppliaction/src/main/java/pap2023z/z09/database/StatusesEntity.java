@@ -9,10 +9,10 @@ import java.util.Objects;
 public class StatusesEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "status_id")
+    @Column(name = "status_id", nullable = false)
     private int statusId;
     @Basic
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 20)
     private String name;
 
     public int getStatusId() {

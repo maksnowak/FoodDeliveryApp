@@ -9,16 +9,16 @@ import java.util.Objects;
 public class ComplaintsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "complaint_id")
+    @Column(name = "complaint_id", nullable = false)
     private int complaintId;
     @Basic
-    @Column(name = "order_id")
+    @Column(name = "order_id", nullable = false)
     private int orderId;
     @Basic
-    @Column(name = "description")
+    @Column(name = "description", nullable = false, length = 500)
     private String description;
     @Basic
-    @Column(name = "is_open")
+    @Column(name = "is_open", nullable = false)
     private boolean isOpen;
 
     public int getComplaintId() {
