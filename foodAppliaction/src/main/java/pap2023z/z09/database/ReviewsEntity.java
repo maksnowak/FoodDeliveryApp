@@ -24,10 +24,10 @@ public class ReviewsEntity {
     @Column(name = "description", nullable = true, length = 500)
     private String description;
     @ManyToOne
-    @JoinColumn(name = "resturant_id", referencedColumnName = "restaurant_id", nullable = false)
+    @JoinColumn(name = "resturant_id", referencedColumnName = "restaurant_id", nullable = false, insertable = false, updatable = false)
     private RestaurantsEntity restaurantsByResturantId;
     @ManyToOne
-    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false)
+    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false, insertable = false, updatable = false)
     private AccountsEntity accountsByCustomer;
 
     public int getReviewId() {

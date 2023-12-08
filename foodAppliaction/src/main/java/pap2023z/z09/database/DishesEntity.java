@@ -34,10 +34,10 @@ public class DishesEntity {
     @OneToMany(mappedBy = "dishesByDishId")
     private Collection<BasketsEntity> basketsByDishId;
     @ManyToOne
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id", nullable = false)
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id", nullable = false, insertable = false, updatable = false)
     private RestaurantsEntity restaurantsByRestaurantId;
     @ManyToOne
-    @JoinColumn(name = "type_id", referencedColumnName = "type_id", nullable = false)
+    @JoinColumn(name = "type_id", referencedColumnName = "type_id", nullable = false, insertable = false, updatable = false)
     private DishTypesEntity dishTypesByTypeId;
     @OneToMany(mappedBy = "dishesByDishId")
     private Collection<FavoritesEntity> favoritesByDishId;

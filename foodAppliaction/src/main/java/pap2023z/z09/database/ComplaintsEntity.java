@@ -21,7 +21,7 @@ public class ComplaintsEntity {
     @Column(name = "is_open", nullable = false)
     private boolean isOpen;
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false)
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false, insertable = false, updatable = false)
     private OrdersEntity ordersByOrderId;
 
     public int getComplaintId() {

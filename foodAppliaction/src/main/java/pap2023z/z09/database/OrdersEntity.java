@@ -48,16 +48,16 @@ public class OrdersEntity {
     @OneToMany(mappedBy = "ordersByOrderId")
     private Collection<OrderedDishesEntity> orderedDishesByOrderId;
     @ManyToOne
-    @JoinColumn(name = "status", referencedColumnName = "status_id", nullable = false)
+    @JoinColumn(name = "status", referencedColumnName = "status_id", nullable = false, insertable = false, updatable = false)
     private StatusesEntity statusesByStatus;
     @ManyToOne
-    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false)
+    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false, insertable = false, updatable = false)
     private AccountsEntity accountsByCustomer;
     @ManyToOne
-    @JoinColumn(name = "payment_method", referencedColumnName = "method_id", nullable = false)
+    @JoinColumn(name = "payment_method", referencedColumnName = "method_id", nullable = false, insertable = false, updatable = false)
     private PaymentMethodsEntity paymentMethodsByPaymentMethod;
     @ManyToOne
-    @JoinColumn(name = "discount", referencedColumnName = "discount_id")
+    @JoinColumn(name = "discount", referencedColumnName = "discount_id", insertable = false, updatable = false)
     private DiscountsEntity discountsByDiscount;
 
     public int getOrderId() {

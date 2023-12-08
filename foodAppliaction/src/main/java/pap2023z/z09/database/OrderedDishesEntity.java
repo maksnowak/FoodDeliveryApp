@@ -18,10 +18,10 @@ public class OrderedDishesEntity {
     @Column(name = "id", nullable = false)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id", insertable = false, updatable = false)
     private OrdersEntity ordersByOrderId;
     @ManyToOne
-    @JoinColumn(name = "dish_id", referencedColumnName = "dish_id")
+    @JoinColumn(name = "dish_id", referencedColumnName = "dish_id", insertable = false, updatable = false)
     private DishesEntity dishesByDishId;
 
     public Integer getOrderId() {
