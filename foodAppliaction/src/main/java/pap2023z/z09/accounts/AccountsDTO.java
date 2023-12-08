@@ -46,6 +46,30 @@ public class AccountsDTO {
         return surname;
     }
 
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     public static AccountsDTO fromEntity(AccountsEntity entity) {
         return new AccountsDTO(
                 entity.getAccountId(),
