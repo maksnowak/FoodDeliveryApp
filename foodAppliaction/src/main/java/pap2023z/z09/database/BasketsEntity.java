@@ -18,10 +18,10 @@ public class BasketsEntity {
     @Column(name = "id", nullable = false)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false)
+    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false, insertable = false, updatable = false)
     private AccountsEntity accountsByCustomer;
     @ManyToOne
-    @JoinColumn(name = "dish_id", referencedColumnName = "dish_id", nullable = false)
+    @JoinColumn(name = "dish_id", referencedColumnName = "dish_id", nullable = false, insertable = false, updatable = false)
     private DishesEntity dishesByDishId;
 
     public int getCustomer() {

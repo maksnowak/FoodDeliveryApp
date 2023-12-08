@@ -18,10 +18,10 @@ public class WorkersEntity {
     @Column(name = "id", nullable = false)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "worker", referencedColumnName = "account_id", nullable = false)
+    @JoinColumn(name = "worker", referencedColumnName = "account_id", nullable = false, insertable = false, updatable = false)
     private AccountsEntity accountsByWorker;
     @ManyToOne
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id", insertable = false, updatable = false)
     private RestaurantsEntity restaurantsByRestaurantId;
 
     public int getWorker() {

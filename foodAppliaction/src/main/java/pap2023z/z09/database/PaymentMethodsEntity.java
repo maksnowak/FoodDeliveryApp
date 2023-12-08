@@ -28,7 +28,7 @@ public class PaymentMethodsEntity {
     @OneToMany(mappedBy = "paymentMethodsByPaymentMethod")
     private Collection<OrdersEntity> ordersByMethodId;
     @ManyToOne
-    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false)
+    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false, insertable = false, updatable = false)
     private AccountsEntity accountsByCustomer;
 
     public int getMethodId() {

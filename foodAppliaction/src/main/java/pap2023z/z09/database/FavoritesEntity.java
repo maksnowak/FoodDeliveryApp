@@ -18,10 +18,10 @@ public class FavoritesEntity {
     @Column(name = "id", nullable = false)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "dish_id", referencedColumnName = "dish_id", nullable = false)
+    @JoinColumn(name = "dish_id", referencedColumnName = "dish_id", nullable = false, insertable = false, updatable = false)
     private DishesEntity dishesByDishId;
     @ManyToOne
-    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false)
+    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false, insertable = false, updatable = false)
     private AccountsEntity accountsByCustomer;
 
     public int getDishId() {

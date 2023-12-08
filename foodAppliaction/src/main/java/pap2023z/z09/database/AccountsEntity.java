@@ -28,7 +28,7 @@ public class AccountsEntity {
     @Column(name = "surname", nullable = true, length = 20)
     private String surname;
     @ManyToOne
-    @JoinColumn(name = "type", referencedColumnName = "type_id", nullable = false)
+    @JoinColumn(name = "type", referencedColumnName = "type_id", nullable = false, insertable = false, updatable = false)
     private AccountTypesEntity accountTypesByType;
     @OneToMany(mappedBy = "accountsByCustomer")
     private Collection<BasketsEntity> basketsByAccountId;
