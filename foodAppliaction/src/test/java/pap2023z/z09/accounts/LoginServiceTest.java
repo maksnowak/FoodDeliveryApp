@@ -38,4 +38,10 @@ public class LoginServiceTest {
         when(account.getPassword()).thenReturn("admin");
         assertFalse(loginService.login("admin@example.com", "wrong"));
     }
+
+    @Test
+    public void testLoginNoAccount() {
+        when(accountsDAO.getAccountByEmail("no_account@example.com")).thenReturn(null);
+        assertFalse(loginService.login("no_account@example.com", "wrong"));
+    }
 }
