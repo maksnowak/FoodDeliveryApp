@@ -5,6 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import pap2023z.z09.accounts.AccountsDAO;
+import pap2023z.z09.accounts.AccountsDTO;
+import pap2023z.z09.accounts.EmailAlreadyExistsException;
+import pap2023z.z09.accounts.SignUpService;
+
     public class RegisterPanel extends JPanel {
         public RegisterPanel(App parent) {
             JCheckBox employeeCheckbox = new JCheckBox("Employee");
@@ -14,10 +19,28 @@ import java.awt.event.ActionListener;
             JPasswordField passwordField = new JPasswordField(15);
             JButton registerButton = new JButton("Register");
             JButton returnButton = new JButton("Return");
+            JLabel errorLabel = new JLabel();
 
             registerButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    String username = loginField.getText();
+                    char[] password = passwordField.getPassword();
+                    String enteredPassword = new String(password);
+
+                    AccountsDAO accountsDAO = new AccountsDAO();
+                    SignUpService SS = new SignUpService(accountsDAO);
+                    AccountsDTO account = new AccountsDTO(0, username, enteredPassword, employeeCheckbox.isSelected() ? 2 : 1, "a", "b");
+                    try {
+                        SS.signUp(account);
+                    } catch (EmailAlreadyExistsException ex) {
+                        errorLabel.setText("Email already exists");
+                        return;
+                    } catch (IllegalArgumentException ex) {
+                        errorLabel.setText(ex.getMessage());
+                        return;
+                    }
+
                     JOptionPane.showMessageDialog(null, "Registration Successful!");
                     parent.cardLayout.show(parent.getContentPane(), "MainMenu");
                 }
@@ -37,7 +60,7 @@ import java.awt.event.ActionListener;
             add(loginField);
             add(passwordLabel);
             add(passwordField);
-            add(new JLabel());
+            add(errorLabel);
             add(new JLabel());
             add(returnButton);
             add(registerButton);

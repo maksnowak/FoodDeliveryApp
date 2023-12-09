@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import pap2023z.z09.accounts.AccountsDAO;
+import pap2023z.z09.accounts.LoginService;
+
 public class LoginPanel extends JPanel {
     public LoginPanel(App parent) {
         JLabel loginLabel = new JLabel("Login:");
@@ -13,12 +16,25 @@ public class LoginPanel extends JPanel {
         JPasswordField passwordField = new JPasswordField(15);
         JButton loginButton = new JButton("Log in");
         JButton returnButton = new JButton("Return");
+        JLabel errorLabel = new JLabel();
 
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Login Successful!");
-                parent.cardLayout.show(parent.getContentPane(), "MainMenu");
+                String username = loginField.getText();
+                char[] password = passwordField.getPassword();
+                String enteredPassword = new String(password);
+
+                AccountsDAO accountsDAO = new AccountsDAO();
+                LoginService LS = new LoginService(accountsDAO);
+
+                if (LS.login(username, enteredPassword)) {
+                    JOptionPane.showMessageDialog(null, "Login Successful!");
+                    parent.cardLayout.show(parent.getContentPane(), "MainMenu");
+                }
+                else {
+                    errorLabel.setText("Incorrect username or password");
+                }
             }
         });
 
@@ -36,7 +52,7 @@ public class LoginPanel extends JPanel {
         add(loginField);
         add(passwordLabel);
         add(passwordField);
-        add(new JLabel());
+        add(errorLabel);
         add(new JLabel());
         add(returnButton);
         add(loginButton);

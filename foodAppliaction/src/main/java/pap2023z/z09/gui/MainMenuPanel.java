@@ -18,7 +18,7 @@ public class MainMenuPanel extends JPanel {
         orderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Panel z listą dostępnych restauracji");
+                parent.cardLayout.show(parent.getContentPane(), "RestaurantChoice");
             }
         });
 
