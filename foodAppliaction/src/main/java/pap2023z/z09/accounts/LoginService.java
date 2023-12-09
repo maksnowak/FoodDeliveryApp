@@ -3,7 +3,11 @@ package pap2023z.z09.accounts;
 import pap2023z.z09.database.AccountsEntity;
 
 public class LoginService {
-    private final AccountsDAO accountsDAO = new AccountsDAO();
+    private final AccountsDAO accountsDAO;
+
+    public LoginService(AccountsDAO accountsDAO) {
+        this.accountsDAO = accountsDAO;
+    }
 
     public boolean login(String email, String password) {
         AccountsEntity account = accountsDAO.getAccountByEmail(email);
