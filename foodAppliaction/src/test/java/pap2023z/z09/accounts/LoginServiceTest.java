@@ -44,4 +44,21 @@ public class LoginServiceTest {
         when(accountsDAO.getAccountByEmail("no_account@example.com")).thenReturn(null);
         assertFalse(loginService.login("no_account@example.com", "wrong"));
     }
+
+    @Test
+    public void testConvertToDTO() {
+        when(account.getAccountId()).thenReturn(1);
+        when(account.getEmail()).thenReturn("email");
+        when(account.getPassword()).thenReturn("password");
+        when(account.getType()).thenReturn(1);
+        when(account.getName()).thenReturn("name");
+        when(account.getSurname()).thenReturn("surname");
+        AccountsDTO dto = loginService.convertToDTO(account);
+        assertEquals(1, dto.getAccountId());
+        assertEquals("email", dto.getEmail());
+        assertEquals("password", dto.getPassword());
+        assertEquals(1, dto.getType());
+        assertEquals("name", dto.getName());
+        assertEquals("surname", dto.getSurname());
+    }
 }
