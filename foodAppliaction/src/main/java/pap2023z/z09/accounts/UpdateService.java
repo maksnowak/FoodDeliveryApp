@@ -21,7 +21,7 @@ public class UpdateService {
             throw new IllegalArgumentException("Account does not exist");
         }
 
-        if (!existingAccount.getEmail().equals(account.getEmail())) {
+        if (existingAccount.getEmail() != null && !existingAccount.getEmail().equals(account.getEmail())) {
             verifyIfEmailAlreadyExistsService.verifyEmail(account.getEmail());
         }
 
