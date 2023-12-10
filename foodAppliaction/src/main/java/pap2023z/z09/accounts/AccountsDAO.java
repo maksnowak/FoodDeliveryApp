@@ -49,4 +49,12 @@ public class AccountsDAO {
         transaction.commit();
         session.close();
     }
+
+    public void deleteAccount(AccountsEntity account) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.remove(account);
+        transaction.commit();
+        session.close();
+    }
 }
