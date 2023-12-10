@@ -102,6 +102,12 @@ public class App extends JFrame implements Callback {
         cardLayout.show(getContentPane(), "Welcome");
     }
 
+    @Override
+    public void onAccountLogout() {
+        loggedAccount = null;
+        cardLayout.show(getContentPane(), "Welcome");
+    }
+
     public void updateAccountInfo() {
         mainMenuPanel.updateAccountLabel(loggedAccount.getEmail());
         accountInfoPanel.updateAccountInfo("Imię: " + loggedAccount.getName() + "\nNazwisko: " + loggedAccount.getSurname() + "\nEmail: " + loggedAccount.getEmail() + "\nTyp: " + loggedAccount.getType());

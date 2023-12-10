@@ -30,6 +30,9 @@ public class LoginPanel extends JPanel {
 
                 if (LS.login(email, enteredPassword)) {
                     callback.onAccountLogged(accountsDAO.getAccountByEmail(email));
+                    loginField.setText("");
+                    passwordField.setText("");
+                    errorLabel.setText("");
                 }
                 else {
                     errorLabel.setText("Incorrect username or password");
@@ -40,6 +43,9 @@ public class LoginPanel extends JPanel {
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                loginField.setText("");
+                passwordField.setText("");
+                errorLabel.setText("");
                 ((App) callback).cardLayout.show(((App) callback).getContentPane(), "Welcome");
             }
         });

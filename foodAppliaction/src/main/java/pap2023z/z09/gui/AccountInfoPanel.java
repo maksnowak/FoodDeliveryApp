@@ -32,10 +32,16 @@ public class AccountInfoPanel extends JPanel {
             }
         });
 
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
-        JPanel editDeletePanel = new JPanel(new GridLayout(1, 2));
-        editDeletePanel.add(editButton);
-        editDeletePanel.add(deleteButton);
+        JButton logoutButton = new JButton("Wyloguj");
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int choice = JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz się wylogować?", "Potwierdzenie wylogowania", JOptionPane.YES_NO_OPTION);
+                if (choice == JOptionPane.YES_OPTION) {
+                    callback.onAccountLogout();
+                }
+            }
+        });
 
         JButton backButton = new JButton("Powrót");
         backButton.addActionListener(new ActionListener() {
@@ -44,8 +50,12 @@ public class AccountInfoPanel extends JPanel {
                 ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
             }
         });
-        buttonPanel.add(editDeletePanel);
+
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 2));
+        buttonPanel.add(editButton);
+        buttonPanel.add(deleteButton);
         buttonPanel.add(backButton);
+        buttonPanel.add(logoutButton);
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
