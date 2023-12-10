@@ -1,28 +1,40 @@
 package pap2023z.z09.accounts;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import pap2023z.z09.database.AccountsEntity;
 
-public class SignUpService {
+public class UpdateService {
     private final AccountsDAO accountsDAO;
     private final InputValidationService inputValidationService;
     private final VerifyIfEmailAlreadyExistsService verifyIfEmailAlreadyExistsService;
 
-    public SignUpService(AccountsDAO accountsDAO, InputValidationService inputValidationService, VerifyIfEmailAlreadyExistsService verifyIfEmailAlreadyExistsService) {
+    public UpdateService(AccountsDAO accountsDAO, InputValidationService inputValidationService, VerifyIfEmailAlreadyExistsService verifyIfEmailAlreadyExistsService) {
         this.accountsDAO = accountsDAO;
         this.inputValidationService = inputValidationService;
         this.verifyIfEmailAlreadyExistsService = verifyIfEmailAlreadyExistsService;
     }
 
-    public void signUp(AccountsDTO account) throws EmailAlreadyExistsException {
+    public void updateAccount(AccountsDTO account) throws EmailAlreadyExistsException {
+        AccountsEntity existingAccount = accountsDAO.getAccountById(account.getAccountId());
+
+        if (existingAccount == null) {
+            throw new IllegalArgumentException("Account does not exist");
+        }
+
+        if (existingAccount.getEmail() != null && !existingAccount.getEmail().equals(account.getEmail())) {
+            verifyIfEmailAlreadyExistsService.verifyEmail(account.getEmail());
+        }
+
         inputValidationService.validateEmail(account.getEmail());
         inputValidationService.validatePassword(account.getPassword());
-        verifyIfEmailAlreadyExistsService.verifyEmail(account.getEmail());
+
         AccountsEntity entity = new AccountsEntity();
+        entity.setAccountId(account.getAccountId());
         entity.setEmail(account.getEmail());
         entity.setPassword(account.getPassword());
         entity.setType(account.getType());
         entity.setName(account.getName());
         entity.setSurname(account.getSurname());
-        accountsDAO.addAccount(entity);
+        accountsDAO.updateAccount(entity);
     }
 }

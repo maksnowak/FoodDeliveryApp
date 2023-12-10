@@ -5,12 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import pap2023z.z09.accounts.AccountsDAO;
-import pap2023z.z09.accounts.AccountsDTO;
-import pap2023z.z09.accounts.EmailAlreadyExistsException;
-import pap2023z.z09.accounts.SignUpService;
+import pap2023z.z09.accounts.*;
 
-    public class RegisterPanel extends JPanel {
+public class RegisterPanel extends JPanel {
         public RegisterPanel(App parent) {
             JCheckBox employeeCheckbox = new JCheckBox("Employee");
             JLabel loginLabel = new JLabel("Login:");
@@ -29,7 +26,9 @@ import pap2023z.z09.accounts.SignUpService;
                     String enteredPassword = new String(password);
 
                     AccountsDAO accountsDAO = new AccountsDAO();
-                    SignUpService SS = new SignUpService(accountsDAO);
+                    InputValidationService IVS = new InputValidationService();
+                    VerifyIfEmailAlreadyExistsService VIAES = new VerifyIfEmailAlreadyExistsService(accountsDAO);
+                    SignUpService SS = new SignUpService(accountsDAO, IVS, VIAES);
                     AccountsDTO account = new AccountsDTO(0, username, enteredPassword, employeeCheckbox.isSelected() ? 2 : 1, "a", "b");
                     try {
                         SS.signUp(account);
