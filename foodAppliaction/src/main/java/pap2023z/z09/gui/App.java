@@ -63,6 +63,9 @@ public class App extends JFrame implements Callback {
     public void onAccountLogged(AccountsEntity account) {
         loggedAccount = account;
         updateAccountInfo();
+        if (loggedAccount.getType() == 2) {
+            mainMenuPanel.showRestaurantsButton();
+        }
         cardLayout.show(getContentPane(), "MainMenu");
     }
 

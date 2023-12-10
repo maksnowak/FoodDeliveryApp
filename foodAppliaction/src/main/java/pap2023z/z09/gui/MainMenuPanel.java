@@ -39,9 +39,14 @@ public class MainMenuPanel extends JPanel {
         add(accountButton);
         add(restaurantsButton);
         add(new JLabel("Zalogowano jako: ", SwingConstants.CENTER));
+        restaurantsButton.setVisible(false);
     }
 
     public void updateAccountLabel(String accountName) {
         ((JLabel) getComponent(4)).setText("Zalogowano jako: " + accountName);
+    }
+
+    public void showRestaurantsButton() {
+        getComponent(3).setVisible(true);
     }
 }
