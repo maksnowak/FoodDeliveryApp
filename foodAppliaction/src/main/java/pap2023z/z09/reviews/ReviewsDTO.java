@@ -1,8 +1,5 @@
 package pap2023z.z09.reviews;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
 import pap2023z.z09.database.ReviewsEntity;
 
 public class ReviewsDTO {
