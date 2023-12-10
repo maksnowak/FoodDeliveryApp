@@ -18,8 +18,7 @@ public class ComplaintsDTO {
     public ComplaintsDTO() {
 
     }
-
-        //getters
+    //getters
 
     public int getComplaintId() {
         return complaintId;

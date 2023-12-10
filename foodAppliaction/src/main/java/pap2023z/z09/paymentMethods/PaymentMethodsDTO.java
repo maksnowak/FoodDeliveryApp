@@ -1,7 +1,6 @@
 package pap2023z.z09.paymentMethods;
 
 
-import pap2023z.z09.database.OrderedDishesEntity;
 import pap2023z.z09.database.PaymentMethodsEntity;
 
 import java.sql.Date;

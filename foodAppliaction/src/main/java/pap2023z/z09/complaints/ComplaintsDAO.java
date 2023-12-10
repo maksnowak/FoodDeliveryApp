@@ -5,7 +5,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import pap2023z.z09.database.ComplaintsEntity;
-import pap2023z.z09.database.OrdersEntity;
 
 import java.util.List;
 
