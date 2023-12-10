@@ -29,7 +29,6 @@ public class LoginPanel extends JPanel {
                 LoginService LS = new LoginService(accountsDAO);
 
                 if (LS.login(username, enteredPassword)) {
-                    JOptionPane.showMessageDialog(null, "Login Successful!");
                     parent.cardLayout.show(parent.getContentPane(), "MainMenu");
                 }
                 else {
