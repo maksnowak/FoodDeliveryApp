@@ -4,7 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import pap2023z.z09.database.ReviewsEntity
+import pap2023z.z09.database.ReviewsEntity;
 
 import java.util.List;
 
