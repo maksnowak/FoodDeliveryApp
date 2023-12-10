@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 import pap2023z.z09.database.AccountsEntity;
 
 import static org.mockito.Mockito.*;
@@ -21,6 +20,9 @@ public class SignUpServiceTest {
     private AccountsDAO accountsDAO;
 
     @Mock
+    private InputValidationService inputValidationService;
+
+    @Mock
     private AccountsEntity account;
 
     @Mock
@@ -32,14 +34,6 @@ public class SignUpServiceTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-    }
-
-    @Test
-    public void validateInputTest() {
-        assertThrows(IllegalArgumentException.class, () -> signUpService.validateInput(null, "password"));
-        assertThrows(IllegalArgumentException.class, () -> signUpService.validateInput("", "password"));
-        assertThrows(IllegalArgumentException.class, () -> signUpService.validateInput("email", null));
-        assertThrows(IllegalArgumentException.class, () -> signUpService.validateInput("email", ""));
     }
 
     @Test
@@ -74,6 +68,7 @@ public class SignUpServiceTest {
     @Test
     public void signUpFailEmailNullTest() throws EmailAlreadyExistsException {
         AccountsDTO dto = new AccountsDTO(1, null, "password", 1, "name", "surname");
+        doThrow(IllegalArgumentException.class).when(inputValidationService).validateEmail(null);
         assertThrows(IllegalArgumentException.class, () -> signUpService.signUp(dto));
         verify(accountsDAO, times(0)).addAccount(any());
     }
@@ -81,6 +76,7 @@ public class SignUpServiceTest {
     @Test
     public void signUpFailEmailEmptyTest() throws EmailAlreadyExistsException {
         AccountsDTO dto = new AccountsDTO(1, "", "password", 1, "name", "surname");
+        doThrow(IllegalArgumentException.class).when(inputValidationService).validateEmail("");
         assertThrows(IllegalArgumentException.class, () -> signUpService.signUp(dto));
         verify(accountsDAO, times(0)).addAccount(any());
     }
@@ -88,6 +84,7 @@ public class SignUpServiceTest {
     @Test
     public void signUpFailPasswordNullTest() throws EmailAlreadyExistsException {
         AccountsDTO dto = new AccountsDTO(1, "email", null, 1, "name", "surname");
+        doThrow(IllegalArgumentException.class).when(inputValidationService).validatePassword(null);
         assertThrows(IllegalArgumentException.class, () -> signUpService.signUp(dto));
         verify(accountsDAO, times(0)).addAccount(any());
     }
@@ -95,6 +92,7 @@ public class SignUpServiceTest {
     @Test
     public void signUpFailPasswordEmptyTest() throws EmailAlreadyExistsException {
         AccountsDTO dto = new AccountsDTO(1, "email", "", 1, "name", "surname");
+        doThrow(IllegalArgumentException.class).when(inputValidationService).validatePassword("");
         assertThrows(IllegalArgumentException.class, () -> signUpService.signUp(dto));
         verify(accountsDAO, times(0)).addAccount(any());
     }

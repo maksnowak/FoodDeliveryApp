@@ -4,13 +4,16 @@ import pap2023z.z09.database.AccountsEntity;
 
 public class SignUpService {
     private final AccountsDAO accountsDAO;
+    private final InputValidationService inputValidationService;
 
-    public SignUpService(AccountsDAO accountsDAO) {
+    public SignUpService(AccountsDAO accountsDAO, InputValidationService inputValidationService) {
         this.accountsDAO = accountsDAO;
+        this.inputValidationService = inputValidationService;
     }
 
     public void signUp(AccountsDTO account) throws EmailAlreadyExistsException {
-        validateInput(account.getEmail(), account.getPassword());
+        inputValidationService.validateEmail(account.getEmail());
+        inputValidationService.validatePassword(account.getPassword());
         verifyEmail(account.getEmail());
         AccountsEntity entity = new AccountsEntity();
         entity.setEmail(account.getEmail());
@@ -27,12 +30,4 @@ public class SignUpService {
         }
     }
 
-    public void validateInput(String email, String password) {
-        if (email == null || email.isEmpty()) {
-            throw new IllegalArgumentException("Email cannot be empty");
-        }
-        if (password == null || password.isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be empty");
-        }
-    }
 }
