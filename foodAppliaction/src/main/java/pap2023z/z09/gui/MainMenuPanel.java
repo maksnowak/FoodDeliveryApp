@@ -29,7 +29,7 @@ public class MainMenuPanel extends JPanel {
         restaurantsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Panel z listą zarządzanych restauracji (dla pracowników)");
+                ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurants");
             }
         });
 
@@ -48,5 +48,9 @@ public class MainMenuPanel extends JPanel {
 
     public void showRestaurantsButton() {
         getComponent(3).setVisible(true);
+    }
+
+    public void hideRestaurantsButton() {
+        getComponent(3).setVisible(false);
     }
 }

@@ -18,6 +18,7 @@ public class App extends JFrame implements Callback {
     private DishSelectionPanel dishSelectionPanel;
     private AccountInfoPanel accountInfoPanel;
     private EditAccountPanel editAccountPanel;
+    private ModifyRestaurantsPanel modifyRestaurantsPanel;
 
 
     public RestaurantsEntity selectedRestaurant;
@@ -39,6 +40,7 @@ public class App extends JFrame implements Callback {
         dishSelectionPanel = new DishSelectionPanel(this);
         accountInfoPanel = new AccountInfoPanel(this);
         editAccountPanel = new EditAccountPanel(this);
+        modifyRestaurantsPanel = new ModifyRestaurantsPanel(this);
 
         add(welcomePanel, "Welcome");
         add(loginPanel, "Login");
@@ -48,6 +50,7 @@ public class App extends JFrame implements Callback {
         add(dishSelectionPanel, "DishSelection");
         add(accountInfoPanel, "AccountInfo");
         add(editAccountPanel, "EditAccount");
+        add(modifyRestaurantsPanel, "ModifyRestaurants");
 
         cardLayout.show(this.getContentPane(), "Welcome");
     }
@@ -65,6 +68,9 @@ public class App extends JFrame implements Callback {
         updateAccountInfo();
         if (loggedAccount.getType() == 2) {
             mainMenuPanel.showRestaurantsButton();
+        }
+        else {
+            mainMenuPanel.hideRestaurantsButton();
         }
         cardLayout.show(getContentPane(), "MainMenu");
     }
