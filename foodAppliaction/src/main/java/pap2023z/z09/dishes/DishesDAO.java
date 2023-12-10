@@ -17,6 +17,15 @@ public class DishesDAO {
         return dishes;
     }
 
+    public List<DishesEntity> getDishesByRestaurant(int restaurantId) {
+        Session session = sessionFactory.openSession();
+        List<DishesEntity> dishes = session.createQuery("from DishesEntity where restaurantId = :restaurantId", DishesEntity.class)
+                .setParameter("restaurantId", restaurantId)
+                .list();
+        session.close();
+        return dishes;
+    }
+
     public DishesEntity getDishById(int id) {
         Session session = sessionFactory.openSession();
         DishesEntity dish = session.get(DishesEntity.class, id);

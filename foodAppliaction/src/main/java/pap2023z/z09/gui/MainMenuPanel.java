@@ -6,10 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainMenuPanel extends JPanel {
-    private App parent;
-
-    public MainMenuPanel(App parent) {
-        this.parent = parent;
+    public MainMenuPanel(Callback callback) {
 
         JButton orderButton = new JButton("Zamów");
         JButton accountButton = new JButton("Konto");
@@ -18,14 +15,14 @@ public class MainMenuPanel extends JPanel {
         orderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parent.cardLayout.show(parent.getContentPane(), "RestaurantChoice");
+                ((App) callback).cardLayout.show(((App) callback).getContentPane(), "RestaurantChoice");
             }
         });
 
         accountButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Panel informacji o koncie");
+                ((App) callback).cardLayout.show(((App) callback).getContentPane(), "AccountInfo");
             }
         });
 
@@ -36,10 +33,15 @@ public class MainMenuPanel extends JPanel {
             }
         });
 
-        setLayout(new GridLayout(4, 1));
+        setLayout(new GridLayout(5, 1));
         add(new JLabel("Food!! (main menu)", SwingConstants.CENTER));
         add(orderButton);
         add(accountButton);
         add(restaurantsButton);
+        add(new JLabel("Zalogowano jako: ", SwingConstants.CENTER));
+    }
+
+    public void updateAccountLabel(String accountName) {
+        ((JLabel) getComponent(4)).setText("Zalogowano jako: " + accountName);
     }
 }

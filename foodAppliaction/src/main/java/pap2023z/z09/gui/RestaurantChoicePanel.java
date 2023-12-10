@@ -8,6 +8,7 @@ import java.util.List;
 
 import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.restaurants.RestaurantsDAO;
+import pap2023z.z09.restaurants.RestaurantsDTO;
 
 public class RestaurantChoicePanel extends JPanel {
     private Callback callback;
@@ -26,7 +27,8 @@ public class RestaurantChoicePanel extends JPanel {
         restaurantList = new JList<>(restaurants.stream().map(RestaurantsEntity::getName).toArray(String[]::new));
         restaurantList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         restaurantList.addListSelectionListener(e -> {
-            callback.onRestaurantSelected(restaurantList.getSelectedValue());
+            RestaurantsDAO RD = new RestaurantsDAO();
+            callback.onRestaurantSelected(RD.getRestaurantByName(restaurantList.getSelectedValue()));
         });
         JScrollPane scrollPane = new JScrollPane(restaurantList);
         add(scrollPane, BorderLayout.CENTER);

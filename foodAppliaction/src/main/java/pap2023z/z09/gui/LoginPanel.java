@@ -9,7 +9,7 @@ import pap2023z.z09.accounts.AccountsDAO;
 import pap2023z.z09.accounts.LoginService;
 
 public class LoginPanel extends JPanel {
-    public LoginPanel(App parent) {
+    public LoginPanel(Callback callback) {
         JLabel loginLabel = new JLabel("Login:");
         JLabel passwordLabel = new JLabel("Password:");
         JTextField loginField = new JTextField(15);
@@ -21,15 +21,15 @@ public class LoginPanel extends JPanel {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String username = loginField.getText();
+                String email = loginField.getText();
                 char[] password = passwordField.getPassword();
                 String enteredPassword = new String(password);
 
                 AccountsDAO accountsDAO = new AccountsDAO();
                 LoginService LS = new LoginService(accountsDAO);
 
-                if (LS.login(username, enteredPassword)) {
-                    parent.cardLayout.show(parent.getContentPane(), "MainMenu");
+                if (LS.login(email, enteredPassword)) {
+                    callback.onAccountLogged(accountsDAO.getAccountByEmail(email));
                 }
                 else {
                     errorLabel.setText("Incorrect username or password");
@@ -40,7 +40,7 @@ public class LoginPanel extends JPanel {
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parent.cardLayout.show(parent.getContentPane(), "Welcome");
+                ((App) callback).cardLayout.show(((App) callback).getContentPane(), "Welcome");
             }
         });
 
