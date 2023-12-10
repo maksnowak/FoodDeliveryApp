@@ -3,20 +3,23 @@ package pap2023z.z09.gui;
 import javax.swing.*;
 import java.awt.*;
 
+import pap2023z.z09.database.DishesEntity;
+import pap2023z.z09.dishes.DishesDAO;
+
 public class DishSelectionPanel extends JPanel {
     private Callback callback;
+    DishesDAO DD = new DishesDAO();
+    String[] dishes = DD.getAllDishes().stream().map(DishesEntity::getName).toArray(String[]::new);
 
     public DishSelectionPanel(Callback callback) {
         this.callback = callback;
-
-        String[] dishNames = {"Danie 1", "Danie 2", "Danie 3"};
 
         setLayout(new BorderLayout());
 
         JLabel titleLabel = new JLabel("Wybierz danie w restauracji: ");
         add(titleLabel, BorderLayout.NORTH);
 
-        JList<String> dishList = new JList<>(dishNames);
+        JList<String> dishList = new JList<>(dishes);
         dishList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         dishList.addListSelectionListener(e -> {
             String selectedDish = dishList.getSelectedValue();
