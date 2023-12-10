@@ -27,7 +27,8 @@ public class RegisterPanel extends JPanel {
 
                     AccountsDAO accountsDAO = new AccountsDAO();
                     InputValidationService IVS = new InputValidationService();
-                    SignUpService SS = new SignUpService(accountsDAO, IVS);
+                    VerifyIfEmailAlreadyExistsService VIAES = new VerifyIfEmailAlreadyExistsService(accountsDAO);
+                    SignUpService SS = new SignUpService(accountsDAO, IVS, VIAES);
                     AccountsDTO account = new AccountsDTO(0, username, enteredPassword, employeeCheckbox.isSelected() ? 2 : 1, "a", "b");
                     try {
                         SS.signUp(account);

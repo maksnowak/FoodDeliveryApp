@@ -1,7 +1,5 @@
 package pap2023z.z09.accounts;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -23,29 +21,14 @@ public class SignUpServiceTest {
     private InputValidationService inputValidationService;
 
     @Mock
+    private VerifyIfEmailAlreadyExistsService verifyIfEmailAlreadyExistsService;
+
+    @Mock
     private AccountsEntity account;
-
-    @Mock
-    private Session session;
-
-    @Mock
-    private Transaction transaction;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-    }
-
-    @Test
-    public void verifyEmailDoesNotThrowExecptionTest() throws EmailAlreadyExistsException {
-        when(accountsDAO.getAccountByEmail("email")).thenReturn(null);
-        signUpService.verifyEmail("email");
-    }
-
-    @Test
-    public void verifyEmailThrowsExceptionTest() {
-        when(accountsDAO.getAccountByEmail("email")).thenReturn(account);
-        assertThrows(EmailAlreadyExistsException.class, () -> signUpService.verifyEmail("email"));
     }
 
     @Test
@@ -61,6 +44,7 @@ public class SignUpServiceTest {
     public void signUpFailEmailExistsTest() throws EmailAlreadyExistsException {
         AccountsDTO dto = new AccountsDTO(1, "email", "password", 1, "name", "surname");
         when(accountsDAO.getAccountByEmail("email")).thenReturn(account);
+        doThrow(EmailAlreadyExistsException.class).when(verifyIfEmailAlreadyExistsService).verifyEmail("email");
         assertThrows(EmailAlreadyExistsException.class, () -> signUpService.signUp(dto));
         verify(accountsDAO, times(0)).addAccount(any());
     }

@@ -5,16 +5,18 @@ import pap2023z.z09.database.AccountsEntity;
 public class SignUpService {
     private final AccountsDAO accountsDAO;
     private final InputValidationService inputValidationService;
+    private final VerifyIfEmailAlreadyExistsService verifyIfEmailAlreadyExistsService;
 
-    public SignUpService(AccountsDAO accountsDAO, InputValidationService inputValidationService) {
+    public SignUpService(AccountsDAO accountsDAO, InputValidationService inputValidationService, VerifyIfEmailAlreadyExistsService verifyIfEmailAlreadyExistsService) {
         this.accountsDAO = accountsDAO;
         this.inputValidationService = inputValidationService;
+        this.verifyIfEmailAlreadyExistsService = verifyIfEmailAlreadyExistsService;
     }
 
     public void signUp(AccountsDTO account) throws EmailAlreadyExistsException {
         inputValidationService.validateEmail(account.getEmail());
         inputValidationService.validatePassword(account.getPassword());
-        verifyEmail(account.getEmail());
+        verifyIfEmailAlreadyExistsService.verifyEmail(account.getEmail());
         AccountsEntity entity = new AccountsEntity();
         entity.setEmail(account.getEmail());
         entity.setPassword(account.getPassword());
@@ -23,11 +25,4 @@ public class SignUpService {
         entity.setSurname(account.getSurname());
         accountsDAO.addAccount(entity);
     }
-
-    public void verifyEmail(String email) throws EmailAlreadyExistsException {
-        if (accountsDAO.getAccountByEmail(email) != null) {
-            throw new EmailAlreadyExistsException();
-        }
-    }
-
 }
