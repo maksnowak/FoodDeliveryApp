@@ -1,14 +1,17 @@
 package pap2023z.z09.accounts;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import pap2023z.z09.database.AccountsEntity;
 
 public class UpdateService {
     private final AccountsDAO accountsDAO;
-    private final SignUpService signUpService;
+    private final InputValidationService inputValidationService;
+    private final VerifyIfEmailAlreadyExistsService verifyIfEmailAlreadyExistsService;
 
-    public UpdateService(AccountsDAO accountsDAO, SignUpService signUpService) {
+    public UpdateService(AccountsDAO accountsDAO, InputValidationService inputValidationService, VerifyIfEmailAlreadyExistsService verifyIfEmailAlreadyExistsService) {
         this.accountsDAO = accountsDAO;
-        this.signUpService = signUpService;
+        this.inputValidationService = inputValidationService;
+        this.verifyIfEmailAlreadyExistsService = verifyIfEmailAlreadyExistsService;
     }
 
     public void updateAccount(AccountsDTO account) throws EmailAlreadyExistsException {
@@ -19,8 +22,11 @@ public class UpdateService {
         }
 
         if (!existingAccount.getEmail().equals(account.getEmail())) {
-            signUpService.verifyEmail(account.getEmail());
+            verifyIfEmailAlreadyExistsService.verifyEmail(account.getEmail());
         }
+
+        inputValidationService.validateEmail(account.getEmail());
+        inputValidationService.validatePassword(account.getPassword());
 
         AccountsEntity entity = new AccountsEntity();
         entity.setAccountId(account.getAccountId());
