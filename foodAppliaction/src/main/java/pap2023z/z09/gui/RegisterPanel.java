@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 import pap2023z.z09.accounts.*;
 
-public class RegisterPanel extends JPanel {
+public class RegisterPanel extends FoodPanel {
         public RegisterPanel(Callback callback) {
             JCheckBox employeeCheckbox = new JCheckBox("Employee");
             JLabel loginLabel = new JLabel("Login:");
@@ -18,8 +18,8 @@ public class RegisterPanel extends JPanel {
             JPasswordField passwordField = new JPasswordField(15);
             JTextField nameField = new JTextField(15);
             JTextField surnameField = new JTextField(15);
-            JButton registerButton = new JButton("Register");
-            JButton returnButton = new JButton("Return");
+            FoodButton registerButton = new FoodButton("Register");
+            FoodButton returnButton = new FoodButton("Return");
             JLabel errorLabel = new JLabel();
 
             registerButton.addActionListener(new ActionListener() {

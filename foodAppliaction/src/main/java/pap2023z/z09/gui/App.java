@@ -28,6 +28,12 @@ public class App extends JFrame implements Callback {
         setTitle("PAP2023Z - Z09");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
 
         cardLayout = new CardLayout();
         setLayout(cardLayout);
