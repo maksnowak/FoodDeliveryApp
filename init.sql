@@ -712,7 +712,7 @@ INSERT INTO public.workers OVERRIDING SYSTEM VALUE VALUES (5, 1, 5);
 -- Name: account_types_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.account_types_type_id_seq', 1, false);
+SELECT pg_catalog.setval('public.account_types_type_id_seq', 3, false);
 
 
 --
@@ -721,7 +721,7 @@ SELECT pg_catalog.setval('public.account_types_type_id_seq', 1, false);
 -- Name: accounts_account_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.accounts_account_id_seq', 1, false);
+SELECT pg_catalog.setval('public.accounts_account_id_seq', 2, false);
 
 
 --
@@ -748,7 +748,7 @@ SELECT pg_catalog.setval('public.complaints_complaint_id_seq', 1, false);
 -- Name: discounts_discount_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.discounts_discount_id_seq', 1, false);
+SELECT pg_catalog.setval('public.discounts_discount_id_seq', 2, false);
 
 
 --
@@ -757,7 +757,7 @@ SELECT pg_catalog.setval('public.discounts_discount_id_seq', 1, false);
 -- Name: dish_types_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.dish_types_type_id_seq', 1, false);
+SELECT pg_catalog.setval('public.dish_types_type_id_seq', 8, false);
 
 
 --
@@ -766,7 +766,7 @@ SELECT pg_catalog.setval('public.dish_types_type_id_seq', 1, false);
 -- Name: dishes_dish_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.dishes_dish_id_seq', 1, false);
+SELECT pg_catalog.setval('public.dishes_dish_id_seq', 62, false);
 
 
 --
@@ -811,7 +811,7 @@ SELECT pg_catalog.setval('public.payment_methods_method_id_seq', 1, false);
 -- Name: restaurants_restaurant_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.restaurants_restaurant_id_seq', 1, false);
+SELECT pg_catalog.setval('public.restaurants_restaurant_id_seq', 6, false);
 
 
 --
@@ -829,7 +829,7 @@ SELECT pg_catalog.setval('public.reviews_review_id_seq', 1, false);
 -- Name: statuses_status_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.statuses_status_id_seq', 1, false);
+SELECT pg_catalog.setval('public.statuses_status_id_seq', 9, false);
 
 
 --
@@ -838,7 +838,7 @@ SELECT pg_catalog.setval('public.statuses_status_id_seq', 1, false);
 -- Name: workers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.workers_id_seq', 1, false);
+SELECT pg_catalog.setval('public.workers_id_seq', 6, false);
 
 
 --
