@@ -48,7 +48,7 @@ public class OrdersDAO {
         transaction.commit();
         session.close();
     }
-    public void deleteAccount(OrdersEntity order) {
+    public void deleteOrder(OrdersEntity order) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.remove(order);

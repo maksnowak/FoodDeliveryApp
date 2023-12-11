@@ -15,7 +15,7 @@ public class AddOrder {
 
     }
 
-    public void AddOrder(OrdersDTO order) {
+    public void addOrder(OrdersDTO order) {
 
 
         //checkStatusId(order.getStatusId());
@@ -29,6 +29,7 @@ public class AddOrder {
         checkIfInRange(order.getApartment());
 
         OrdersEntity entity = new OrdersEntity();
+
         entity.setOrderId(order.getOrderId());
         entity.setStatus(order.getStatusId());
         entity.setCustomer(order.getCustomerId());
@@ -82,7 +83,7 @@ public class AddOrder {
         }
     }
     public void checkIfInRange(BigDecimal money){
-        if(money.compareTo(BigDecimal.ZERO) > 0){
+        if(money.compareTo(BigDecimal.ZERO) < 0){
             throw new IllegalArgumentException("one of the numbers is smaller than zero ");
         }
     }

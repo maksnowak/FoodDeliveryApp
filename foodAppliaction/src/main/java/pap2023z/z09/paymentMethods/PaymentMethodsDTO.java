@@ -12,9 +12,10 @@ public class PaymentMethodsDTO {
     private Date expiryDate;
     private int cvv;
     private int customer;
-
-    public PaymentMethodsDTO(int cardNumber, Date expiryDate, int cvv, int customer)
+    private int MethodId;
+    public PaymentMethodsDTO(int MethodId, int cardNumber, Date expiryDate, int cvv, int customer)
     {
+        this.MethodId = MethodId;
         this.cardNumber = cardNumber;
         this.expiryDate = expiryDate;
         this.cvv = cvv;
@@ -23,6 +24,9 @@ public class PaymentMethodsDTO {
 
     public PaymentMethodsDTO(){
 
+    }
+    public int getMethodId(){
+        return MethodId;
     }
     public int getCardNumber(){
         return cardNumber;
@@ -57,8 +61,13 @@ public class PaymentMethodsDTO {
         this.expiryDate = expiryDate;
     }
 
+    public void setMethodId(int MethodId) {
+        this.MethodId = MethodId;
+    }
+
     public static PaymentMethodsDTO fromEntity(PaymentMethodsEntity entity) {
         return new PaymentMethodsDTO(
+                entity.getMethodId(),
                 entity.getCardNumber(),
                 entity.getExpiryDate(),
                 entity.getCvv(),
