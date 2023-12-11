@@ -16,7 +16,6 @@ import pap2023z.z09.restaurants.RestaurantsDAO;
 import pap2023z.z09.restaurants.RestaurantsDTO;
 
 public class RestaurantChoicePanel extends JPanel {
-    Callback callback;
     RestaurantsDAO DAO = new RestaurantsDAO();
     List<RestaurantsEntity> restaurants = DAO.getAllRestaurants();
     JList<String> restaurantList;
@@ -24,7 +23,6 @@ public class RestaurantChoicePanel extends JPanel {
     JTextField searchField = new JTextField();
 
     public RestaurantChoicePanel(Callback callback) {
-        this.callback = callback;
 
         setLayout(new BorderLayout());
         searchField.getDocument().addDocumentListener(new DocumentListener() {
