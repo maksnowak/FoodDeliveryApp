@@ -6,9 +6,10 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.util.List;
+import java.util.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.RestaurantsEntity;
@@ -115,6 +116,7 @@ public class DishSelectionPanel extends JPanel {
             @Override public void changedUpdate(DocumentEvent e) { searchAndFilterList(); }
         });
         vegetarianCheckBox.addActionListener(e -> searchAndFilterList());
+        sortComboBox.addActionListener(e -> searchAndFilterList());
 
         dishList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         dishList.addListSelectionListener(new ListSelectionListener() {
@@ -180,6 +182,27 @@ public class DishSelectionPanel extends JPanel {
                     model.addElement(dish.getName());
                 }
             }
+        }
+        List<DishesEntity> dishesList = new ArrayList<>();
+        for (int i = 0; i < model.size(); i++) {
+            int finalI = i;
+            dishesList.add(dishes.stream().filter(d -> d.getName().equals(model.get(finalI))).findFirst().get());
+        }
+        if (sortComboBox.getSelectedIndex() == 0) {
+            dishesList.sort(Comparator.comparing(DishesEntity::getPrice));
+        }
+        else if (sortComboBox.getSelectedIndex() == 1) {
+            dishesList.sort(Comparator.comparing(DishesEntity::getPrice).reversed());
+        }
+//        else if (sortComboBox.getSelectedIndex() == 2) {
+//            dishesList.sort(Comparator.comparing(DishesEntity::getKcal));
+//        }
+//        else if (sortComboBox.getSelectedIndex() == 3) {
+//            dishesList.sort(Comparator.comparing(DishesEntity::getKcal).reversed());
+//        }
+        model.clear();
+        for (DishesEntity dish : dishesList) {
+            model.addElement(dish.getName());
         }
     }
 }
