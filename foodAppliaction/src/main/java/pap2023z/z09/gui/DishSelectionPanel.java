@@ -21,28 +21,59 @@ public class DishSelectionPanel extends JPanel {
     boolean isListenerActive = false;
     JLabel titleLabel = new JLabel("Wybierz danie:");
     JTextField searchField = new JTextField();
+    JComboBox<String> typeComboBox = new JComboBox<>();
+    JTextField kcalMinField = new JTextField();
+    JTextField kcalMaxField = new JTextField();
+    JTextField priceMinField = new JTextField();
+    JTextField priceMaxField = new JTextField();
+    JCheckBox vegetarianCheckBox = new JCheckBox("wege");
+
 
     public DishSelectionPanel(Callback callback) {
         setLayout(new BorderLayout());
 
+        typeComboBox.addItem("Wszystkie");
+        typeComboBox.addItem("Przystawka");
+        typeComboBox.addItem("Zupa");
+        typeComboBox.addItem("Danie główne");
+        typeComboBox.addItem("Deser");
+        typeComboBox.addItem("Dodatki");
+        typeComboBox.addItem("Sałatki");
+        typeComboBox.addItem("Napoje");
+
         JPanel upperPanel = new JPanel();
         upperPanel.setLayout(new GridLayout(2, 1));
-        upperPanel.add(titleLabel);
-        upperPanel.add(searchField);
+        JPanel upperHalf = new JPanel();
+        upperHalf.setLayout(new GridLayout(2, 1));
+        upperHalf.add(titleLabel);
+        upperHalf.add(searchField);
+        upperPanel.add(upperHalf);
+        JPanel filterPanel = new JPanel();
+        filterPanel.setLayout(new GridLayout(2, 4));
+        filterPanel.add(typeComboBox);
+        filterPanel.add(new JLabel("Kalorie:"));
+        filterPanel.add(kcalMinField);
+        filterPanel.add(kcalMaxField);
+        filterPanel.add(vegetarianCheckBox);
+        filterPanel.add(new JLabel("Cena:"));
+        filterPanel.add(priceMinField);
+        filterPanel.add(priceMaxField);
+
+        upperPanel.add(filterPanel);
         add(upperPanel, BorderLayout.NORTH);
 
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                searchList();
+                searchAndFilterList();
             }
             @Override
             public void removeUpdate(DocumentEvent e) {
-                searchList();
+                searchAndFilterList();
             }
             @Override
             public void changedUpdate(DocumentEvent e) {
-                searchList();
+                searchAndFilterList();
             }
         });
 
@@ -81,7 +112,7 @@ public class DishSelectionPanel extends JPanel {
         }
     }
 
-    public void searchList() {
+    public void searchAndFilterList() {
         model.clear();
         String search = searchField.getText();
         for (DishesEntity dish : dishes) {
