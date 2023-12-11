@@ -5,12 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainMenuPanel extends JPanel {
+public class MainMenuPanel extends FoodPanel {
     public MainMenuPanel(Callback callback) {
-
-        JButton orderButton = new JButton("Zamów");
-        JButton accountButton = new JButton("Konto");
-        JButton restaurantsButton = new JButton("Restauracje");
+        FoodButton orderButton = new FoodButton("Zamów");
+        FoodButton accountButton = new FoodButton("Konto");
+        FoodButton restaurantsButton = new FoodButton("Restauracje");
 
         orderButton.addActionListener(new ActionListener() {
             @Override
@@ -29,7 +28,7 @@ public class MainMenuPanel extends JPanel {
         restaurantsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Panel z listą zarządzanych restauracji (dla pracowników)");
+                ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurants");
             }
         });
 
@@ -39,9 +38,20 @@ public class MainMenuPanel extends JPanel {
         add(accountButton);
         add(restaurantsButton);
         add(new JLabel("Zalogowano jako: ", SwingConstants.CENTER));
+        restaurantsButton.setVisible(false);
     }
 
     public void updateAccountLabel(String accountName) {
         ((JLabel) getComponent(4)).setText("Zalogowano jako: " + accountName);
+    }
+
+    public void showRestaurantsButton() {
+        setBackground(new Color(42, 0, 93));
+        getComponent(3).setVisible(true);
+    }
+
+    public void hideRestaurantsButton() {
+        setBackground(new Color(68, 0, 93));
+        getComponent(3).setVisible(false);
     }
 }

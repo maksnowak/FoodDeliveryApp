@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import pap2023z.z09.accounts.EmailAlreadyExistsException;
 import pap2023z.z09.database.AccountsEntity;
 
-public class EditAccountPanel extends JPanel {
+public class EditAccountPanel extends FoodPanel {
     private JTextField firstNameField;
     private JTextField lastNameField;
     private JTextField emailField;
@@ -39,7 +39,7 @@ public class EditAccountPanel extends JPanel {
 
         add(formPanel, BorderLayout.CENTER);
 
-        JButton saveButton = new JButton("Zapisz zmiany");
+        FoodButton saveButton = new FoodButton("Zapisz zmiany");
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -52,7 +52,7 @@ public class EditAccountPanel extends JPanel {
                 }
             }
         });
-        JButton cancelButton = new JButton("Anuluj");
+        FoodButton cancelButton = new FoodButton("Anuluj");
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

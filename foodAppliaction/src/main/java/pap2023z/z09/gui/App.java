@@ -18,6 +18,7 @@ public class App extends JFrame implements Callback {
     private DishSelectionPanel dishSelectionPanel;
     private AccountInfoPanel accountInfoPanel;
     private EditAccountPanel editAccountPanel;
+    private ModifyRestaurantsPanel modifyRestaurantsPanel;
 
 
     public RestaurantsEntity selectedRestaurant;
@@ -27,6 +28,12 @@ public class App extends JFrame implements Callback {
         setTitle("PAP2023Z - Z09");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
 
         cardLayout = new CardLayout();
         setLayout(cardLayout);
@@ -39,6 +46,7 @@ public class App extends JFrame implements Callback {
         dishSelectionPanel = new DishSelectionPanel(this);
         accountInfoPanel = new AccountInfoPanel(this);
         editAccountPanel = new EditAccountPanel(this);
+        modifyRestaurantsPanel = new ModifyRestaurantsPanel(this);
 
         add(welcomePanel, "Welcome");
         add(loginPanel, "Login");
@@ -48,6 +56,7 @@ public class App extends JFrame implements Callback {
         add(dishSelectionPanel, "DishSelection");
         add(accountInfoPanel, "AccountInfo");
         add(editAccountPanel, "EditAccount");
+        add(modifyRestaurantsPanel, "ModifyRestaurants");
 
         cardLayout.show(this.getContentPane(), "Welcome");
     }
@@ -63,6 +72,12 @@ public class App extends JFrame implements Callback {
     public void onAccountLogged(AccountsEntity account) {
         loggedAccount = account;
         updateAccountInfo();
+        if (loggedAccount.getType() == 2) {
+            mainMenuPanel.showRestaurantsButton();
+        }
+        else {
+            mainMenuPanel.hideRestaurantsButton();
+        }
         cardLayout.show(getContentPane(), "MainMenu");
     }
 
@@ -99,6 +114,12 @@ public class App extends JFrame implements Callback {
         DS.deleteAccount(loggedAccount.getAccountId());
         loggedAccount = null;
         JOptionPane.showMessageDialog(this, "Konto zostało usunięte.");
+        cardLayout.show(getContentPane(), "Welcome");
+    }
+
+    @Override
+    public void onAccountLogout() {
+        loggedAccount = null;
         cardLayout.show(getContentPane(), "Welcome");
     }
 

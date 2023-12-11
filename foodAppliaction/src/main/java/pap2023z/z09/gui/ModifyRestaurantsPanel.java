@@ -10,25 +10,21 @@ import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.restaurants.RestaurantsDAO;
 import pap2023z.z09.restaurants.RestaurantsDTO;
 
-public class RestaurantChoicePanel extends FoodPanel {
-    private Callback callback;
+public class ModifyRestaurantsPanel extends FoodPanel {
     RestaurantsDAO RD = new RestaurantsDAO();
     List<RestaurantsEntity> restaurants = RD.getAllRestaurants();
     private JList<String> restaurantList;
 
-    public RestaurantChoicePanel(Callback callback) {
-        this.callback = callback;
-
+    public ModifyRestaurantsPanel(Callback callback) {
         setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Wybierz restaurację:");
+        JLabel titleLabel = new JLabel("Wybierz restaurację do modyfikacji:");
         add(titleLabel, BorderLayout.NORTH);
 
         restaurantList = new JList<>(restaurants.stream().map(RestaurantsEntity::getName).toArray(String[]::new));
         restaurantList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         restaurantList.addListSelectionListener(e -> {
-            RestaurantsDAO RD = new RestaurantsDAO();
-            callback.onRestaurantSelected(RD.getRestaurantByName(restaurantList.getSelectedValue()));
+            JOptionPane.showMessageDialog(null, restaurantList.getSelectedValue() + " została wybrana do modyfikacji");
         });
         JScrollPane scrollPane = new JScrollPane(restaurantList);
         add(scrollPane, BorderLayout.CENTER);
