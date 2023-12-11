@@ -10,5 +10,4 @@ public interface Callback {
     void onEditAccount(String name, String surname, String email, String password) throws EmailAlreadyExistsException;
     void onDeleteAccount();
     void onAccountLogout();
-
 }

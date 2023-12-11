@@ -64,7 +64,7 @@ public class App extends JFrame implements Callback {
     @Override
     public void onRestaurantSelected(RestaurantsEntity restaurant) {
         selectedRestaurant = restaurant;
-        dishSelectionPanel.updateRestaurantLabel(selectedRestaurant);
+        dishSelectionPanel.enter(selectedRestaurant);
         cardLayout.show(getContentPane(), "DishSelection");
     }
 

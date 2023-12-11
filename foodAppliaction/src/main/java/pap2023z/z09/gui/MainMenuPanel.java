@@ -5,11 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainMenuPanel extends FoodPanel {
+public class MainMenuPanel extends JPanel {
     public MainMenuPanel(Callback callback) {
-        FoodButton orderButton = new FoodButton("Zamów");
-        FoodButton accountButton = new FoodButton("Konto");
-        FoodButton restaurantsButton = new FoodButton("Restauracje");
+        JButton orderButton = new JButton("Zamów");
+        JButton accountButton = new JButton("Konto");
+        JButton restaurantsButton = new JButton("Restauracje");
 
         orderButton.addActionListener(new ActionListener() {
             @Override
@@ -46,12 +46,12 @@ public class MainMenuPanel extends FoodPanel {
     }
 
     public void showRestaurantsButton() {
-        setBackground(new Color(42, 0, 93));
+//        setBackground(new Color(42, 0, 93));
         getComponent(3).setVisible(true);
     }
 
     public void hideRestaurantsButton() {
-        setBackground(new Color(68, 0, 93));
+//        setBackground(new Color(68, 0, 93));
         getComponent(3).setVisible(false);
     }
 }

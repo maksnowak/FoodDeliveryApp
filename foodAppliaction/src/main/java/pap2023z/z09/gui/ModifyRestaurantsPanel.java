@@ -10,7 +10,7 @@ import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.restaurants.RestaurantsDAO;
 import pap2023z.z09.restaurants.RestaurantsDTO;
 
-public class ModifyRestaurantsPanel extends FoodPanel {
+public class ModifyRestaurantsPanel extends JPanel {
     RestaurantsDAO RD = new RestaurantsDAO();
     List<RestaurantsEntity> restaurants = RD.getAllRestaurants();
     private JList<String> restaurantList;
@@ -29,7 +29,7 @@ public class ModifyRestaurantsPanel extends FoodPanel {
         JScrollPane scrollPane = new JScrollPane(restaurantList);
         add(scrollPane, BorderLayout.CENTER);
 
-        FoodButton backButton = new FoodButton("Powrót");
+        JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e -> {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
         });
