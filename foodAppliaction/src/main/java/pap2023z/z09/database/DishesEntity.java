@@ -23,13 +23,13 @@ public class DishesEntity {
     @Column(name = "type_id", nullable = false)
     private int typeId;
     @Basic
-    @Column(name = "vegetarian", nullable = true)
-    private Boolean vegetarian;
+    @Column(name = "vegetarian", nullable = false)
+    private boolean vegetarian;
     @Basic
     @Column(name = "price", nullable = false, precision = 2)
     private BigDecimal price;
     @Basic
-    @Column(name = "kcal", nullable = true, precision = 1)
+    @Column(name = "kcal", nullable = false, precision = 1)
     private BigDecimal kcal;
     @OneToMany(mappedBy = "dishesByDishId")
     private Collection<BasketsEntity> basketsByDishId;
@@ -76,11 +76,11 @@ public class DishesEntity {
         this.typeId = typeId;
     }
 
-    public Boolean getVegetarian() {
+    public boolean isVegetarian() {
         return vegetarian;
     }
 
-    public void setVegetarian(Boolean vegetarian) {
+    public void setVegetarian(boolean vegetarian) {
         this.vegetarian = vegetarian;
     }
 
@@ -105,7 +105,7 @@ public class DishesEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DishesEntity that = (DishesEntity) o;
-        return dishId == that.dishId && restaurantId == that.restaurantId && typeId == that.typeId && Objects.equals(name, that.name) && Objects.equals(vegetarian, that.vegetarian) && Objects.equals(price, that.price) && Objects.equals(kcal, that.kcal);
+        return dishId == that.dishId && restaurantId == that.restaurantId && typeId == that.typeId && vegetarian == that.vegetarian && Objects.equals(name, that.name) && Objects.equals(price, that.price) && Objects.equals(kcal, that.kcal);
     }
 
     @Override

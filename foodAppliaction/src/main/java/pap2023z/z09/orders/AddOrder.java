@@ -3,7 +3,7 @@ package pap2023z.z09.orders;
 import pap2023z.z09.accounts.AccountsDAO;
 import pap2023z.z09.database.*;
 import pap2023z.z09.discounts.DiscountsDAO;
-import pap2023z.z09.paymentMethods.PaymentMethodsDOA;
+import pap2023z.z09.paymentMethods.PaymentMethodsDAO;
 
 
 import java.math.BigDecimal;
@@ -56,7 +56,7 @@ public class AddOrder {
     }
 
     public void checkPaymentMethodId(int id){
-        PaymentMethodsDOA methodsDOA = new PaymentMethodsDOA();
+        PaymentMethodsDAO methodsDOA = new PaymentMethodsDAO();
         List <PaymentMethodsEntity> methods = methodsDOA.getAllMethods();
         for(PaymentMethodsEntity method :methods){
             if(method.getMethodId() == id){

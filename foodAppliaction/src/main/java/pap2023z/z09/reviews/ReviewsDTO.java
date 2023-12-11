@@ -4,14 +4,14 @@ import pap2023z.z09.database.ReviewsEntity;
 
 public class ReviewsDTO {
     private int reviewId;
-    private int resturantId;
+    private int restaurantId;
     private int customer; //id
     private int stars;
     private String description;
 
-    public ReviewsDTO(int reviewId, int resturantId, int customer, int stars, String description){
+    public ReviewsDTO(int reviewId, int restaurantId, int customer, int stars, String description){
         this.reviewId = reviewId;
-        this.resturantId = resturantId;
+        this.restaurantId = restaurantId;
         this.customer = customer;
         this.stars = stars;
         this.description = description;
@@ -30,8 +30,8 @@ public class ReviewsDTO {
         return customer;
     }
 
-    public int getResturantId() {
-        return resturantId;
+    public int getRestaurantId() {
+        return restaurantId;
     }
 
     public int getStars() {
@@ -57,8 +57,8 @@ public class ReviewsDTO {
         this.reviewId = reviewId;
     }
 
-    public void setResturantId(int resturantId) {
-        this.resturantId = resturantId;
+    public void setRestaurantId(int resturantId) {
+        this.restaurantId = resturantId;
     }
 
     public void setStars(int stars) {
@@ -68,7 +68,7 @@ public class ReviewsDTO {
     public static ReviewsDTO fromEntity(ReviewsEntity entity) {
         return new ReviewsDTO(
                 entity.getReviewId(),
-                entity.getResturantId(),
+                entity.getRestaurantId(),
                 entity.getCustomer(),
                 entity.getStars(),
                 entity.getDescription()

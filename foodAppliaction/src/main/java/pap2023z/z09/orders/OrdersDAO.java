@@ -9,7 +9,7 @@ import pap2023z.z09.database.OrdersEntity;
 import java.util.List;
 
 public class OrdersDAO {
-    private final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+    private static final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
     public List<OrdersEntity> getAllOrders() {
         Session session = sessionFactory.openSession();
@@ -25,7 +25,7 @@ public class OrdersDAO {
         return order;
     }
 
-    public List<OrdersEntity> getAllOrdersFromAccountId(int id) {
+    public static List<OrdersEntity> getAllOrdersFromAccountId(int id) {
         Session session = sessionFactory.openSession();
         List<OrdersEntity> orders = session.createQuery("from OrdersEntity where customer = :id")
                 .setParameter("id", id)
@@ -41,7 +41,7 @@ public class OrdersDAO {
         session.close();
     }
 
-    public void updateOrder(OrdersEntity order) {
+    public static void updateOrder(OrdersEntity order) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.merge(order);

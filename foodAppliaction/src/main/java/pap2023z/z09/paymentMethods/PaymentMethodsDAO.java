@@ -8,7 +8,7 @@ import pap2023z.z09.database.PaymentMethodsEntity;
 
 
 import java.util.List;
-public class PaymentMethodsDOA {
+public class PaymentMethodsDAO {
     private final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
     public List<PaymentMethodsEntity> getAllMethods() {

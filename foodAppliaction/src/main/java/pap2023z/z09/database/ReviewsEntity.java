@@ -12,11 +12,11 @@ public class ReviewsEntity {
     @Column(name = "review_id", nullable = false)
     private int reviewId;
     @Basic
-    @Column(name = "resturant_id", nullable = false)
-    private int resturantId;
+    @Column(name = "restaurant_id", nullable = false)
+    private int restaurantId;
     @Basic
-    @Column(name = "customer", nullable = false)
-    private int customer;
+    @Column(name = "customer", nullable = true)
+    private Integer customer;
     @Basic
     @Column(name = "stars", nullable = false)
     private int stars;
@@ -24,10 +24,10 @@ public class ReviewsEntity {
     @Column(name = "description", nullable = true, length = 500)
     private String description;
     @ManyToOne
-    @JoinColumn(name = "resturant_id", referencedColumnName = "restaurant_id", nullable = false, insertable = false, updatable = false)
-    private RestaurantsEntity restaurantsByResturantId;
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id", nullable = false, insertable = false, updatable = false)
+    private RestaurantsEntity restaurantsByRestaurantId;
     @ManyToOne
-    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "customer", referencedColumnName = "account_id", insertable = false, updatable = false)
     private AccountsEntity accountsByCustomer;
 
     public int getReviewId() {
@@ -38,19 +38,19 @@ public class ReviewsEntity {
         this.reviewId = reviewId;
     }
 
-    public int getResturantId() {
-        return resturantId;
+    public int getRestaurantId() {
+        return restaurantId;
     }
 
-    public void setResturantId(int resturantId) {
-        this.resturantId = resturantId;
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
-    public int getCustomer() {
+    public Integer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(int customer) {
+    public void setCustomer(Integer customer) {
         this.customer = customer;
     }
 
@@ -75,20 +75,20 @@ public class ReviewsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ReviewsEntity that = (ReviewsEntity) o;
-        return reviewId == that.reviewId && resturantId == that.resturantId && customer == that.customer && stars == that.stars && Objects.equals(description, that.description);
+        return reviewId == that.reviewId && restaurantId == that.restaurantId && stars == that.stars && Objects.equals(customer, that.customer) && Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(reviewId, resturantId, customer, stars, description);
+        return Objects.hash(reviewId, restaurantId, customer, stars, description);
     }
 
-    public RestaurantsEntity getRestaurantsByResturantId() {
-        return restaurantsByResturantId;
+    public RestaurantsEntity getRestaurantsByRestaurantId() {
+        return restaurantsByRestaurantId;
     }
 
-    public void setRestaurantsByResturantId(RestaurantsEntity restaurantsByResturantId) {
-        this.restaurantsByResturantId = restaurantsByResturantId;
+    public void setRestaurantsByRestaurantId(RestaurantsEntity restaurantsByRestaurantId) {
+        this.restaurantsByRestaurantId = restaurantsByRestaurantId;
     }
 
     public AccountsEntity getAccountsByCustomer() {

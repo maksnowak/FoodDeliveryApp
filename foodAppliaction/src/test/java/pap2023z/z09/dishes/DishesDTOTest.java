@@ -85,7 +85,7 @@ public class DishesDTOTest {
         when(dishesEntity.getName()).thenReturn(name);
         when(dishesEntity.getRestaurantId()).thenReturn(restaurantId);
         when(dishesEntity.getTypeId()).thenReturn(typeId);
-        when(dishesEntity.getVegetarian()).thenReturn(vegetarian);
+        when(dishesEntity.isVegetarian()).thenReturn(vegetarian);
         when(dishesEntity.getPrice()).thenReturn(price);
         when(dishesEntity.getKcal()).thenReturn(kcal);
         DishesDTO dishesDTO = DishesDTO.fromEntity(dishesEntity);

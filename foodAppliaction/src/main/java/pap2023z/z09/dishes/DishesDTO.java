@@ -88,7 +88,7 @@ public class DishesDTO {
                 entity.getName(),
                 entity.getRestaurantId(),
                 entity.getTypeId(),
-                entity.getVegetarian(),
+                entity.isVegetarian(),
                 entity.getPrice(),
                 entity.getKcal()
         );
