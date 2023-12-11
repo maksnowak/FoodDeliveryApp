@@ -30,6 +30,7 @@ public class DishSelectionPanel extends JPanel {
     JTextField priceMinField = new JTextField();
     JTextField priceMaxField = new JTextField();
     JCheckBox vegetarianCheckBox = new JCheckBox("wege");
+    JComboBox<String> sortComboBox = new JComboBox<>();
 
 
     public DishSelectionPanel(Callback callback) {
@@ -44,25 +45,46 @@ public class DishSelectionPanel extends JPanel {
         typeComboBox.addItem("Sałatki");
         typeComboBox.addItem("Napoje");
 
-        JPanel upperPanel = new JPanel();
-        upperPanel.setLayout(new GridLayout(2, 1));
-        JPanel upperHalf = new JPanel();
-        upperHalf.setLayout(new GridLayout(2, 1));
-        upperHalf.add(titleLabel);
-        upperHalf.add(searchField);
-        upperPanel.add(upperHalf);
-        JPanel filterPanel = new JPanel();
-        filterPanel.setLayout(new GridLayout(2, 4));
-        filterPanel.add(typeComboBox);
-        filterPanel.add(new JLabel("Kalorie:"));
-        filterPanel.add(kcalMinField);
-        filterPanel.add(kcalMaxField);
-        filterPanel.add(vegetarianCheckBox);
-        filterPanel.add(new JLabel("Cena:"));
-        filterPanel.add(priceMinField);
-        filterPanel.add(priceMaxField);
+        sortComboBox.addItem("Od najtańszych");
+        sortComboBox.addItem("Od najdroższych");
+        sortComboBox.addItem("Od najmniej kalorycznych");
+        sortComboBox.addItem("Od najbardziej kalorycznych");
 
-        upperPanel.add(filterPanel);
+        JPanel upperPanel = new JPanel();
+        upperPanel.setLayout(new GridLayout(4, 1));
+        upperPanel.add(titleLabel);
+        JPanel searchAndSortPanel = new JPanel();
+        searchAndSortPanel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1.0;
+        searchAndSortPanel.add(new JLabel("Wyszukaj: "), c);
+        c.weightx = 15.0;
+        searchAndSortPanel.add(searchField, c);
+        c.weightx = 1.0;
+        searchAndSortPanel.add(new JLabel(), c);
+        c.weightx = 1.0;
+        searchAndSortPanel.add(new JLabel("Sortuj według:"), c);
+        c.weightx = 1.0;
+        searchAndSortPanel.add(sortComboBox, c);
+        upperPanel.add(searchAndSortPanel);
+
+        JPanel filterPanelUp = new JPanel();
+        filterPanelUp.setLayout(new GridLayout(1, 4));
+        filterPanelUp.add(typeComboBox);
+        filterPanelUp.add(new JLabel("Kalorie: ", SwingConstants.RIGHT));
+        filterPanelUp.add(kcalMinField);
+        filterPanelUp.add(kcalMaxField);
+
+        JPanel filterPanelDown = new JPanel();
+        filterPanelDown.setLayout(new GridLayout(1, 4));
+        filterPanelDown.add(vegetarianCheckBox);
+        filterPanelDown.add(new JLabel("Cena: ", SwingConstants.RIGHT));
+        filterPanelDown.add(priceMinField);
+        filterPanelDown.add(priceMaxField);
+
+        upperPanel.add(filterPanelUp);
+        upperPanel.add(filterPanelDown);
         add(upperPanel, BorderLayout.NORTH);
 
         searchField.getDocument().addDocumentListener(new DocumentListener() {
@@ -104,6 +126,7 @@ public class DishSelectionPanel extends JPanel {
                     dishList.clearSelection();
                     OrdersDTO order = new OrdersDTO();
                     AddOrder addOrder = new AddOrder();
+                    //Some of the values hardcoded for now, will be updated
                     order.setCustomerId(((App) callback).loggedAccount.getAccountId());
                     order.setTotal(dishes.get(index).getPrice());
                     order.setPaymentMethodId(1);
