@@ -190,12 +190,12 @@ public class DishSelectionPanel extends JPanel {
         else if (sortComboBox.getSelectedIndex() == 1) {
             dishesList.sort(Comparator.comparing(DishesEntity::getPrice).reversed());
         }
-//        else if (sortComboBox.getSelectedIndex() == 2) {
-//            dishesList.sort(Comparator.comparing(DishesEntity::getKcal));
-//        }
-//        else if (sortComboBox.getSelectedIndex() == 3) {
-//            dishesList.sort(Comparator.comparing(DishesEntity::getKcal).reversed());
-//        }
+        else if (sortComboBox.getSelectedIndex() == 2) {
+            dishesList.sort(Comparator.comparing(DishesEntity::getKcal));
+        }
+        else if (sortComboBox.getSelectedIndex() == 3) {
+            dishesList.sort(Comparator.comparing(DishesEntity::getKcal).reversed());
+        }
         model.clear();
         for (DishesEntity dish : dishesList) {
             model.addElement(dish.getName());
