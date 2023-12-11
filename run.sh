@@ -6,6 +6,6 @@ docker cp init.sql papdb:/docker-entrypoint-initdb.d/init.sql
 # Uruchomienie aplikacji
 
 cd foodAppliaction
-mvn clean install
+mvn clean install -DskipTests
 mvn exec:java -Dexec.mainClass="pap2023z.z09.gui.App"
 
