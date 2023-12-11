@@ -8,14 +8,14 @@ import java.awt.event.ActionListener;
 import pap2023z.z09.accounts.AccountsDAO;
 import pap2023z.z09.accounts.LoginService;
 
-public class LoginPanel extends FoodPanel {
+public class LoginPanel extends JPanel {
     public LoginPanel(Callback callback) {
         JLabel loginLabel = new JLabel("Login:");
         JLabel passwordLabel = new JLabel("Password:");
         JTextField loginField = new JTextField(15);
         JPasswordField passwordField = new JPasswordField(15);
-        FoodButton loginButton = new FoodButton("Log in");
-        FoodButton returnButton = new FoodButton("Return");
+        JButton loginButton = new JButton("Log in");
+        JButton returnButton = new JButton("Return");
         JLabel errorLabel = new JLabel();
 
         loginButton.addActionListener(new ActionListener() {

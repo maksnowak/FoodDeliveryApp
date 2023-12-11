@@ -5,11 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class WelcomePanel extends FoodPanel {
+public class WelcomePanel extends JPanel {
     public WelcomePanel(App parent) {
         JLabel welcomeLabel = new JLabel("Food!!", SwingConstants.CENTER);
-        FoodButton loginButton = new FoodButton("Log in");
-        FoodButton registerButton = new FoodButton("Register");
+        JButton loginButton = new JButton("Log in");
+        JButton registerButton = new JButton("Register");
 
         loginButton.addActionListener(new ActionListener() {
             @Override

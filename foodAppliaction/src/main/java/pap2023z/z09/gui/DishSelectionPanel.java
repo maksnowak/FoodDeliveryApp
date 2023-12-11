@@ -8,7 +8,7 @@ import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.dishes.DishesDAO;
 
-public class DishSelectionPanel extends FoodPanel {
+public class DishSelectionPanel extends JPanel {
     DishesDAO DD = new DishesDAO();
     DefaultListModel<String> model = new DefaultListModel<>();
     JList<String> dishList = new JList<>(model);
@@ -31,7 +31,7 @@ public class DishSelectionPanel extends FoodPanel {
         JScrollPane scrollPane = new JScrollPane(dishList);
         add(scrollPane, BorderLayout.CENTER);
 
-        FoodButton backButton = new FoodButton("Powrót");
+        JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e -> {
             isListenerActive = false;
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "RestaurantChoice");

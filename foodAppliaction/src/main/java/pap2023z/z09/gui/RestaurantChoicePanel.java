@@ -15,7 +15,7 @@ import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.restaurants.RestaurantsDAO;
 import pap2023z.z09.restaurants.RestaurantsDTO;
 
-public class RestaurantChoicePanel extends FoodPanel {
+public class RestaurantChoicePanel extends JPanel {
     Callback callback;
     RestaurantsDAO DAO = new RestaurantsDAO();
     List<RestaurantsEntity> restaurants = DAO.getAllRestaurants();
@@ -70,7 +70,7 @@ public class RestaurantChoicePanel extends FoodPanel {
         JScrollPane scrollPane = new JScrollPane(restaurantList);
         add(scrollPane, BorderLayout.CENTER);
 
-        FoodButton backButton = new FoodButton("Powrót");
+        JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e -> {
             isListenerActive = false;
             restaurantList.clearSelection();

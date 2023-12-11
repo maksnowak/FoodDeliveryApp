@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AccountInfoPanel extends FoodPanel {
+public class AccountInfoPanel extends JPanel {
     public AccountInfoPanel(Callback callback) {
         setLayout(new BorderLayout());
 
@@ -14,14 +14,14 @@ public class AccountInfoPanel extends FoodPanel {
         JScrollPane scrollPane = new JScrollPane(accountInfoTextArea);
         add(scrollPane, BorderLayout.CENTER);
 
-        FoodButton editButton = new FoodButton("Edytuj dane");
+        JButton editButton = new JButton("Edytuj dane");
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ((App) callback).cardLayout.show(((App) callback).getContentPane(), "EditAccount");
             }
         });
-        FoodButton deleteButton = new FoodButton("Usuń konto");
+        JButton deleteButton = new JButton("Usuń konto");
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -32,7 +32,7 @@ public class AccountInfoPanel extends FoodPanel {
             }
         });
 
-        FoodButton logoutButton = new FoodButton("Wyloguj");
+        JButton logoutButton = new JButton("Wyloguj");
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,7 +43,7 @@ public class AccountInfoPanel extends FoodPanel {
             }
         });
 
-        FoodButton backButton = new FoodButton("Powrót");
+        JButton backButton = new JButton("Powrót");
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
