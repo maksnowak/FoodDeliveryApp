@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.dishes.DishesDAO;
+import pap2023z.z09.orders.OrdersDTO;
+import pap2023z.z09.orders.AddOrder;
 
 public class DishSelectionPanel extends JPanel {
     DishesDAO DD = new DishesDAO();
@@ -98,9 +100,22 @@ public class DishSelectionPanel extends JPanel {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting() && dishList.getSelectedValue() != null) {
                     String selected = dishList.getSelectedValue();
+                    int index = dishList.getSelectedIndex();
                     dishList.clearSelection();
-                    System.out.println("Wybrano danie: " + selected);
-                    JOptionPane.showMessageDialog(null, "Wybrano danie: " + selected);
+                    OrdersDTO order = new OrdersDTO();
+                    AddOrder addOrder = new AddOrder();
+                    order.setCustomerId(((App) callback).loggedAccount.getAccountId());
+                    order.setTotal(dishes.get(index).getPrice());
+                    order.setPaymentMethodId(1);
+                    order.setStreet("ulica");
+                    order.setStreetNumber(1);
+                    order.setApartment(1);
+                    order.setCity("miasto");
+                    order.setDiscountId(1);
+                    order.setStatusId(1);
+                    order.setTip(new BigDecimal(0));
+                    addOrder.addOrder(order);
+                    JOptionPane.showMessageDialog(null, "Zamówiono danie: " + selected);
                 }
             }
         });
