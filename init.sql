@@ -229,7 +229,7 @@ CREATE TABLE public.dishes (
     type_id integer NOT NULL,
     vegetarian boolean NOT NULL,
     price numeric(5,2) NOT NULL,
-    kcal numeric(4,0) NOT NULL
+    kcal numeric(5,1) NOT NULL
 );
 
 
@@ -654,7 +654,7 @@ INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (61, 'Piwo', 5, 7, true
 -- Data for Name: payment_methods; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-
+INSERT INTO public.payment_methods OVERRIDING SYSTEM VALUE VALUES (1, '1234567890123456', '2023-12-31', 123, 1);
 
 --
 -- TOC entry 3489 (class 0 OID 16458)
@@ -802,7 +802,7 @@ SELECT pg_catalog.setval('public.orders_order_id_seq', 1, false);
 -- Name: payment_methods_method_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.payment_methods_method_id_seq', 1, false);
+SELECT pg_catalog.setval('public.payment_methods_method_id_seq', 2, false);
 
 
 --
