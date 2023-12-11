@@ -15,6 +15,7 @@ import pap2023z.z09.database.PaymentMethodsEntity;
 public class paymentMethodDTOTest {
     private PaymentMethodsDTO paymentMethodDTO;
     public int exampleInt = 1;
+    public String exampleString = "1234567890123456";
     public Date exampleDate = new Date(2000, 9, 11);
     @Mock
     private PaymentMethodsEntity paymentMethodEntity;
@@ -35,8 +36,8 @@ public class paymentMethodDTOTest {
     @Test
     public void testSetAndGetCardNumber() {
 
-        paymentMethodDTO.setCardNumber(exampleInt);
-        assertEquals(exampleInt, paymentMethodDTO.getCardNumber());
+        paymentMethodDTO.setCardNumber(exampleString);
+        assertEquals(exampleString, paymentMethodDTO.getCardNumber());
     }
 
     @Test

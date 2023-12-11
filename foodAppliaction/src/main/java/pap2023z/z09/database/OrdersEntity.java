@@ -17,14 +17,14 @@ public class OrdersEntity {
     @Column(name = "status", nullable = false)
     private int status;
     @Basic
-    @Column(name = "customer", nullable = false)
-    private int customer;
+    @Column(name = "customer", nullable = true)
+    private Integer customer;
     @Basic
     @Column(name = "total", nullable = false, precision = 2)
     private BigDecimal total;
     @Basic
-    @Column(name = "payment_method", nullable = false)
-    private int paymentMethod;
+    @Column(name = "payment_method", nullable = true)
+    private Integer paymentMethod;
     @Basic
     @Column(name = "street", nullable = false, length = 40)
     private String street;
@@ -51,10 +51,10 @@ public class OrdersEntity {
     @JoinColumn(name = "status", referencedColumnName = "status_id", nullable = false, insertable = false, updatable = false)
     private StatusesEntity statusesByStatus;
     @ManyToOne
-    @JoinColumn(name = "customer", referencedColumnName = "account_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "customer", referencedColumnName = "account_id", insertable = false, updatable = false)
     private AccountsEntity accountsByCustomer;
     @ManyToOne
-    @JoinColumn(name = "payment_method", referencedColumnName = "method_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "payment_method", referencedColumnName = "method_id", insertable = false, updatable = false)
     private PaymentMethodsEntity paymentMethodsByPaymentMethod;
     @ManyToOne
     @JoinColumn(name = "discount", referencedColumnName = "discount_id", insertable = false, updatable = false)
@@ -76,11 +76,11 @@ public class OrdersEntity {
         this.status = status;
     }
 
-    public int getCustomer() {
+    public Integer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(int customer) {
+    public void setCustomer(Integer customer) {
         this.customer = customer;
     }
 
@@ -92,11 +92,11 @@ public class OrdersEntity {
         this.total = total;
     }
 
-    public int getPaymentMethod() {
+    public Integer getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(int paymentMethod) {
+    public void setPaymentMethod(Integer paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
@@ -153,7 +153,7 @@ public class OrdersEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrdersEntity that = (OrdersEntity) o;
-        return orderId == that.orderId && status == that.status && customer == that.customer && paymentMethod == that.paymentMethod && streetNumber == that.streetNumber && Objects.equals(total, that.total) && Objects.equals(street, that.street) && Objects.equals(apartment, that.apartment) && Objects.equals(city, that.city) && Objects.equals(discount, that.discount) && Objects.equals(tip, that.tip);
+        return orderId == that.orderId && status == that.status && streetNumber == that.streetNumber && Objects.equals(customer, that.customer) && Objects.equals(total, that.total) && Objects.equals(paymentMethod, that.paymentMethod) && Objects.equals(street, that.street) && Objects.equals(apartment, that.apartment) && Objects.equals(city, that.city) && Objects.equals(discount, that.discount) && Objects.equals(tip, that.tip);
     }
 
     @Override

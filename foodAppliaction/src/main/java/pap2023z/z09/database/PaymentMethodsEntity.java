@@ -14,8 +14,8 @@ public class PaymentMethodsEntity {
     @Column(name = "method_id", nullable = false)
     private int methodId;
     @Basic
-    @Column(name = "card_number", nullable = false, precision = 0)
-    private int cardNumber;
+    @Column(name = "card_number", nullable = false, length = 16)
+    private String cardNumber;
     @Basic
     @Column(name = "expiry_date", nullable = false)
     private Date expiryDate;
@@ -39,11 +39,11 @@ public class PaymentMethodsEntity {
         this.methodId = methodId;
     }
 
-    public int getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(int cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
@@ -76,7 +76,7 @@ public class PaymentMethodsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PaymentMethodsEntity that = (PaymentMethodsEntity) o;
-        return methodId == that.methodId && cardNumber == that.cardNumber && cvv == that.cvv && customer == that.customer && Objects.equals(expiryDate, that.expiryDate);
+        return methodId == that.methodId && cvv == that.cvv && customer == that.customer && Objects.equals(cardNumber, that.cardNumber) && Objects.equals(expiryDate, that.expiryDate);
     }
 
     @Override

@@ -30,7 +30,7 @@ public class RestaurantsEntity {
     private Time closesWeekends;
     @OneToMany(mappedBy = "restaurantsByRestaurantId")
     private Collection<DishesEntity> dishesByRestaurantId;
-    @OneToMany(mappedBy = "restaurantsByResturantId")
+    @OneToMany(mappedBy = "restaurantsByRestaurantId")
     private Collection<ReviewsEntity> reviewsByRestaurantId;
     @OneToMany(mappedBy = "restaurantsByRestaurantId")
     private Collection<WorkersEntity> workersByRestaurantId;

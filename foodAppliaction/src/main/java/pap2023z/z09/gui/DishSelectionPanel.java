@@ -172,13 +172,9 @@ public class DishSelectionPanel extends JPanel {
                     (typeComboBox.getSelectedIndex() == 0 || dish.getTypeId() == typeComboBox.getSelectedIndex()) &&
                     (priceMinField.getText().isEmpty() || dish.getPrice().compareTo(new BigDecimal(priceMinField.getText())) >= 0) &&
                     (priceMaxField.getText().isEmpty() || dish.getPrice().compareTo(new BigDecimal(priceMaxField.getText())) <= 0) &&
-                    (!vegetarianCheckBox.isSelected() || dish.getVegetarian() == null || dish.getVegetarian())) {
-
-                if (dish.getKcal() == null) {
-                    model.addElement(dish.getName());
-                }
-                else if ((kcalMinField.getText().isEmpty() || dish.getKcal().compareTo(new BigDecimal(kcalMinField.getText())) >= 0) &&
-                        (kcalMaxField.getText().isEmpty() || dish.getKcal().compareTo(new BigDecimal(kcalMaxField.getText())) <= 0)) {
+                    (!vegetarianCheckBox.isSelected() || dish.isVegetarian())) {
+                if ((kcalMinField.getText().isEmpty() || dish.getKcal().compareTo(new BigDecimal(kcalMinField.getText())) >= 0) &&
+                    (kcalMaxField.getText().isEmpty() || dish.getKcal().compareTo(new BigDecimal(kcalMaxField.getText())) <= 0)) {
                     model.addElement(dish.getName());
                 }
             }

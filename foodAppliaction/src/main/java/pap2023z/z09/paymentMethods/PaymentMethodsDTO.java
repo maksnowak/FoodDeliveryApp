@@ -8,12 +8,12 @@ import java.sql.Date;
 public class PaymentMethodsDTO {
 
     //getters
-    private int cardNumber;
+    private String cardNumber;
     private Date expiryDate;
     private int cvv;
     private int customer;
     private int MethodId;
-    public PaymentMethodsDTO(int MethodId, int cardNumber, Date expiryDate, int cvv, int customer)
+    public PaymentMethodsDTO(int MethodId, String cardNumber, Date expiryDate, int cvv, int customer)
     {
         this.MethodId = MethodId;
         this.cardNumber = cardNumber;
@@ -28,7 +28,7 @@ public class PaymentMethodsDTO {
     public int getMethodId(){
         return MethodId;
     }
-    public int getCardNumber(){
+    public String getCardNumber(){
         return cardNumber;
     }
 
@@ -53,7 +53,7 @@ public class PaymentMethodsDTO {
         this.customer = customer;
     }
 
-    public void setCardNumber(int cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
