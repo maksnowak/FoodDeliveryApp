@@ -6,13 +6,16 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.util.List;
+import java.util.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.dishes.DishesDAO;
+import pap2023z.z09.orders.OrdersDTO;
+import pap2023z.z09.orders.AddOrder;
 
 public class DishSelectionPanel extends JPanel {
     DishesDAO DD = new DishesDAO();
@@ -28,6 +31,7 @@ public class DishSelectionPanel extends JPanel {
     JTextField priceMinField = new JTextField();
     JTextField priceMaxField = new JTextField();
     JCheckBox vegetarianCheckBox = new JCheckBox("wege");
+    JComboBox<String> sortComboBox = new JComboBox<>();
 
 
     public DishSelectionPanel(Callback callback) {
@@ -42,25 +46,46 @@ public class DishSelectionPanel extends JPanel {
         typeComboBox.addItem("Sałatki");
         typeComboBox.addItem("Napoje");
 
-        JPanel upperPanel = new JPanel();
-        upperPanel.setLayout(new GridLayout(2, 1));
-        JPanel upperHalf = new JPanel();
-        upperHalf.setLayout(new GridLayout(2, 1));
-        upperHalf.add(titleLabel);
-        upperHalf.add(searchField);
-        upperPanel.add(upperHalf);
-        JPanel filterPanel = new JPanel();
-        filterPanel.setLayout(new GridLayout(2, 4));
-        filterPanel.add(typeComboBox);
-        filterPanel.add(new JLabel("Kalorie:"));
-        filterPanel.add(kcalMinField);
-        filterPanel.add(kcalMaxField);
-        filterPanel.add(vegetarianCheckBox);
-        filterPanel.add(new JLabel("Cena:"));
-        filterPanel.add(priceMinField);
-        filterPanel.add(priceMaxField);
+        sortComboBox.addItem("Od najtańszych");
+        sortComboBox.addItem("Od najdroższych");
+        sortComboBox.addItem("Od najmniej kalorycznych");
+        sortComboBox.addItem("Od najbardziej kalorycznych");
 
-        upperPanel.add(filterPanel);
+        JPanel upperPanel = new JPanel();
+        upperPanel.setLayout(new GridLayout(4, 1));
+        upperPanel.add(titleLabel);
+        JPanel searchAndSortPanel = new JPanel();
+        searchAndSortPanel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1.0;
+        searchAndSortPanel.add(new JLabel("Wyszukaj: "), c);
+        c.weightx = 15.0;
+        searchAndSortPanel.add(searchField, c);
+        c.weightx = 1.0;
+        searchAndSortPanel.add(new JLabel(), c);
+        c.weightx = 1.0;
+        searchAndSortPanel.add(new JLabel("Sortuj według:"), c);
+        c.weightx = 1.0;
+        searchAndSortPanel.add(sortComboBox, c);
+        upperPanel.add(searchAndSortPanel);
+
+        JPanel filterPanelUp = new JPanel();
+        filterPanelUp.setLayout(new GridLayout(1, 4));
+        filterPanelUp.add(typeComboBox);
+        filterPanelUp.add(new JLabel("Kalorie: ", SwingConstants.RIGHT));
+        filterPanelUp.add(kcalMinField);
+        filterPanelUp.add(kcalMaxField);
+
+        JPanel filterPanelDown = new JPanel();
+        filterPanelDown.setLayout(new GridLayout(1, 4));
+        filterPanelDown.add(vegetarianCheckBox);
+        filterPanelDown.add(new JLabel("Cena: ", SwingConstants.RIGHT));
+        filterPanelDown.add(priceMinField);
+        filterPanelDown.add(priceMaxField);
+
+        upperPanel.add(filterPanelUp);
+        upperPanel.add(filterPanelDown);
         add(upperPanel, BorderLayout.NORTH);
 
         searchField.getDocument().addDocumentListener(new DocumentListener() {
@@ -91,6 +116,7 @@ public class DishSelectionPanel extends JPanel {
             @Override public void changedUpdate(DocumentEvent e) { searchAndFilterList(); }
         });
         vegetarianCheckBox.addActionListener(e -> searchAndFilterList());
+        sortComboBox.addActionListener(e -> searchAndFilterList());
 
         dishList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         dishList.addListSelectionListener(new ListSelectionListener() {
@@ -98,9 +124,23 @@ public class DishSelectionPanel extends JPanel {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting() && dishList.getSelectedValue() != null) {
                     String selected = dishList.getSelectedValue();
+                    int index = dishList.getSelectedIndex();
                     dishList.clearSelection();
-                    System.out.println("Wybrano danie: " + selected);
-                    JOptionPane.showMessageDialog(null, "Wybrano danie: " + selected);
+                    OrdersDTO order = new OrdersDTO();
+                    AddOrder addOrder = new AddOrder();
+                    //Some of the values hardcoded for now, will be updated
+                    order.setCustomerId(((App) callback).loggedAccount.getAccountId());
+                    order.setTotal(dishes.get(index).getPrice());
+                    order.setPaymentMethodId(1);
+                    order.setStreet("ulica");
+                    order.setStreetNumber(1);
+                    order.setApartment(1);
+                    order.setCity("miasto");
+                    order.setDiscountId(1);
+                    order.setStatusId(1);
+                    order.setTip(new BigDecimal(0));
+                    addOrder.addOrder(order);
+                    JOptionPane.showMessageDialog(null, "Zamówiono danie: " + selected);
                 }
             }
         });
@@ -142,6 +182,27 @@ public class DishSelectionPanel extends JPanel {
                     model.addElement(dish.getName());
                 }
             }
+        }
+        List<DishesEntity> dishesList = new ArrayList<>();
+        for (int i = 0; i < model.size(); i++) {
+            int finalI = i;
+            dishesList.add(dishes.stream().filter(d -> d.getName().equals(model.get(finalI))).findFirst().get());
+        }
+        if (sortComboBox.getSelectedIndex() == 0) {
+            dishesList.sort(Comparator.comparing(DishesEntity::getPrice));
+        }
+        else if (sortComboBox.getSelectedIndex() == 1) {
+            dishesList.sort(Comparator.comparing(DishesEntity::getPrice).reversed());
+        }
+//        else if (sortComboBox.getSelectedIndex() == 2) {
+//            dishesList.sort(Comparator.comparing(DishesEntity::getKcal));
+//        }
+//        else if (sortComboBox.getSelectedIndex() == 3) {
+//            dishesList.sort(Comparator.comparing(DishesEntity::getKcal).reversed());
+//        }
+        model.clear();
+        for (DishesEntity dish : dishesList) {
+            model.addElement(dish.getName());
         }
     }
 }
