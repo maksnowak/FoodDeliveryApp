@@ -8,10 +8,11 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.util.List;
 
+import java.math.BigDecimal;
+
 import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.dishes.DishesDAO;
-import pap2023z.z09.restaurants.RestaurantsDAO;
 
 public class DishSelectionPanel extends JPanel {
     DishesDAO DD = new DishesDAO();
@@ -63,19 +64,33 @@ public class DishSelectionPanel extends JPanel {
         add(upperPanel, BorderLayout.NORTH);
 
         searchField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                searchAndFilterList();
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                searchAndFilterList();
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                searchAndFilterList();
-            }
+            @Override public void insertUpdate(DocumentEvent e) { searchAndFilterList(); }
+            @Override public void removeUpdate(DocumentEvent e) { searchAndFilterList(); }
+            @Override public void changedUpdate(DocumentEvent e) { searchAndFilterList(); }
         });
+
+        typeComboBox.addActionListener(e -> searchAndFilterList());
+        kcalMinField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override public void insertUpdate(DocumentEvent e) { searchAndFilterList(); }
+            @Override public void removeUpdate(DocumentEvent e) { searchAndFilterList(); }
+            @Override public void changedUpdate(DocumentEvent e) { searchAndFilterList(); }
+        });
+        kcalMaxField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override public void insertUpdate(DocumentEvent e) { searchAndFilterList(); }
+            @Override public void removeUpdate(DocumentEvent e) { searchAndFilterList(); }
+            @Override public void changedUpdate(DocumentEvent e) { searchAndFilterList(); }
+        });
+        priceMinField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override public void insertUpdate(DocumentEvent e) { searchAndFilterList(); }
+            @Override public void removeUpdate(DocumentEvent e) { searchAndFilterList(); }
+            @Override public void changedUpdate(DocumentEvent e) { searchAndFilterList(); }
+        });
+        priceMaxField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override public void insertUpdate(DocumentEvent e) { searchAndFilterList(); }
+            @Override public void removeUpdate(DocumentEvent e) { searchAndFilterList(); }
+            @Override public void changedUpdate(DocumentEvent e) { searchAndFilterList(); }
+        });
+        vegetarianCheckBox.addActionListener(e -> searchAndFilterList());
 
         dishList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         dishList.addListSelectionListener(new ListSelectionListener() {
@@ -103,21 +118,29 @@ public class DishSelectionPanel extends JPanel {
     }
 
     public void enter(RestaurantsEntity restaurant) {
-        model.clear();
         isListenerActive = true;
         titleLabel.setText("Wybierz danie w restauracji: " + restaurant.getName());
         dishes = DD.getDishesByRestaurant(restaurant.getRestaurantId());
-        for (DishesEntity dish : dishes) {
-            model.addElement(dish.getName());
-        }
+        searchAndFilterList();
     }
 
     public void searchAndFilterList() {
         model.clear();
         String search = searchField.getText();
         for (DishesEntity dish : dishes) {
-            if (dish.getName().toLowerCase().contains(search.toLowerCase())) {
-                model.addElement(dish.getName());
+            if (dish.getName().toLowerCase().contains(search.toLowerCase()) &&
+                    (typeComboBox.getSelectedIndex() == 0 || dish.getTypeId() == typeComboBox.getSelectedIndex()) &&
+                    (priceMinField.getText().isEmpty() || dish.getPrice().compareTo(new BigDecimal(priceMinField.getText())) >= 0) &&
+                    (priceMaxField.getText().isEmpty() || dish.getPrice().compareTo(new BigDecimal(priceMaxField.getText())) <= 0) &&
+                    (!vegetarianCheckBox.isSelected() || dish.getVegetarian() == null || dish.getVegetarian())) {
+
+                if (dish.getKcal() == null) {
+                    model.addElement(dish.getName());
+                }
+                else if ((kcalMinField.getText().isEmpty() || dish.getKcal().compareTo(new BigDecimal(kcalMinField.getText())) >= 0) &&
+                        (kcalMaxField.getText().isEmpty() || dish.getKcal().compareTo(new BigDecimal(kcalMaxField.getText())) <= 0)) {
+                    model.addElement(dish.getName());
+                }
             }
         }
     }
