@@ -39,7 +39,7 @@ public class DishSelectionPanel extends FoodPanel {
         add(backButton, BorderLayout.SOUTH);
     }
 
-    public void updateRestaurantLabel(RestaurantsEntity restaurant) {
+    public void enter(RestaurantsEntity restaurant) {
         model.clear();
         isListenerActive = true;
         ((JLabel) getComponent(0)).setText("Wybierz danie w restauracji: " + restaurant.getName());
