@@ -229,7 +229,7 @@ CREATE TABLE public.dishes (
     type_id integer NOT NULL,
     vegetarian boolean,
     price numeric(5,2) NOT NULL,
-    kcal numeric(4,1)
+    kcal numeric(4,0)
 );
 
 
@@ -561,67 +561,67 @@ INSERT INTO public.dish_types OVERRIDING SYSTEM VALUE VALUES (7, 'Napoje');
 -- Data for Name: dishes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (1, 'Zupa pho', 1, 2, false, 15.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (2, 'Kurczak w cieście', 1, 3, false, 20.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (3, 'Kurczak chrupiący', 1, 3, false, 21.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (4, 'Kurczak po tajsku', 1, 3, false, 22.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (5, 'Makaron sojowy z kurczakiem', 1, 3, false, 25.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (6, 'Makaron sojowy z wieprzowiną', 1, 3, false, 28.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (7, 'Frytki', 1, 5, true, 7.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (8, 'Ryż smażony', 1, 3, true, 18.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (9, 'Woda', 1, 7, NULL, 3.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (10, 'Herbata', 1, 7, NULL, 5.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (11, 'Cola', 1, 7, NULL, 6.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (12, 'Pizza margherita', 2, 3, true, 20.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (13, 'Pizza capriciosa', 2, 3, false, 22.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (14, 'Pizza z szynką parmeńską', 2, 3, false, 24.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (15, 'Pizza wiejska', 2, 3, false, 25.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (16, 'Pizza pepperoni', 2, 3, false, 23.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (17, 'Pizza hawajska', 2, 3, false, 24.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (18, 'Pizza napoletana', 2, 3, true, 23.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (19, 'Sos czosnkowy', 2, 5, NULL, 4.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (20, 'Sos pomidorowy', 2, 5, NULL, 4.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (21, 'Cola', 2, 7, NULL, 6.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (22, 'Sprite', 2, 7, NULL, 6.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (23, 'Woda', 2, 7, NULL, 3.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (24, 'Fanta', 2, 7, NULL, 6.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (25, 'Sałatka cezar', 3, 6, false, 15.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (26, 'Bruschetta', 3, 1, true, 12.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (27, 'Foccacia', 3, 1, true, 12.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (28, 'Spaghetti carbonara', 3, 3, false, 20.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (29, 'Risotto z krewetkami', 3, 3, false, 25.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (30, 'Owoce morza', 3, 3, false, 35.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (31, 'Pizza margherita', 3, 3, true, 28.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (32, 'Pizza pepperoni', 3, 3, false, 30.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (33, 'Tiramisu', 3, 4, true, 15.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (34, 'Cola', 3, 7, NULL, 10.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (35, 'Lemoniada', 3, 7, NULL, 8.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (36, 'Kawa', 3, 7, NULL, 12.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (37, 'Wino', 3, 7, NULL, 20.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (38, 'Zupa pomidorowa', 4, 2, false, 7.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (39, 'Kotlet mielony', 4, 3, false, 11.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (40, 'Kotlet schabowy', 4, 3, false, 12.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (41, 'Gołąbki', 4, 3, false, 14.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (42, 'Ziemniaki', 4, 5, true, 4.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (43, 'Ryż', 4, 5, true, 5.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (44, 'Kopytka', 4, 3, true, 9.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (45, 'Pierogi ruskie', 4, 3, true, 10.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (46, 'Pierogi z mięsem', 4, 3, false, 11.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (47, 'Woda', 4, 7, NULL, 3.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (48, 'Kompot', 4, 7, NULL, 3.50, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (49, 'Chaczapuri adżaruli', 5, 1, true, 20.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (50, 'Chaczapuri imerula', 5, 1, true, 20.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (51, 'Lobiani', 5, 1, true, 22.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (52, 'Kupdari', 5, 1, false, 25.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (53, 'Chinkali z mięsem', 5, 3, false, 28.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (54, 'Chinkali z serem', 5, 3, true, 26.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (55, 'Tolma', 5, 1, false, 24.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (56, 'Pielmieni', 5, 3, false, 27.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (57, 'Czanachi', 5, 3, false, 32.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (58, 'Czaszuszuli', 5, 3, false, 30.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (59, 'Lemoniada', 5, 7, NULL, 10.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (60, 'Woda', 5, 7, NULL, 5.00, NULL);
-INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (61, 'Piwo', 5, 7, NULL, 13.00, NULL);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (1, 'Zupa pho', 1, 2, false, 15.00, 350);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (2, 'Kurczak w cieście', 1, 3, false, 20.00, 500);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (3, 'Kurczak chrupiący', 1, 3, false, 21.00, 450);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (4, 'Kurczak po tajsku', 1, 3, false, 22.00, 450);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (5, 'Makaron sojowy z kurczakiem', 1, 3, false, 25.00, 550);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (6, 'Makaron sojowy z wieprzowiną', 1, 3, false, 28.00, 600);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (7, 'Frytki', 1, 5, true, 7.00, 200);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (8, 'Ryż smażony', 1, 3, true, 18.00, 320);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (9, 'Woda', 1, 7, NULL, 3.00, 0);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (10, 'Herbata', 1, 7, NULL, 5.00, 10);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (11, 'Cola', 1, 7, NULL, 6.00, 75);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (12, 'Pizza margherita', 2, 3, true, 20.00, 900);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (13, 'Pizza capriciosa', 2, 3, false, 22.00, 920);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (14, 'Pizza z szynką parmeńską', 2, 3, false, 24.00, 1000);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (15, 'Pizza wiejska', 2, 3, false, 25.00, 1110);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (16, 'Pizza pepperoni', 2, 3, false, 23.00, 1200);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (17, 'Pizza hawajska', 2, 3, false, 24.00, 1300);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (18, 'Pizza napoletana', 2, 3, true, 23.00, 1200);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (19, 'Sos czosnkowy', 2, 5, NULL, 4.00, 100);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (20, 'Sos pomidorowy', 2, 5, NULL, 4.00, 100);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (21, 'Cola', 2, 7, NULL, 6.00, 75);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (22, 'Sprite', 2, 7, NULL, 6.00, 80);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (23, 'Woda', 2, 7, NULL, 3.00, 0);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (24, 'Fanta', 2, 7, NULL, 6.00, 90);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (25, 'Sałatka cezar', 3, 6, false, 15.00, 250);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (26, 'Bruschetta', 3, 1, true, 12.00, 200);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (27, 'Foccacia', 3, 1, true, 12.00, 170);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (28, 'Spaghetti carbonara', 3, 3, false, 20.00, 400);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (29, 'Risotto z krewetkami', 3, 3, false, 25.00, 500);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (30, 'Owoce morza', 3, 3, false, 35.00, 420);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (31, 'Pizza margherita', 3, 3, true, 28.00, 910);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (32, 'Pizza pepperoni', 3, 3, false, 30.00, 1180);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (33, 'Tiramisu', 3, 4, true, 15.00, 700);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (34, 'Cola', 3, 7, NULL, 10.00, 75);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (35, 'Lemoniada', 3, 7, NULL, 8.00, 40);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (36, 'Kawa', 3, 7, NULL, 12.00, 100);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (37, 'Wino', 3, 7, NULL, 20.00, 120);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (38, 'Zupa pomidorowa', 4, 2, false, 7.00, 300);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (39, 'Kotlet mielony', 4, 3, false, 11.00, 600);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (40, 'Kotlet schabowy', 4, 3, false, 12.00, 640);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (41, 'Gołąbki', 4, 3, false, 14.00, 700);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (42, 'Ziemniaki', 4, 5, true, 4.00, 180);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (43, 'Ryż', 4, 5, true, 5.00, 150);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (44, 'Kopytka', 4, 3, true, 9.00, 700);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (45, 'Pierogi ruskie', 4, 3, true, 10.00, 1000);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (46, 'Pierogi z mięsem', 4, 3, false, 11.00, 900);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (47, 'Woda', 4, 7, NULL, 3.00, 0);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (48, 'Kompot', 4, 7, NULL, 3.50, 30);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (49, 'Chaczapuri adżaruli', 5, 1, true, 20.00, 400);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (50, 'Chaczapuri imerula', 5, 1, true, 20.00, 450);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (51, 'Lobiani', 5, 1, true, 22.00, 500);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (52, 'Kupdari', 5, 1, false, 25.00, 550);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (53, 'Chinkali z mięsem', 5, 3, false, 28.00, 700);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (54, 'Chinkali z serem', 5, 3, true, 26.00, 850);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (55, 'Tolma', 5, 1, false, 24.00, 400);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (56, 'Pielmieni', 5, 3, false, 27.00, 720);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (57, 'Czanachi', 5, 3, false, 32.00, 600);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (58, 'Czaszuszuli', 5, 3, false, 30.00, 700);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (59, 'Lemoniada', 5, 7, NULL, 10.00, 40);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (60, 'Woda', 5, 7, NULL, 5.00, 0);
+INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (61, 'Piwo', 5, 7, NULL, 13.00, 150);
 
 
 --
