@@ -14,10 +14,11 @@ public class DishSelectionPanel extends JPanel {
     JList<String> dishList = new JList<>(model);
     boolean isListenerActive = false;
 
+
     public DishSelectionPanel(Callback callback) {
         setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Wybierz danie w restauracji: ");
+        JLabel titleLabel = new JLabel("Wybierz restaurację:");
         add(titleLabel, BorderLayout.NORTH);
 
         dishList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

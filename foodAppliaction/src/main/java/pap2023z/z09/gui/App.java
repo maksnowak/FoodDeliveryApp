@@ -69,12 +69,6 @@ public class App extends JFrame implements Callback {
     }
 
     @Override
-    public void onReturnToRestaurantSelection() {
-        restaurantChoicePanel.enter();
-        cardLayout.show(getContentPane(), "RestaurantChoice");
-    }
-
-    @Override
     public void onAccountLogged(AccountsEntity account) {
         loggedAccount = account;
         updateAccountInfo();

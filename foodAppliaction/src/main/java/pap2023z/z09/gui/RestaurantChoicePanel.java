@@ -22,7 +22,6 @@ public class RestaurantChoicePanel extends JPanel {
     JList<String> restaurantList;
     DefaultListModel<String> model = new DefaultListModel<>();
     JTextField searchField = new JTextField();
-    boolean isListenerActive = false;
 
     public RestaurantChoicePanel(Callback callback) {
         this.callback = callback;
@@ -59,7 +58,6 @@ public class RestaurantChoicePanel extends JPanel {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting() && restaurantList.getSelectedValue() != null) {
                     String selected = restaurantList.getSelectedValue();
-                    isListenerActive = false;
                     restaurantList.clearSelection();
                     searchField.setText("");
                     RestaurantsDAO DAO = new RestaurantsDAO();
@@ -72,7 +70,6 @@ public class RestaurantChoicePanel extends JPanel {
 
         JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e -> {
-            isListenerActive = false;
             restaurantList.clearSelection();
             searchField.setText("");
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
@@ -88,9 +85,5 @@ public class RestaurantChoicePanel extends JPanel {
                 model.addElement(restaurant.getName());
             }
         }
-    }
-
-    public void enter() {
-        isListenerActive = true;
     }
 }
