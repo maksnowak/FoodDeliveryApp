@@ -15,10 +15,13 @@ import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.dishes.DishesDAO;
 import pap2023z.z09.orders.OrdersDTO;
+import pap2023z.z09.orders.OrdersDAO;
 import pap2023z.z09.orders.AddOrder;
 
 public class DishSelectionPanel extends JPanel {
     DishesDAO DD = new DishesDAO();
+    OrdersDAO OD = new OrdersDAO();
+
     List<DishesEntity> dishes;
     DefaultListModel<String> model = new DefaultListModel<>();
     JList<String> dishList = new JList<>(model);
@@ -127,7 +130,7 @@ public class DishSelectionPanel extends JPanel {
                     int index = dishList.getSelectedIndex();
                     dishList.clearSelection();
                     OrdersDTO order = new OrdersDTO();
-                    AddOrder addOrder = new AddOrder();
+                    AddOrder addOrder = new AddOrder(OD);
                     //Some of the values hardcoded for now, will be updated
                     order.setCustomerId(((App) callback).loggedAccount.getAccountId());
                     order.setTotal(dishes.get(index).getPrice());

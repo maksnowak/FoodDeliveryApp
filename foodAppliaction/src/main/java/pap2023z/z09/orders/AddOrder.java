@@ -10,9 +10,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class AddOrder {
-    private final OrdersDAO orderDAO = new OrdersDAO();
-    public AddOrder(){
-
+    private final OrdersDAO orderDAO;
+    public AddOrder(OrdersDAO orderDAO){
+        this.orderDAO = orderDAO;
     }
 
     public void addOrder(OrdersDTO order) {
