@@ -42,7 +42,7 @@ public class PaymentMethodsDAO {
         session.close();
     }
 
-    public void deletMethod(PaymentMethodsEntity method) {
+    public void deleteMethod(PaymentMethodsEntity method) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.remove(method);
