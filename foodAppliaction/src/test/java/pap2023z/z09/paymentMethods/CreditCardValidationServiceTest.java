@@ -3,7 +3,8 @@ package pap2023z.z09.paymentMethods;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class CreditCardValidationServiceTest {
     private CreditCardValidationService creditCardValidationService = new CreditCardValidationService();
@@ -45,7 +46,8 @@ public class CreditCardValidationServiceTest {
 
     @Test
     public void testValidateExpiryDateSuccess() {
-        assertDoesNotThrow(() -> creditCardValidationService.validateExpiryDate(new Date(2050, 12, 31)));
+        LocalDate localDate = LocalDate.of(2024, 12, 31);
+        assertDoesNotThrow(() -> creditCardValidationService.validateExpiryDate(Date.valueOf(localDate)));
     }
 
     @Test
@@ -55,6 +57,7 @@ public class CreditCardValidationServiceTest {
 
     @Test
     public void testValidateExpiryDateThrowsExceptionExpiredTest() {
-        assertThrows(ExpiredCardException.class, () -> creditCardValidationService.validateExpiryDate(new Date(2023, 12, 31)));
+        LocalDate localDate = LocalDate.of(2020, 12, 31);
+        assertThrows(ExpiredCardException.class, () -> creditCardValidationService.validateExpiryDate(Date.valueOf(localDate)));
     }
 }

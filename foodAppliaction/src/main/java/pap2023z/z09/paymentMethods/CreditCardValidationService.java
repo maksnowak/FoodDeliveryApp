@@ -1,6 +1,6 @@
 package pap2023z.z09.paymentMethods;
 
-import java.util.Date;
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class CreditCardValidationService {
@@ -21,8 +21,9 @@ public class CreditCardValidationService {
             throw new IllegalArgumentException("Expiry date cannot be null");
         }
         LocalDate today = LocalDate.now();
-        int year = expiryDate.getYear();
-        int month = expiryDate.getMonth();
+        LocalDate expiry = expiryDate.toLocalDate();
+        int year = expiry.getYear();
+        int month = expiry.getMonthValue();
         if (year < today.getYear() || (year == today.getYear() && month < today.getMonthValue())) {
             throw new ExpiredCardException();
         }
