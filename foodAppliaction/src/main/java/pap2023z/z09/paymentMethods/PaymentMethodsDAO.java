@@ -25,6 +25,13 @@ public class PaymentMethodsDAO {
         return method;
     }
 
+    public List<PaymentMethodsEntity> getMethodsByCustomerId(int id) {
+        Session session = sessionFactory.openSession();
+        List<PaymentMethodsEntity> methods = session.createQuery("from PaymentMethodsEntity where customer = " + id).list();
+        session.close();
+        return methods;
+    }
+
     public void addMethod(PaymentMethodsEntity method) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
