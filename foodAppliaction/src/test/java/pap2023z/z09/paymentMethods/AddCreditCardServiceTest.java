@@ -21,6 +21,9 @@ public class AddCreditCardServiceTest {
     private PaymentMethodsDAO paymentMethodsDAO;
 
     @Mock
+    private VerifyIfCustomerAlreadyAddedCardService verifyIfCustomerAlreadyAddedCardService;
+
+    @Mock
     private CreditCardValidationService creditCardValidationService;
 
     @Mock
@@ -32,12 +35,21 @@ public class AddCreditCardServiceTest {
     }
 
     @Test
-    public void addCardSuccessTest() throws ExpiredCardException {
+    public void addCardSuccessTest() throws ExpiredCardException, CardAlreadyAddedException {
         LocalDate localDate = LocalDate.of(2024, 12, 31);
         PaymentMethodsDTO dto = new PaymentMethodsDTO(1, "1234567890123456", Date.valueOf(localDate), "123", 1);
         doNothing().when(paymentMethodsDAO).addMethod(any());
         addCreditCardService.addCreditCard(dto);
         verify(paymentMethodsDAO, times(1)).addMethod(any());
+    }
+
+    @Test
+    public void addCardFailAlreadyAddedTest() throws ExpiredCardException, CardAlreadyAddedException {
+        LocalDate localDate = LocalDate.of(2024, 12, 31);
+        PaymentMethodsDTO dto = new PaymentMethodsDTO(1, "1234567890123456", Date.valueOf(localDate), "123", 1);
+        doThrow(CardAlreadyAddedException.class).when(verifyIfCustomerAlreadyAddedCardService).verifyIfCustomerAlreadyAddedCard(dto);
+        assertThrows(CardAlreadyAddedException.class, () -> addCreditCardService.addCreditCard(dto));
+        verify(paymentMethodsDAO, times(0)).addMethod(any());
     }
 
     @Test
