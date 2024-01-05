@@ -354,7 +354,7 @@ CREATE TABLE public.payment_methods (
     method_id integer NOT NULL,
     card_number character varying(16) NOT NULL,
     expiry_date date NOT NULL,
-    cvv numeric(3,0) NOT NULL,
+    cvv character varying(3) NOT NULL,
     customer integer NOT NULL
 );
 
@@ -654,7 +654,7 @@ INSERT INTO public.dishes OVERRIDING SYSTEM VALUE VALUES (61, 'Piwo', 5, 7, true
 -- Data for Name: payment_methods; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.payment_methods OVERRIDING SYSTEM VALUE VALUES (1, '1234567890123456', '2023-12-31', 123, 1);
+INSERT INTO public.payment_methods OVERRIDING SYSTEM VALUE VALUES (1, '1234567890123456', '2023-12-31', '123', 1);
 
 --
 -- TOC entry 3489 (class 0 OID 16458)

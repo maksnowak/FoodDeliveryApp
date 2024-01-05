@@ -10,10 +10,10 @@ public class PaymentMethodsDTO {
     //getters
     private String cardNumber;
     private Date expiryDate;
-    private int cvv;
+    private String cvv;
     private int customer;
     private int MethodId;
-    public PaymentMethodsDTO(int MethodId, String cardNumber, Date expiryDate, int cvv, int customer)
+    public PaymentMethodsDTO(int MethodId, String cardNumber, Date expiryDate, String cvv, int customer)
     {
         this.MethodId = MethodId;
         this.cardNumber = cardNumber;
@@ -36,7 +36,7 @@ public class PaymentMethodsDTO {
         return expiryDate;
     }
 
-    public int getCvv(){
+    public String getCvv(){
         return cvv;
     }
 
@@ -45,7 +45,7 @@ public class PaymentMethodsDTO {
         return customer;
     }
     //setters
-    public void setCvv(int cvv){
+    public void setCvv(String cvv){
         this.cvv = cvv;
     }
 

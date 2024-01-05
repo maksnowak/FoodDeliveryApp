@@ -20,8 +20,8 @@ public class PaymentMethodsEntity {
     @Column(name = "expiry_date", nullable = false)
     private Date expiryDate;
     @Basic
-    @Column(name = "cvv", nullable = false, precision = 0)
-    private int cvv;
+    @Column(name = "cvv", nullable = false, length = 3)
+    private String cvv;
     @Basic
     @Column(name = "customer", nullable = false)
     private int customer;
@@ -55,11 +55,11 @@ public class PaymentMethodsEntity {
         this.expiryDate = expiryDate;
     }
 
-    public int getCvv() {
+    public String getCvv() {
         return cvv;
     }
 
-    public void setCvv(int cvv) {
+    public void setCvv(String cvv) {
         this.cvv = cvv;
     }
 
