@@ -3,6 +3,7 @@ package pap2023z.z09.gui;
 import pap2023z.z09.accounts.*;
 import pap2023z.z09.database.AccountsEntity;
 import pap2023z.z09.database.RestaurantsEntity;
+import pap2023z.z09.orders.OrdersDAO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -109,8 +110,9 @@ public class App extends JFrame implements Callback {
 
     @Override
     public void onDeleteAccount() {
-        AccountsDAO DAO = new AccountsDAO();
-        DeleteService DS = new DeleteService(DAO);
+        AccountsDAO ADAO = new AccountsDAO();
+        OrdersDAO ODAO = new OrdersDAO();
+        DeleteService DS = new DeleteService(ADAO, ODAO);
         DS.deleteAccount(loggedAccount.getAccountId());
         loggedAccount = null;
         JOptionPane.showMessageDialog(this, "Konto zostało usunięte.");

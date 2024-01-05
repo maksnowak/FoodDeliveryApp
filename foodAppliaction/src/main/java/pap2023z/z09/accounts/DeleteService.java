@@ -9,18 +9,20 @@ import java.util.List;
 
 public class DeleteService {
     private final AccountsDAO accountsDAO;
+    private final OrdersDAO ordersDAO;
 
-    public DeleteService(AccountsDAO accountsDAO) {
+    public DeleteService(AccountsDAO accountsDAO, OrdersDAO ordersDAO) {
         this.accountsDAO = accountsDAO;
+        this.ordersDAO = ordersDAO;
     }
 
     public void deleteAccount(int id) {
         AccountsEntity account = accountsDAO.getAccountById(id);
         if (account != null) {
-            List<OrdersEntity> orders = OrdersDAO.getAllOrdersFromAccountId(id);
+            List<OrdersEntity> orders = ordersDAO.getAllOrdersFromAccountId(id);
             for (OrdersEntity order : orders) {
                 order.setCustomer(null);
-                OrdersDAO.updateOrder(order);
+                ordersDAO.updateOrder(order);
             }
             accountsDAO.deleteAccount(account);
         }
