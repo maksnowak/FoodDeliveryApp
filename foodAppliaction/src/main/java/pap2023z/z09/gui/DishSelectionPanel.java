@@ -1,11 +1,13 @@
 package pap2023z.z09.gui;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import java.math.BigDecimal;
@@ -35,6 +37,7 @@ public class DishSelectionPanel extends JPanel {
     JTextField priceMaxField = new JTextField();
     JCheckBox vegetarianCheckBox = new JCheckBox("wege");
     JComboBox<String> sortComboBox = new JComboBox<>();
+    JLabel clockLabel = new JLabel();
 
 
     public DishSelectionPanel(Callback callback) {
@@ -158,6 +161,18 @@ public class DishSelectionPanel extends JPanel {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "RestaurantChoice");
         });
         add(backButton, BorderLayout.SOUTH);
+
+        clockLabel = new JLabel();
+        clockLabel.setHorizontalAlignment(JLabel.CENTER);
+        updateClock();
+        Timer timer = new Timer(1000, e -> updateClock());
+        add(clockLabel, BorderLayout.SOUTH, 0);
+        timer.start();
+    }
+
+    private void updateClock() {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        clockLabel.setText(format.format(new Date()));
     }
 
     public void enter(RestaurantsEntity restaurant) {

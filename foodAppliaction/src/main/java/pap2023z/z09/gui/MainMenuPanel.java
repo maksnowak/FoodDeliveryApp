@@ -4,8 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainMenuPanel extends JPanel {
+    private JLabel clockLabel;
     public MainMenuPanel(Callback callback) {
         JButton orderButton = new JButton("Zamów");
         JButton accountButton = new JButton("Konto");
@@ -32,13 +35,27 @@ public class MainMenuPanel extends JPanel {
             }
         });
 
-        setLayout(new GridLayout(5, 1));
+        setLayout(new GridLayout(6, 1));
         add(new JLabel("Food!! (main menu)", SwingConstants.CENTER));
         add(orderButton);
         add(accountButton);
         add(restaurantsButton);
         add(new JLabel("Zalogowano jako: ", SwingConstants.CENTER));
         restaurantsButton.setVisible(false);
+
+        clockLabel = new JLabel();
+        clockLabel.setHorizontalAlignment(JLabel.CENTER);
+        updateClock();
+        Timer timer = new Timer(1000, e -> updateClock());
+        timer.start();
+        JPanel clockPanel = new JPanel(new BorderLayout());
+        clockPanel.add(clockLabel, BorderLayout.NORTH);
+        add(clockPanel);
+    }
+
+    private void updateClock() {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        clockLabel.setText(format.format(new Date()));
     }
 
     public void updateAccountLabel(String accountName) {
