@@ -9,6 +9,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.net.SocketOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import pap2023z.z09.database.RestaurantsEntity;
@@ -21,6 +23,7 @@ public class RestaurantChoicePanel extends JPanel {
     JList<String> restaurantList;
     DefaultListModel<String> model = new DefaultListModel<>();
     JTextField searchField = new JTextField();
+    private JLabel clockLabel;
 
     public RestaurantChoicePanel(Callback callback) {
 
@@ -73,8 +76,20 @@ public class RestaurantChoicePanel extends JPanel {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
         });
         add(backButton, BorderLayout.SOUTH);
+
+        clockLabel = new JLabel();
+        clockLabel.setHorizontalAlignment(JLabel.CENTER);
+        updateClock();
+        Timer timer = new Timer(1000, e -> updateClock());
+        add(clockLabel, BorderLayout.SOUTH, 0);
+        timer.start();
     }
-    
+
+    private void updateClock() {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        clockLabel.setText(format.format(new Date()));
+    }
+
     public void searchList() {
         model.clear();
         String search = searchField.getText();
