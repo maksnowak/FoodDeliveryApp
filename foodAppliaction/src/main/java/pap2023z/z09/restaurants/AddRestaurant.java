@@ -23,14 +23,14 @@ public class AddRestaurant {
     }
 
     public void verifyWeekdays(RestaurantsDTO restaurant) throws InvalidTimeException {
-        if (restaurant.getOpensWeekdays().after(restaurant.getClosesWeekdays())) {
-            throw new InvalidTimeException("Weekdays opening time cannot be after closing time");
+        if (!(restaurant.getClosesWeekdays().after(restaurant.getOpensWeekdays()))) {
+            throw new InvalidTimeException("Weekdays closing time cannot be before opening time");
         }
     }
 
     public void verifyWeekends(RestaurantsDTO restaurant) throws InvalidTimeException {
-        if (restaurant.getOpensWeekends().after(restaurant.getClosesWeekends())) {
-            throw new InvalidTimeException("Weekends opening time cannot be after closing time");
+        if (!(restaurant.getClosesWeekdays().after(restaurant.getOpensWeekdays()))) {
+            throw new InvalidTimeException("Weekdays closing time cannot be before opening time");
         }
     }
 
