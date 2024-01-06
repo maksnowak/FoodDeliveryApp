@@ -37,16 +37,3 @@ public class BasketsDTO {
         );
     }
 }
-
-
-/*
-
-    public static OrderedDishsesDTO fromEntity(OrderedDishesEntity entity) {
-        return new OrderedDishsesDTO(
-                entity.getOrderId(),
-                entity.getDishId()
-        );
-    }
-}
-
- */
