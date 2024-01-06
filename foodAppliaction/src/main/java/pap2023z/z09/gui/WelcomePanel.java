@@ -38,7 +38,7 @@ public class WelcomePanel extends JPanel {
         clockLabel.setHorizontalAlignment(JLabel.CENTER);
         updateClock();
         Timer timer = new Timer(1000, e -> updateClock());
-        add(clockLabel, BorderLayout.NORTH, 0);
+        add(clockLabel, BorderLayout.NORTH, 4);
         timer.start();
     }
     private void updateClock() {
