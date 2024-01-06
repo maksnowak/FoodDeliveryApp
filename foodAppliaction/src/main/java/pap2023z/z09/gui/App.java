@@ -8,6 +8,8 @@ import pap2023z.z09.paymentMethods.PaymentMethodsDAO;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class App extends JFrame implements Callback {
     public CardLayout cardLayout;
@@ -21,8 +23,7 @@ public class App extends JFrame implements Callback {
     private AccountInfoPanel accountInfoPanel;
     private EditAccountPanel editAccountPanel;
     private ModifyRestaurantsPanel modifyRestaurantsPanel;
-
-
+    private JLabel clockLabel;
     public RestaurantsEntity selectedRestaurant;
     public AccountsEntity loggedAccount;
 
@@ -61,6 +62,18 @@ public class App extends JFrame implements Callback {
         add(modifyRestaurantsPanel, "ModifyRestaurants");
 
         cardLayout.show(this.getContentPane(), "Welcome");
+
+        clockLabel = new JLabel();
+        clockLabel.setHorizontalAlignment(JLabel.RIGHT);
+        updateClock();
+        Timer timer = new Timer(1000, e -> updateClock());
+        getContentPane().add(clockLabel, BorderLayout.NORTH);
+        timer.start();
+    }
+
+    private void updateClock() {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        clockLabel.setText(format.format(new Date()));
     }
 
     @Override
