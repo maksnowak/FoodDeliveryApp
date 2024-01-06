@@ -29,7 +29,7 @@ public class AddRestaurantTest {
     @Test
     public void addRestaurantSuccessTest() throws InvalidTimeException {
         doNothing().when(restaurantsDAO).addRestaurant(any());
-        addRestaurant.addRestaurant(new RestaurantsDTO(1, "name", Time.valueOf("00:00:00"), Time.valueOf("00:00:00"), Time.valueOf("00:00:00"), Time.valueOf("00:00:00")));
+        addRestaurant.addRestaurant(new RestaurantsDTO(1, "name", Time.valueOf("10:00:00"), Time.valueOf("22:00:00"), Time.valueOf("12:00:00"), Time.valueOf("24:00:00")));
         verify(restaurantsDAO, times(1)).addRestaurant(any());
     }
 
@@ -44,10 +44,14 @@ public class AddRestaurantTest {
     }
 
     @Test
-    public void addRestaurantTest() throws InvalidTimeException {
-        doNothing().when(restaurantsDAO).addRestaurant(any());
-        addRestaurant.addRestaurant(new RestaurantsDTO(1, "name", Time.valueOf("00:00:00"), Time.valueOf("00:00:00"), Time.valueOf("00:00:00"), Time.valueOf("00:00:00")));
-        verify(restaurantsDAO, times(1)).addRestaurant(any());
+    public void verifyWeekdaysTest() throws InvalidTimeException {
+        assertThrows(InvalidTimeException.class, () -> addRestaurant.verifyWeekdays(new RestaurantsDTO(1, "name", Time.valueOf("22:00:00"), Time.valueOf("10:00:00"), Time.valueOf("12:00:00"), Time.valueOf("24:00:00"))));
     }
+
+    @Test
+    public void verifySameHourWeekdaysTest() throws InvalidTimeException {
+        assertThrows(InvalidTimeException.class, () -> addRestaurant.verifyWeekends(new RestaurantsDTO(1, "name", Time.valueOf("10:00:00"), Time.valueOf("10:00:00"), Time.valueOf("09:00:00"), Time.valueOf("12:00:00"))));
+    }
+
 
 }
