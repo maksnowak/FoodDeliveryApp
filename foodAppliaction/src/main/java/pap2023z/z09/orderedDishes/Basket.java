@@ -44,7 +44,13 @@ public class Basket {
             OD_DAO.addDish(dish);
         }
     }
+    /*
+    status "w trakcie skladania" would be usefull.
+    in case we use ID of an existing order, that shouldn't be able to get bigger, as an argument by accident
+    for example you finish order, it is being delivered, but you are still able to add dishes
 
+    would have to check during orderReady as well if that was the case
+    */
     public void checkOrderId(int id){
         OrdersDAO ordersDAO = new OrdersDAO();
         List <OrdersEntity> orders = ordersDAO.getAllOrders();
