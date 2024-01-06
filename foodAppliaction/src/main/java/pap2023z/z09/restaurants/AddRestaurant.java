@@ -29,7 +29,7 @@ public class AddRestaurant {
     }
 
     public void verifyWeekends(RestaurantsDTO restaurant) throws InvalidTimeException {
-        if (!(restaurant.getClosesWeekdays().after(restaurant.getOpensWeekdays()))) {
+        if (!(restaurant.getClosesWeekends().after(restaurant.getOpensWeekends()))) {
             throw new InvalidTimeException("Weekdays closing time cannot be before opening time");
         }
     }
