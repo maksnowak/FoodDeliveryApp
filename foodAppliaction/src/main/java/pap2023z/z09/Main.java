@@ -8,6 +8,7 @@ import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.OrderedDishesEntity;
 import pap2023z.z09.database.OrdersEntity;
 import pap2023z.z09.database.RestaurantsEntity;
+import pap2023z.z09.dishes.DishesDAO;
 import pap2023z.z09.gui.App;
 import pap2023z.z09.orderedDishes.OrderedDishesDAO;
 import pap2023z.z09.orderedDishes.Basket;
@@ -26,7 +27,26 @@ public class Main {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-//////////////////create order
+
+
+        /////////////////crete basket
+
+        OrderedDishesDAO ODD = new OrderedDishesDAO();
+        DishesDAO DD = new DishesDAO();
+
+        Basket basket = new Basket(ODD);
+
+        basket.addItem(DD.getAllDishes().get(1).getDishId());
+        basket.addItem(DD.getAllDishes().get(2).getDishId());
+        basket.addItem(DD.getAllDishes().get(3).getDishId());
+
+        System.out.println("\n\nBAsket before and after remove:");
+
+        System.out.println(basket.getAllDishes());
+        basket.removeByIndex(1);
+        System.out.println(basket.getAllDishes());
+
+        //create order from gathered data -begin
 
         OrdersDAO OD = new OrdersDAO();
         OrdersDTO order = new OrdersDTO();
@@ -44,27 +64,16 @@ public class Main {
         order.setTip(new BigDecimal(0));
 
         int orderID = (addOrder.addOrder(order));
+        //create order from gathered data -end
 
-        /////////////////crete basket
-
-        OrderedDishesDAO ODD = new OrderedDishesDAO();
-        Basket basket = new Basket(orderID, ODD);
-
-        basket.addItem(ODD.getAllDishes().get(1).getId());
-        basket.addItem(ODD.getAllDishes().get(2).getId());
-        basket.addItem(ODD.getAllDishes().get(3).getId());
-
-        System.out.println(basket.getAllDishes());
-        basket.removeByIndex(1);
-
-        System.out.println(basket.getAllDishes());
-        basket.orderReady();
+        //use created order to link it with a basket
+        basket.basketReady(orderID);
 
         System.out.println("\ninside orderedDishes Database\n");
 
         List<OrderedDishesEntity> dishes = session.createQuery("from OrderedDishesEntity ").list();
         for (OrderedDishesEntity dish : dishes) {
-            System.out.println(dish.getId() + " " + dish.getDishId() + " " + dish.getOrderId());
+            System.out.println("ID:" + dish.getId() + "  DishID:" + dish.getDishId() + "  orderID:" + dish.getOrderId());
         }
 
         transaction.commit();

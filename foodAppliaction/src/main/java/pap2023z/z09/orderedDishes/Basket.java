@@ -15,11 +15,9 @@ import java.util.List;
 public class Basket {
     private final OrderedDishesDAO OD_DAO;
     private final List<Integer> orderedDishesID = new ArrayList<>();
-    int orderId;
-    public Basket(int orderId, OrderedDishesDAO OD_DAO) {
+    public Basket(OrderedDishesDAO OD_DAO) {
         this.OD_DAO = OD_DAO;
-        checkOrderId(orderId);
-        this.orderId = orderId;
+
     }
     public void addItem(int dishId) {
         checkDishId(dishId);
@@ -34,7 +32,9 @@ public class Basket {
         orderedDishesID.remove(i);
     }
 
-    public void orderReady() {
+    public void basketReady(int orderId) {
+        checkOrderId(orderId);
+
         OrderedDishesEntity dish;
         for(int dishID : orderedDishesID) {
             dish = new OrderedDishesEntity();
