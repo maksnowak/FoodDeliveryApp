@@ -9,8 +9,6 @@ import pap2023z.z09.database.FavoritesEntity;
 import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.dishes.DishesDAO;
 import pap2023z.z09.dishes.DishesDTO;
-import pap2023z.z09.dishes.favourites.FavoriteDishService;
-import pap2023z.z09.dishes.favourites.FavoritesDAO;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

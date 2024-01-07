@@ -9,7 +9,6 @@ import org.mockito.MockitoAnnotations;
 import static org.mockito.Mockito.*;
 
 import pap2023z.z09.database.OrderedDishesEntity;
-import pap2023z.z09.dishes.orderedDishes.OrderedDishsesDTO;
 
 public class OrderedDishesDTOTest {
     private OrderedDishsesDTO orderedDishDTO;
