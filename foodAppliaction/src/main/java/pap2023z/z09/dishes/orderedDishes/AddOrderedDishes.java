@@ -1,4 +1,4 @@
-package pap2023z.z09.orderedDishes;
+package pap2023z.z09.dishes.orderedDishes;
 
 import pap2023z.z09.accounts.AccountsDAO;
 import pap2023z.z09.baskets.BasketsDAO;

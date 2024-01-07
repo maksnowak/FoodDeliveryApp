@@ -1,4 +1,4 @@
-package pap2023z.z09.orderedDishes;
+package pap2023z.z09.dishes.orderedDishes;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;

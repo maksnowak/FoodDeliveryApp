@@ -1,4 +1,4 @@
-package pap2023z.z09.dishes;
+package pap2023z.z09.dishes.favourites;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

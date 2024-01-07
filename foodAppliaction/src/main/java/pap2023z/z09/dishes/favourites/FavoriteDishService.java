@@ -1,7 +1,10 @@
-package pap2023z.z09.dishes;
+package pap2023z.z09.dishes.favourites;
 
 import pap2023z.z09.database.FavoritesEntity;
 import pap2023z.z09.database.DishesEntity;
+import pap2023z.z09.dishes.DishesDAO;
+import pap2023z.z09.dishes.DishesDTO;
+import pap2023z.z09.dishes.favourites.FavoritesDAO;
 
 public class FavoriteDishService {
     private final FavoritesDAO favoritesDAO;
