@@ -4,8 +4,6 @@ import pap2023z.z09.accounts.AccountsDAO;
 import pap2023z.z09.database.*;
 
 import pap2023z.z09.dishes.DishesDAO;
-import pap2023z.z09.orderedDishes.OrderedDishesDAO;
-import pap2023z.z09.orders.OrdersDAO;
 
 
 import java.util.ArrayList;
@@ -13,17 +11,17 @@ import java.util.List;
 
 public class AddBasket {
     private final BasketsDAO B_DAO;
-    private final List<Integer> basketID = new ArrayList<>();
+    private final List<Integer> basketId = new ArrayList<>();
     public AddBasket(BasketsDAO B_DAO) {
         this.B_DAO = B_DAO;
     }
     public void addBasket(BasketsDTO item) {
-        checkCustomerId(item.getCustomerID());
+        checkCustomerId(item.getCustomerId());
         checkDishId(item.getDishId());
 
         BasketsEntity entity = new BasketsEntity();
 
-        entity.setCustomer(item.getCustomerID());
+        entity.setCustomer(item.getCustomerId());
         entity.setDishId(item.getDishId());
 
         B_DAO.addBasket(entity);

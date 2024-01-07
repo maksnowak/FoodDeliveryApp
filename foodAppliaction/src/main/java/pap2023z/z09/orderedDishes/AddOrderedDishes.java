@@ -13,19 +13,19 @@ public class AddOrderedDishes {
     private final OrderedDishesDAO OD_DAO;
     private final BasketsDAO B_DAO;
     //private int orderID;
-    private int accountID;
+    private int accountId;
     
     
-    public AddOrderedDishes(OrderedDishesDAO OD_DAO, BasketsDAO B_DAO, int accountID)
+    public AddOrderedDishes(OrderedDishesDAO OD_DAO, BasketsDAO B_DAO, int accountId)
     {
         this.OD_DAO = OD_DAO;
         this.B_DAO = B_DAO;
-        this.accountID = accountID;
+        this.accountId = accountId;
     }
     
     public void addOrderedDishes(int orderID)
     {
-        List<BasketsEntity> items = B_DAO.getAllDishesOfClientId(accountID);
+        List<BasketsEntity> items = B_DAO.getAllDishesOfClientId(accountId);
 
         OrderedDishsesDTO dish;
         for(BasketsEntity item : items)
@@ -54,7 +54,7 @@ public class AddOrderedDishes {
 
     private void cleanBasket()
     {
-        List<BasketsEntity> items = B_DAO.getAllDishesOfClientId(accountID);
+        List<BasketsEntity> items = B_DAO.getAllDishesOfClientId(accountId);
 
         for(BasketsEntity item : items)
         {

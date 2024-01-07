@@ -4,27 +4,27 @@ import pap2023z.z09.database.BasketsEntity;
 
 public class BasketsDTO {
 
-    private int customerID;
+    private int customerId;
     private int dishId;
-    public BasketsDTO(int customerID, int dishId)
+    public BasketsDTO(int customerId, int dishId)
     {
-        this.customerID = customerID;
+        this.customerId = customerId;
         this.dishId = dishId;
     }
     public BasketsDTO()
     {
 
     }
-    public int getCustomerID() {
-        return customerID;
+    public int getCustomerId() {
+        return customerId;
     }
 
     public int getDishId() {
         return dishId;
     }
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
+    public void setCustomerId(int customerID) {
+        this.customerId = customerID;
     }
     public void setDishId(int dishId) {
         this.dishId = dishId;

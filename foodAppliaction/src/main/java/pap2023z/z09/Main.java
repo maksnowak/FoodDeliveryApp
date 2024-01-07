@@ -7,7 +7,6 @@ import org.hibernate.cfg.Configuration;
 import pap2023z.z09.baskets.AddBasket;
 import pap2023z.z09.baskets.BasketsDAO;
 import pap2023z.z09.baskets.BasketsDTO;
-import pap2023z.z09.database.AccountsEntity;
 import pap2023z.z09.database.BasketsEntity;
 import pap2023z.z09.database.OrderedDishesEntity;
 import pap2023z.z09.dishes.DishesDAO;
@@ -38,7 +37,7 @@ public class Main {
         BasketsDTO item = new BasketsDTO();
 
         item.setDishId(D_DAO.getAllDishes().get(1).getDishId());
-        item.setCustomerID(CLIENTID);
+        item.setCustomerId(CLIENTID);
 
         basket.addBasket(item);
 
