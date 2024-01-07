@@ -14,8 +14,8 @@ public class AddOrder {
     public AddOrder(OrdersDAO orderDAO){
         this.orderDAO = orderDAO;
     }
-
-    public void addOrder(OrdersDTO order) {
+    //return id of added order
+    public int addOrder(OrdersDTO order) {
 
 
         //checkStatusId(order.getStatusId());
@@ -43,6 +43,7 @@ public class AddOrder {
         entity.setTip(order.getTip());
 
         orderDAO.addOrder(entity);
+        return entity.getOrderId();
     }
     public void checkCustomerId(int id){
         AccountsDAO accountsDAO = new AccountsDAO();
