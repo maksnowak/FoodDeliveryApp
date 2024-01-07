@@ -11,7 +11,6 @@ import java.util.List;
 
 public class AddBasket {
     private final BasketsDAO B_DAO;
-    private final List<Integer> basketId = new ArrayList<>();
     public AddBasket(BasketsDAO B_DAO) {
         this.B_DAO = B_DAO;
     }

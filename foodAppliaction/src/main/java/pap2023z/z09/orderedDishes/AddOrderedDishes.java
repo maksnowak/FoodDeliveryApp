@@ -12,12 +12,12 @@ public class AddOrderedDishes {
 
     private final OrderedDishesDAO OD_DAO;
     private final BasketsDAO B_DAO;
-    //private int orderID;
-    private int accountId;
+    private final int accountId;
     
     
     public AddOrderedDishes(OrderedDishesDAO OD_DAO, BasketsDAO B_DAO, int accountId)
     {
+        checkCustomerId(accountId);
         this.OD_DAO = OD_DAO;
         this.B_DAO = B_DAO;
         this.accountId = accountId;
