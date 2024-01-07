@@ -5,8 +5,6 @@ import pap2023z.z09.database.*;
 
 import pap2023z.z09.dishes.DishesDAO;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddBasket {
