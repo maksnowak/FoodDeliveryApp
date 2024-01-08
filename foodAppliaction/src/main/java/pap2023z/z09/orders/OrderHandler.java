@@ -71,7 +71,7 @@ public class OrderHandler {
         orderDAO.updateOrder(order);
     }
 
-    public void checkStatusId(int id){
+    private void checkStatusId(int id){
         StatusesDAO statusesDAO = new StatusesDAO();
         List <StatusesEntity> stats = statusesDAO.getAllStatuses();
         for(StatusesEntity stat :stats){
@@ -81,7 +81,7 @@ public class OrderHandler {
         }
         throw new IllegalArgumentException("the foreign key StatusId does not exist in primary keys ");
     }
-    public void checkCustomerId(int id){
+    private void checkCustomerId(int id){
         AccountsDAO accountsDAO = new AccountsDAO();
         List <AccountsEntity> accounts = accountsDAO.getAllAccounts();
         for(AccountsEntity account :accounts){
@@ -92,7 +92,7 @@ public class OrderHandler {
         throw new IllegalArgumentException("the foreign key CustomerId does not exist in primary keys ");
     }
 
-    public void checkPaymentMethodId(int id){
+    private void checkPaymentMethodId(int id){
         PaymentMethodsDAO methodsDOA = new PaymentMethodsDAO();
         List <PaymentMethodsEntity> methods = methodsDOA.getAllMethods();
         for(PaymentMethodsEntity method :methods){
@@ -103,7 +103,7 @@ public class OrderHandler {
         throw new IllegalArgumentException("the foreign key PaymentMethodId does not exist in primary keys ");
     }
 
-    public void checkDiscountId(int id){
+    private void checkDiscountId(int id){
         DiscountsDAO discountDAO = new DiscountsDAO();
         List <DiscountsEntity> discounts = discountDAO.getAllDiscounts();
         for(DiscountsEntity discount : discounts){
@@ -113,7 +113,7 @@ public class OrderHandler {
         }
         throw new IllegalArgumentException("the foreign key DiscountId does not exist in primary keys ");
     }
-    public void checkOrderId(int id){
+    private void checkOrderId(int id){
         List <OrdersEntity> orders = orderDAO.getAllOrders();
         for(OrdersEntity order : orders){
             if(order.getOrderId() == id){
