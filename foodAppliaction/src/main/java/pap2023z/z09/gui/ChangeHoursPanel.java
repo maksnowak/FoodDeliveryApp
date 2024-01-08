@@ -61,6 +61,9 @@ public class ChangeHoursPanel extends JPanel {
             java.sql.Time closeWeekendsTime = new java.sql.Time(closeWeekendsDate.getTime());
             restaurant.setClosesWeekends(closeWeekendsTime);
 
+            // Show a message dialog
+            JOptionPane.showMessageDialog(this, "Zmieniono godziny otwarcia.");
+
             // Go back to the ModifyRestaurantDetailsPanel
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
         });
