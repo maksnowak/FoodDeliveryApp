@@ -25,10 +25,10 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
     private JLabel titleLabel;
 
     public ModifyRestaurantDetailsPanel(Callback callback) {
-        setLayout(new BorderLayout());
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         titleLabel = new JLabel(); // Initialize titleLabel
-        add(titleLabel, BorderLayout.NORTH);
+        add(titleLabel);
         JPanel buttonPanel = new JPanel(new GridLayout(2, 3));
 
         addDishButton = new JButton("Add Dish");
