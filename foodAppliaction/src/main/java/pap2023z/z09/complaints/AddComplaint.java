@@ -2,10 +2,8 @@ package pap2023z.z09.complaints;
 
 import pap2023z.z09.database.ComplaintsEntity;
 import pap2023z.z09.database.OrdersEntity;
-import pap2023z.z09.discounts.DiscountsDAO;
 import pap2023z.z09.orders.OrdersDAO;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class AddComplaint {
