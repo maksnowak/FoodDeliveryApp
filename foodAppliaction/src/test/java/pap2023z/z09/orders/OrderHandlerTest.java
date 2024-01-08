@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class OrderHandlerTest {
-    private static int exampleNoExistentAmount = -1;
-    private static BigDecimal exampleNoExistentBigAmount = new BigDecimal(-1);
+    private final static int exampleNoExistentAmount = -1;
+    private final static BigDecimal exampleNoExistentBigAmount = new BigDecimal(-1);
 
     @InjectMocks
     private OrderHandler order;
