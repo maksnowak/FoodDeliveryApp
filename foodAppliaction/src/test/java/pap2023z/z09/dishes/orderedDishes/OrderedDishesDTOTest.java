@@ -23,6 +23,13 @@ public class OrderedDishesDTOTest {
     }
 
     @Test
+    public void testSetAndGetId() {
+
+        orderedDishDTO.setId(exampleInt);
+        assertEquals(exampleInt, orderedDishDTO.getId());
+    }
+
+    @Test
     public void testSetAndGetDishId() {
 
         orderedDishDTO.setDishId(exampleInt);
@@ -39,11 +46,13 @@ public class OrderedDishesDTOTest {
     @Test
     public void testDTOFromEntity() {
 
+        when(orderEntity.getId()).thenReturn(exampleInt);
         when(orderEntity.getOrderId()).thenReturn(exampleInt);
         when(orderEntity.getDishId()).thenReturn(exampleInt);
 
         orderedDishDTO = new OrderedDishsesDTO().fromEntity(orderEntity);
 
+        assertEquals(exampleInt, orderedDishDTO.getId());
         assertEquals(exampleInt, orderedDishDTO.getOrderId());
         assertEquals(exampleInt, orderedDishDTO.getDishId());
 
