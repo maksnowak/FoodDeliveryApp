@@ -10,12 +10,12 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class AddOrderTest {
-    private static int exampleNoExistentAmount = -1;
-    private static BigDecimal exampleNoExistentBigAmount = new BigDecimal(-1);
+public class OrderHandlerTest {
+    private final static int exampleNoExistentAmount = -1;
+    private final static BigDecimal exampleNoExistentBigAmount = new BigDecimal(-1);
 
     @InjectMocks
-    private AddOrder order;
+    private OrderHandler order;
 
     @BeforeEach
     public void setUp() {
