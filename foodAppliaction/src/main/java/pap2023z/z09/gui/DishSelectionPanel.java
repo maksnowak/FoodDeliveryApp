@@ -20,12 +20,28 @@ import pap2023z.z09.orders.OrdersDTO;
 import pap2023z.z09.orders.OrdersDAO;
 import pap2023z.z09.orders.AddOrder;
 
+class DishListModel extends DefaultListModel<String> {
+    public void addElementWithNumber(String name, int number) {
+        addElement(name + " - " + number);
+    }
+}
+
+class DishListRenderer extends DefaultListCellRenderer {
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+
+
+        return this;
+    }
+}
+
 public class DishSelectionPanel extends JPanel {
     DishesDAO DD = new DishesDAO();
     OrdersDAO OD = new OrdersDAO();
 
     List<DishesEntity> dishes;
-    DefaultListModel<String> model = new DefaultListModel<>();
+    DishListModel model = new DishListModel();
     JList<String> dishList = new JList<>(model);
     boolean isListenerActive = false;
     JLabel titleLabel = new JLabel("Wybierz danie:");
@@ -42,6 +58,7 @@ public class DishSelectionPanel extends JPanel {
 
     public DishSelectionPanel(Callback callback) {
         setLayout(new BorderLayout());
+        dishList.setCellRenderer(new DishListRenderer());
 
         typeComboBox.addItem("Wszystkie");
         typeComboBox.addItem("Przystawka");
@@ -192,14 +209,14 @@ public class DishSelectionPanel extends JPanel {
                     (!vegetarianCheckBox.isSelected() || dish.isVegetarian())) {
                 if ((kcalMinField.getText().isEmpty() || dish.getKcal().compareTo(new BigDecimal(kcalMinField.getText())) >= 0) &&
                     (kcalMaxField.getText().isEmpty() || dish.getKcal().compareTo(new BigDecimal(kcalMaxField.getText())) <= 0)) {
-                    model.addElement(dish.getName());
+                    model.addElementWithNumber(dish.getName(), dish.getKcal().intValue());
                 }
             }
         }
         List<DishesEntity> dishesList = new ArrayList<>();
         for (int i = 0; i < model.size(); i++) {
             int finalI = i;
-            dishesList.add(dishes.stream().filter(d -> d.getName().equals(model.get(finalI))).findFirst().get());
+            dishesList.add(dishes.stream().filter(dish -> dish.getName().equals(model.get(finalI).split(" - ")[0])).findFirst().get());
         }
         if (sortComboBox.getSelectedIndex() == 0) {
             dishesList.sort(Comparator.comparing(DishesEntity::getPrice));
@@ -215,7 +232,7 @@ public class DishSelectionPanel extends JPanel {
         }
         model.clear();
         for (DishesEntity dish : dishesList) {
-            model.addElement(dish.getName());
+            model.addElementWithNumber(dish.getName(), dish.getKcal().intValue());
         }
     }
 }
