@@ -43,7 +43,7 @@ public class ReviewsDAO {
         return review;
     }
 
-    public void addDish(ReviewsEntity review) {
+    public void addReview(ReviewsEntity review) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.persist(review);
@@ -52,7 +52,7 @@ public class ReviewsDAO {
     }
 
 
-    public void updateDish(ReviewsEntity review) {
+    public void updateReview(ReviewsEntity review) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.merge(review);
@@ -60,7 +60,7 @@ public class ReviewsDAO {
         session.close();
     }
 
-    public void deleteDish(ReviewsEntity review) {
+    public void deleteReview(ReviewsEntity review) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.remove(review);

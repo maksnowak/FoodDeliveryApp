@@ -7,15 +7,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pap2023z.z09.database.ReviewsEntity;
 
-import static org.mockito.Mockito.*;
 public class ReviewsDTOTest {
 
     private ReviewsDTO reviewsDTO;
     public static int exampleInt = 1;
     public static String exampleString = "a";
-    @Mock
-    private ReviewsEntity reviewsEntity;
-
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);

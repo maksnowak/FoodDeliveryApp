@@ -28,6 +28,8 @@ public class AddReviews {
         entity.setRestaurantId(review.getRestaurantId());
         entity.setStars(review.getStars());
         entity.setDescription(review.getDescription());
+
+        reviewsDAO.addReview(entity);
     }
 
     private void checkRestaurantId(int id){
