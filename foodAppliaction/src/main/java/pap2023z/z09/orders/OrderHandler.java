@@ -120,7 +120,7 @@ public class OrderHandler {
                 return;
             }
         }
-        throw new IllegalArgumentException("the foreign key DiscountId does not exist in primary keys ");
+        throw new IllegalArgumentException("the foreign key OrderId does not exist in primary keys ");
     }
 
     public void checkIfInRange(int money){

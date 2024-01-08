@@ -30,30 +30,3 @@ public class AddReviewsTest {
     }
 
 }
-
-
-/*
-
-
-
-
-public class OrderHandlerTest {
-    private final static int exampleNoExistentAmount = -1;
-    private final static BigDecimal exampleNoExistentBigAmount = new BigDecimal(-1);
-
-    @InjectMocks
-    private OrderHandler order;
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
-    @Test
-    public void checkRange(){
-        assertThrows(IllegalArgumentException.class, () -> order.checkIfInRange(exampleNoExistentAmount));
-        assertThrows(IllegalArgumentException.class, () -> order.checkIfInRange(exampleNoExistentBigAmount));
-    }
-
-}
-
- */
