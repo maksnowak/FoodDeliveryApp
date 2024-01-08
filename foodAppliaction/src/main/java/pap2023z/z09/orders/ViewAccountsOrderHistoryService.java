@@ -7,15 +7,11 @@ import pap2023z.z09.dishes.orderedDishes.OrderedDishesDAO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewAccountsOrderHistory {
-    private final AccountsDAO accountsDAO;
+public class ViewAccountsOrderHistoryService {
     private final OrdersDAO ordersDAO;
-    private final OrderedDishesDAO orderedDishesDAO;
 
-    public ViewAccountsOrderHistory(AccountsDAO accountsDAO, OrdersDAO ordersDAO, OrderedDishesDAO orderedDishesDAO) {
-        this.accountsDAO = accountsDAO;
+    public ViewAccountsOrderHistoryService(OrdersDAO ordersDAO) {
         this.ordersDAO = ordersDAO;
-        this.orderedDishesDAO = orderedDishesDAO;
     }
 
     List<OrdersDTO> getOrdersHistory(int accountId) {

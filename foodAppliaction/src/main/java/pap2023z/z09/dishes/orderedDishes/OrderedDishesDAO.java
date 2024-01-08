@@ -25,6 +25,15 @@ public class OrderedDishesDAO {
         return dishId;
     }
 
+    public List<OrderedDishesEntity> getDishesByOrderId(int orderId) {
+        Session session = sessionFactory.openSession();
+        List<OrderedDishesEntity> dishes = session.createQuery("from OrderedDishesEntity where orderId = :orderId", OrderedDishesEntity.class)
+                .setParameter("orderId", orderId)
+                .list();
+        session.close();
+        return dishes;
+    }
+
     public void addDish(OrderedDishesEntity dish) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
