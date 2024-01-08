@@ -4,18 +4,17 @@ import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.OrderedDishesEntity;
 import pap2023z.z09.dishes.DishesDAO;
 import pap2023z.z09.dishes.DishesDTO;
-import pap2023z.z09.dishes.orderedDishes.OrderedDishsesDTO;
 import pap2023z.z09.dishes.orderedDishes.OrderedDishesDAO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewOrderDetalisService {
+public class ViewOrderDetailsService {
     private final OrdersDAO ordersDAO;
     private final OrderedDishesDAO orderedDishesDAO;
     private final DishesDAO dishesDAO;
 
-    public ViewOrderDetalisService(OrdersDAO ordersDAO, OrderedDishesDAO orderedDishesDAO, DishesDAO dishesDAO) {
+    public ViewOrderDetailsService(OrdersDAO ordersDAO, OrderedDishesDAO orderedDishesDAO, DishesDAO dishesDAO) {
         this.ordersDAO = ordersDAO;
         this.orderedDishesDAO = orderedDishesDAO;
         this.dishesDAO = dishesDAO;
