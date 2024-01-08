@@ -29,7 +29,7 @@ public class ModifyRestaurantsPanel extends JPanel {
                 restaurantList.clearSelection();
                 RestaurantsDAO DAO = new RestaurantsDAO();
                 RestaurantsEntity restaurant = DAO.getRestaurantByName(selected);
-                ((App) callback).getModifyRestaurantDetailsPanel().setRestaurant(restaurant);
+                ((App) callback).selectedRestaurant = restaurant;
                 ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
             }
         });
@@ -42,4 +42,6 @@ public class ModifyRestaurantsPanel extends JPanel {
         });
         add(backButton, BorderLayout.SOUTH);
     }
+
+
 }
