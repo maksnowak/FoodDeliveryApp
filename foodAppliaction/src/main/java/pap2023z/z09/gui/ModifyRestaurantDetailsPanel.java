@@ -23,7 +23,7 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
 
         titleLabel = new JLabel(); // Initialize titleLabel
         add(titleLabel);
-        JPanel buttonPanel = new JPanel(new GridLayout(3, 1));
+        JPanel buttonPanel = new JPanel(new GridLayout(4, 1));
 
         addDishButton = new JButton("Add Dish");
         addDishButton.addActionListener(e -> {
@@ -54,6 +54,12 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
         });
         buttonPanel.add(changeOpensButton);
 
+        // Add "Powrót" button
+        JButton backButton = new JButton("Powrót");
+        backButton.addActionListener(e -> {
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurants");
+        });
+        buttonPanel.add(backButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
     }
