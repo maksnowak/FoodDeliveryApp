@@ -3,9 +3,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import pap2023z.z09.database.ReviewsEntity;
 
 public class ReviewsDTOTest {
 
