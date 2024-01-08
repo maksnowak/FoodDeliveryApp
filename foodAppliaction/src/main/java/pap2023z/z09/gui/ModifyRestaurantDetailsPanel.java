@@ -41,7 +41,16 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
 
         changeOpensButton = new JButton("Change Opening Hours");
         changeOpensButton.addActionListener(e -> {
-            // Add code here to change opens weekdays
+            // Create the ChangeHoursPanel and set the restaurant
+            ChangeHoursPanel changeHoursPanel = new ChangeHoursPanel(callback);
+            RestaurantsEntity restaurant = ((App) callback).selectedRestaurant;
+            changeHoursPanel.setRestaurant(restaurant);
+
+            // Add the ChangeHoursPanel to the App
+            ((App) callback).add(changeHoursPanel, "ChangeHours");
+
+            // Show the ChangeHoursPanel
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ChangeHours");
         });
         buttonPanel.add(changeOpensButton);
 
