@@ -58,7 +58,13 @@ public class DishSelectionPanel extends JPanel {
         sortComboBox.addItem("Od najbardziej kalorycznych");
 
         JPanel upperPanel = new JPanel();
-        upperPanel.setLayout(new GridLayout(4, 1));
+        upperPanel.setLayout(new GridLayout(5, 1));
+        clockLabel = new JLabel();
+        clockLabel.setHorizontalAlignment(JLabel.CENTER);
+        updateClock();
+        Timer timer = new Timer(1000, e -> updateClock());
+        upperPanel.add(clockLabel);
+        timer.start();
         upperPanel.add(titleLabel);
         JPanel searchAndSortPanel = new JPanel();
         searchAndSortPanel.setLayout(new GridBagLayout());
@@ -161,13 +167,6 @@ public class DishSelectionPanel extends JPanel {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "RestaurantChoice");
         });
         add(backButton, BorderLayout.SOUTH);
-
-        clockLabel = new JLabel();
-        clockLabel.setHorizontalAlignment(JLabel.CENTER);
-        updateClock();
-        Timer timer = new Timer(1000, e -> updateClock());
-        add(clockLabel, BorderLayout.SOUTH, 0);
-        timer.start();
     }
 
     private void updateClock() {
