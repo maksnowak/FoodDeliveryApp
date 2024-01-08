@@ -56,6 +56,16 @@ public class OrderHandler {
         orderDAO.updateOrder(order);
     }
 
+    public void addTipAfterOrdering(int orderId, BigDecimal tip)
+    {
+        checkIfInRange(tip);
+        checkOrderId(orderId);
+
+        OrdersEntity order = orderDAO.getOrderById(orderId);
+        order.setTip(tip);
+        orderDAO.updateOrder(order);
+    }
+
     public void checkStatusId(int id){
         StatusesDAO statusesDAO = new StatusesDAO();
         List <StatusesEntity> stats = statusesDAO.getAllStatuses();
