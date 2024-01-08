@@ -45,6 +45,12 @@ public class OrderHandler {
         return entity.getOrderId();
     }
 
+    public int getStatusId(int orderId)
+    {
+        checkOrderId(orderId);
+        OrdersEntity order = orderDAO.getOrderById(orderId);
+        return(order.getStatus());
+    }
     public void changeStatus(int orderId, int statusId)
     {
         checkStatusId(statusId);
