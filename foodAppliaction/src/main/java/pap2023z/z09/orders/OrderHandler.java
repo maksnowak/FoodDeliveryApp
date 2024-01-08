@@ -3,22 +3,22 @@ package pap2023z.z09.orders;
 import pap2023z.z09.accounts.AccountsDAO;
 import pap2023z.z09.database.*;
 import pap2023z.z09.discounts.DiscountsDAO;
+import pap2023z.z09.paymentMethods.DeleteCreditCardService;
 import pap2023z.z09.paymentMethods.PaymentMethodsDAO;
+import pap2023z.z09.statuses.StatusesDAO;
 
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public class AddOrder {
+public class OrderHandler {
     private final OrdersDAO orderDAO;
-    public AddOrder(OrdersDAO orderDAO){
+    public OrderHandler(OrdersDAO orderDAO){
         this.orderDAO = orderDAO;
     }
-    //return id of added order
+    //returns id of added order
     public int addOrder(OrdersDTO order) {
-
-
-        //checkStatusId(order.getStatusId());
+        checkStatusId(order.getStatusId());
         checkPaymentMethodId(order.getPaymentMethodId());
         checkCustomerId(order.getCustomerId());
         checkDiscountId(order.getDiscountId());
@@ -45,6 +45,27 @@ public class AddOrder {
         orderDAO.addOrder(entity);
         return entity.getOrderId();
     }
+
+    public void changeStatus(int orderId, int statusId)
+    {
+        checkStatusId(statusId);
+        checkOrderId(orderId);
+
+        OrdersEntity order = orderDAO.getOrderById(orderId);
+        order.setStatus(statusId);
+        orderDAO.updateOrder(order);
+    }
+
+    public void checkStatusId(int id){
+        StatusesDAO statusesDAO = new StatusesDAO();
+        List <StatusesEntity> stats = statusesDAO.getAllStatuses();
+        for(StatusesEntity stat :stats){
+            if(stat.getStatusId() == id){
+                return;
+            }
+        }
+        throw new IllegalArgumentException("the foreign key StatusId does not exist in primary keys ");
+    }
     public void checkCustomerId(int id){
         AccountsDAO accountsDAO = new AccountsDAO();
         List <AccountsEntity> accounts = accountsDAO.getAllAccounts();
@@ -64,7 +85,7 @@ public class AddOrder {
                 return;
             }
         }
-        throw new IllegalArgumentException("the foreign key MethodId does not exist in primary keys ");
+        throw new IllegalArgumentException("the foreign key PaymentMethodId does not exist in primary keys ");
     }
 
     public void checkDiscountId(int id){
@@ -75,7 +96,16 @@ public class AddOrder {
                 return;
             }
         }
-        throw new IllegalArgumentException("the foreign key discountId does not exist in primary keys ");
+        throw new IllegalArgumentException("the foreign key DiscountId does not exist in primary keys ");
+    }
+    public void checkOrderId(int id){
+        List <OrdersEntity> orders = orderDAO.getAllOrders();
+        for(OrdersEntity order : orders){
+            if(order.getOrderId() == id){
+                return;
+            }
+        }
+        throw new IllegalArgumentException("the foreign key DiscountId does not exist in primary keys ");
     }
 
     public void checkIfInRange(int money){
