@@ -13,22 +13,18 @@ import java.util.List;
 
 public class AddOrderDishesToBasketService {
     private final OrdersDAO ordersDAO;
-    private final OrderedDishesDAO orderedDishesDAO;
-    private final DishesDAO dishesDAO;
-    private final BasketsDAO basketsDAO;
+    private final ViewOrderDetailsService viewOrderDetailsService;
+    private final AddBasket addBasket;
 
-    public AddOrderDishesToBasketService(OrdersDAO ordersDAO, OrderedDishesDAO orderedDishesDAO, DishesDAO dishesDAO, BasketsDAO basketsDAO) {
+    public AddOrderDishesToBasketService(OrdersDAO ordersDAO, ViewOrderDetailsService viewOrderDetailsService, AddBasket addBasket) {
         this.ordersDAO = ordersDAO;
-        this.orderedDishesDAO = orderedDishesDAO;
-        this.dishesDAO = dishesDAO;
-        this.basketsDAO = basketsDAO;
+        this.viewOrderDetailsService = viewOrderDetailsService;
+        this.addBasket = addBasket;
     }
 
     public void addOrderDishesToBasket(int orderId) {
-        ViewOrderDetailsService viewOrderDetailsService = new ViewOrderDetailsService(ordersDAO, orderedDishesDAO, dishesDAO);
         List<DishesDTO> dishes = viewOrderDetailsService.getOrderedDishes(orderId);
         for (DishesDTO dish : dishes) {
-            AddBasket addBasket = new AddBasket(basketsDAO);
             BasketsDTO basket = new BasketsDTO();
             basket.setCustomerId(ordersDAO.getOrderById(orderId).getCustomer());
             basket.setDishId(dish.getDishId());
