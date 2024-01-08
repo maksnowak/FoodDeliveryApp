@@ -42,13 +42,24 @@ public class ChangeHoursPanel extends JPanel {
         closeWeekendsSpinner.setEditor(closeWeekendsEditor);
         add(closeWeekendsSpinner);
 
-        JButton saveButton = new JButton("Save");
+        JButton saveButton = new JButton("Zapisz");
         saveButton.addActionListener(e -> {
             // Save the new hours to the restaurant object
-            restaurant.setOpensWeekdays((Time) openWeekdaysSpinner.getValue());
-            restaurant.setClosesWeekdays((Time) closeWeekdaysSpinner.getValue());
-            restaurant.setOpensWeekends((Time) openWeekendsSpinner.getValue());
-            restaurant.setClosesWeekends((Time) closeWeekendsSpinner.getValue());
+            java.util.Date openWeekdaysDate = (java.util.Date) openWeekdaysSpinner.getValue();
+            java.sql.Time openWeekdaysTime = new java.sql.Time(openWeekdaysDate.getTime());
+            restaurant.setOpensWeekdays(openWeekdaysTime);
+
+            java.util.Date closeWeekdaysDate = (java.util.Date) closeWeekdaysSpinner.getValue();
+            java.sql.Time closeWeekdaysTime = new java.sql.Time(closeWeekdaysDate.getTime());
+            restaurant.setClosesWeekdays(closeWeekdaysTime);
+
+            java.util.Date openWeekendsDate = (java.util.Date) openWeekendsSpinner.getValue();
+            java.sql.Time openWeekendsTime = new java.sql.Time(openWeekendsDate.getTime());
+            restaurant.setOpensWeekends(openWeekendsTime);
+
+            java.util.Date closeWeekendsDate = (java.util.Date) closeWeekendsSpinner.getValue();
+            java.sql.Time closeWeekendsTime = new java.sql.Time(closeWeekendsDate.getTime());
+            restaurant.setClosesWeekends(closeWeekendsTime);
 
             // Go back to the ModifyRestaurantDetailsPanel
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
