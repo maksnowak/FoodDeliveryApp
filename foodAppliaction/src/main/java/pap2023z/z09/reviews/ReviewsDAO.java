@@ -29,7 +29,7 @@ public class ReviewsDAO {
 
     public List<ReviewsEntity> getAllReviewsOfResturantId(int id) {
         Session session = sessionFactory.openSession();
-        List<ReviewsEntity> reviews = session.createQuery("from ReviewsEntity where resturantId = :id")
+        List<ReviewsEntity> reviews = session.createQuery("from ReviewsEntity where reviewId = :id")
                 .setParameter("id", id)
                 .list();
         session.close();
