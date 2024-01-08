@@ -48,9 +48,7 @@ public class MainMenuPanel extends JPanel {
         updateClock();
         Timer timer = new Timer(1000, e -> updateClock());
         timer.start();
-        JPanel clockPanel = new JPanel(new BorderLayout());
-        clockPanel.add(clockLabel, BorderLayout.NORTH);
-        add(clockPanel);
+        add(clockLabel);
     }
 
     private void updateClock() {

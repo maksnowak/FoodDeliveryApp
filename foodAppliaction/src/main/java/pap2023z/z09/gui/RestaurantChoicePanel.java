@@ -44,7 +44,13 @@ public class RestaurantChoicePanel extends JPanel {
         });
 
         JPanel upperPanel = new JPanel();
-        upperPanel.setLayout(new GridLayout(2, 1));
+        upperPanel.setLayout(new GridLayout(3, 1));
+        clockLabel = new JLabel();
+        clockLabel.setHorizontalAlignment(JLabel.CENTER);
+        updateClock();
+        Timer timer = new Timer(1000, e -> updateClock());
+        upperPanel.add(clockLabel);
+        timer.start();
         JLabel titleLabel = new JLabel("Wybierz restaurację:");
         upperPanel.add(titleLabel);
         upperPanel.add(searchField);
@@ -76,13 +82,6 @@ public class RestaurantChoicePanel extends JPanel {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
         });
         add(backButton, BorderLayout.SOUTH);
-
-        clockLabel = new JLabel();
-        clockLabel.setHorizontalAlignment(JLabel.CENTER);
-        updateClock();
-        Timer timer = new Timer(1000, e -> updateClock());
-        add(clockLabel, BorderLayout.SOUTH, 0);
-        timer.start();
     }
 
     private void updateClock() {
