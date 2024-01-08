@@ -1,6 +1,7 @@
 package pap2023z.z09.gui;
 
 import pap2023z.z09.database.RestaurantsEntity;
+import pap2023z.z09.restaurants.RestaurantsDAO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +15,8 @@ public class ChangeHoursPanel extends JPanel {
     private JSpinner openWeekendsSpinner;
     private JSpinner closeWeekendsSpinner;
     private RestaurantsEntity restaurant;
+
+    private RestaurantsDAO restaurantsDAO = new RestaurantsDAO();
 
     public ChangeHoursPanel(Callback callback) {
         setLayout(new GridLayout(5, 2));
@@ -60,6 +63,8 @@ public class ChangeHoursPanel extends JPanel {
             java.util.Date closeWeekendsDate = (java.util.Date) closeWeekendsSpinner.getValue();
             java.sql.Time closeWeekendsTime = new java.sql.Time(closeWeekendsDate.getTime());
             restaurant.setClosesWeekends(closeWeekendsTime);
+
+            restaurantsDAO.updateRestaurant(restaurant);
 
             // Show a message dialog
             JOptionPane.showMessageDialog(this, "Zmieniono godziny otwarcia.");
