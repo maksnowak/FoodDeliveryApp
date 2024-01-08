@@ -58,8 +58,14 @@ public class DishesDAO {
         session.close();
     }
 
-
-
-
-
+    public void removeDish(int dishId) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        DishesEntity dish = session.get(DishesEntity.class, dishId);
+        if (dish != null) {
+            session.remove(dish);
+        }
+        transaction.commit();
+        session.close();
+    }
 }
