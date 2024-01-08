@@ -23,9 +23,14 @@ public class App extends JFrame implements Callback {
     private AccountInfoPanel accountInfoPanel;
     private EditAccountPanel editAccountPanel;
     private ModifyRestaurantsPanel modifyRestaurantsPanel;
+    private ModifyRestaurantDetailsPanel modifyRestaurantDetailsPanel;
     private JLabel clockLabel;
     public RestaurantsEntity selectedRestaurant;
     public AccountsEntity loggedAccount;
+
+    public ModifyRestaurantDetailsPanel getModifyRestaurantDetailsPanel() {
+        return modifyRestaurantDetailsPanel;
+    }
 
     public App() {
         setTitle("PAP2023Z - Z09");
@@ -50,6 +55,7 @@ public class App extends JFrame implements Callback {
         accountInfoPanel = new AccountInfoPanel(this);
         editAccountPanel = new EditAccountPanel(this);
         modifyRestaurantsPanel = new ModifyRestaurantsPanel(this);
+        modifyRestaurantDetailsPanel = new ModifyRestaurantDetailsPanel(this);
 
         add(welcomePanel, "Welcome");
         add(loginPanel, "Login");
@@ -60,6 +66,7 @@ public class App extends JFrame implements Callback {
         add(accountInfoPanel, "AccountInfo");
         add(editAccountPanel, "EditAccount");
         add(modifyRestaurantsPanel, "ModifyRestaurants");
+        add(modifyRestaurantDetailsPanel, "ModifyRestaurantDetails");
 
         cardLayout.show(this.getContentPane(), "Welcome");
 
