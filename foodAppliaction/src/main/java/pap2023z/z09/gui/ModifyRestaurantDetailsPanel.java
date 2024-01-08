@@ -11,15 +11,9 @@ import pap2023z.z09.restaurants.RestaurantsDAO;
 import pap2023z.z09.dishes.*;
 
 public class ModifyRestaurantDetailsPanel extends JPanel {
-    private JTextField nameField;
-    private JTextField openingWeekdaysField;
-    private JTextField openingWeekendsField;
     private JButton addDishButton;
     private JButton removeDishButton;
-    private JButton changeOpensWeekdaysButton;
-    private JButton changeClosesWeekdaysButton;
-    private JButton changeOpensWeekendsButton;
-    private JButton changeClosesWeekendsButton;
+    private JButton changeOpensButton;
     private RestaurantsEntity restaurant;
     private DishesDAO dishesDAO;
     private JLabel titleLabel;
@@ -29,7 +23,7 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
 
         titleLabel = new JLabel(); // Initialize titleLabel
         add(titleLabel);
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 3));
+        JPanel buttonPanel = new JPanel(new GridLayout(3, 1));
 
         addDishButton = new JButton("Add Dish");
         addDishButton.addActionListener(e -> {
@@ -45,29 +39,12 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
         });
         buttonPanel.add(removeDishButton);
 
-        changeOpensWeekdaysButton = new JButton("Change Opens Weekdays");
-        changeOpensWeekdaysButton.addActionListener(e -> {
+        changeOpensButton = new JButton("Change Opening Hours");
+        changeOpensButton.addActionListener(e -> {
             // Add code here to change opens weekdays
         });
-        buttonPanel.add(changeOpensWeekdaysButton);
+        buttonPanel.add(changeOpensButton);
 
-        changeClosesWeekdaysButton = new JButton("Change Closes Weekdays");
-        changeClosesWeekdaysButton.addActionListener(e -> {
-            // Add code here to change closes weekdays
-        });
-        buttonPanel.add(changeClosesWeekdaysButton);
-
-        changeOpensWeekendsButton = new JButton("Change Opens Weekends");
-        changeOpensWeekendsButton.addActionListener(e -> {
-            // Add code here to change opens weekends
-        });
-        buttonPanel.add(changeOpensWeekendsButton);
-
-        changeClosesWeekendsButton = new JButton("Change Closes Weekends");
-        changeClosesWeekendsButton.addActionListener(e -> {
-            // Add code here to change closes weekends
-        });
-        buttonPanel.add(changeClosesWeekendsButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
     }
