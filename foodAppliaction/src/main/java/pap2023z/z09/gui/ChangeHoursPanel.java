@@ -47,7 +47,6 @@ public class ChangeHoursPanel extends JPanel {
 
         JButton saveButton = new JButton("Zapisz");
         saveButton.addActionListener(e -> {
-            // Save the new hours to the restaurant object
             java.util.Date openWeekdaysDate = (java.util.Date) openWeekdaysSpinner.getValue();
             java.sql.Time openWeekdaysTime = new java.sql.Time(openWeekdaysDate.getTime());
             restaurant.setOpensWeekdays(openWeekdaysTime);
@@ -66,10 +65,8 @@ public class ChangeHoursPanel extends JPanel {
 
             restaurantsDAO.updateRestaurant(restaurant);
 
-            // Show a message dialog
             JOptionPane.showMessageDialog(this, "Zmieniono godziny otwarcia.");
 
-            // Go back to the ModifyRestaurantDetailsPanel
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
         });
         add(saveButton);
@@ -84,7 +81,6 @@ public class ChangeHoursPanel extends JPanel {
     public void setRestaurant(RestaurantsEntity restaurant) {
         this.restaurant = restaurant;
 
-        // Set the spinners' values to the current hours
         openWeekdaysSpinner.setValue(restaurant.getOpensWeekdays());
         closeWeekdaysSpinner.setValue(restaurant.getClosesWeekdays());
         openWeekendsSpinner.setValue(restaurant.getOpensWeekends());

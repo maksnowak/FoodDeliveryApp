@@ -21,40 +21,34 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
     public ModifyRestaurantDetailsPanel(Callback callback) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        titleLabel = new JLabel(); // Initialize titleLabel
+        titleLabel = new JLabel();
         add(titleLabel);
         JPanel buttonPanel = new JPanel(new GridLayout(4, 1));
 
         addDishButton = new JButton("Add Dish");
         addDishButton.addActionListener(e -> {
             // Add code here to add a dish
-            // You might want to open a new panel to get the dish details
         });
         buttonPanel.add(addDishButton);
 
         removeDishButton = new JButton("Remove Dish");
         removeDishButton.addActionListener(e -> {
             // Add code here to remove a dish
-            // You might want to open a new panel to get the dish details
         });
         buttonPanel.add(removeDishButton);
 
         changeOpensButton = new JButton("Change Opening Hours");
         changeOpensButton.addActionListener(e -> {
-            // Create the ChangeHoursPanel and set the restaurant
             ChangeHoursPanel changeHoursPanel = new ChangeHoursPanel(callback);
             RestaurantsEntity restaurant = ((App) callback).selectedRestaurant;
             changeHoursPanel.setRestaurant(restaurant);
 
-            // Add the ChangeHoursPanel to the App
             ((App) callback).add(changeHoursPanel, "ChangeHours");
 
-            // Show the ChangeHoursPanel
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ChangeHours");
         });
         buttonPanel.add(changeOpensButton);
 
-        // Add "Powrót" button
         JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e -> {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurants");
@@ -66,6 +60,6 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
 
     public void setRestaurant(RestaurantsEntity restaurant) {
         this.restaurant = restaurant;
-        titleLabel.setText("Modify " + restaurant.getName() + " Details:"); // Update titleLabel text
+        titleLabel.setText("Modify " + restaurant.getName() + " Details:");
     }
 }
