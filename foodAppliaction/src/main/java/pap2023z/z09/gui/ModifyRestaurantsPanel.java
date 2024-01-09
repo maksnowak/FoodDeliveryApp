@@ -14,6 +14,7 @@ public class ModifyRestaurantsPanel extends JPanel {
     RestaurantsDAO RD = new RestaurantsDAO();
     List<RestaurantsEntity> restaurants = RD.getAllRestaurants();
     private JList<String> restaurantList;
+    private JButton addNewRestaurantButton;
 
     public ModifyRestaurantsPanel(Callback callback) {
         setLayout(new BorderLayout());
@@ -36,12 +37,20 @@ public class ModifyRestaurantsPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(restaurantList);
         add(scrollPane, BorderLayout.CENTER);
 
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
+
+        addNewRestaurantButton = new JButton("Add New Restaurant");
+        addNewRestaurantButton.addActionListener(e -> {
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "AddNewRestaurant");
+        });
+        buttonPanel.add(addNewRestaurantButton);
+
         JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e -> {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
         });
-        add(backButton, BorderLayout.SOUTH);
+        buttonPanel.add(backButton);
+
+        add(buttonPanel, BorderLayout.SOUTH);
     }
-
-
 }
