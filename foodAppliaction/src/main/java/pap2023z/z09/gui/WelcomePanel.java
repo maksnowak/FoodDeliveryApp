@@ -10,9 +10,9 @@ import java.util.Date;
 public class WelcomePanel extends JPanel {
     private JLabel clockLabel;
     public WelcomePanel(App parent) {
-        JLabel welcomeLabel = new JLabel("Food!!", SwingConstants.CENTER);
-        JButton loginButton = new JButton("Log in");
-        JButton registerButton = new JButton("Register");
+        JLabel welcomeLabel = new JLabel("Jedzenie!!", SwingConstants.CENTER);
+        JButton loginButton = new JButton("Zaloguj");
+        JButton registerButton = new JButton("Zarejestruj");
 
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -32,7 +32,7 @@ public class WelcomePanel extends JPanel {
         add(welcomeLabel);
         add(loginButton);
         add(registerButton);
-        add(new JLabel("Copyright, yes yes", SwingConstants.CENTER));
+        add(new JLabel("Copyright, tak tak", SwingConstants.CENTER));
 
         clockLabel = new JLabel();
         clockLabel.setHorizontalAlignment(JLabel.CENTER);
