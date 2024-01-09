@@ -40,6 +40,11 @@ public class AddDishPanel extends JPanel {
         kcalField = new JTextField();
         add(kcalField);
 
+        JButton backButton = new JButton("Powrót");
+        backButton.addActionListener(e2 -> {
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurants");
+        });
+        add(backButton);
 
         addButton = new JButton("Add Dish");
         addButton.addActionListener(e -> {
