@@ -11,6 +11,7 @@ import pap2023z.z09.dishes.*;
 public class RemoveDishPanel extends JPanel {
     private JList<String> dishList;
     private JButton removeButton;
+    private JButton backButton;
     private DishesDAO dishesDAO;
 
     public RemoveDishPanel(Callback callback) {
@@ -23,7 +24,11 @@ public class RemoveDishPanel extends JPanel {
         dishList = new JList<>(dishes.stream().map(DishesEntity::getName).toArray(String[]::new));
         add(new JScrollPane(dishList), BorderLayout.CENTER);
 
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
+
         removeButton = new JButton("Usuń danie");
+        removeButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, removeButton.getPreferredSize().height));
         removeButton.addActionListener(e -> {
             String selectedDish = dishList.getSelectedValue();
             if (selectedDish != null) {
@@ -35,6 +40,15 @@ public class RemoveDishPanel extends JPanel {
                 }
             }
         });
-        add(removeButton, BorderLayout.SOUTH);
+        buttonPanel.add(removeButton);
+
+        backButton = new JButton("Powrót");
+        backButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, backButton.getPreferredSize().height));
+        backButton.addActionListener(e -> {
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
+        });
+        buttonPanel.add(backButton);
+
+        add(buttonPanel, BorderLayout.SOUTH);
     }
 }
