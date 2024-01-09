@@ -46,7 +46,7 @@ public class AddDishPanel extends JPanel {
         // Dodanie przycisku powrotu
         JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e2 -> {
-            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurants");
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
         });
         add(backButton);
 
@@ -73,7 +73,7 @@ public class AddDishPanel extends JPanel {
 
             // Wyświetlenie komunikatu o dodaniu dania i przejście do panelu modyfikacji restauracji
             JOptionPane.showMessageDialog(this, "Dodano danie.");
-            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurants");
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
 
 
         });

@@ -51,7 +51,7 @@ public class RemoveDishPanel extends JPanel {
                 }
             }
         });
-        buttonPanel.add(removeButton);
+
 
         // Dodanie przycisku powrotu
         backButton = new JButton("Powrót");
@@ -60,8 +60,9 @@ public class RemoveDishPanel extends JPanel {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
         });
         buttonPanel.add(backButton);
-
+        buttonPanel.add(removeButton);
         add(buttonPanel, BorderLayout.SOUTH);
+
     }
 
     private void refreshDishList(int restaurantId) {

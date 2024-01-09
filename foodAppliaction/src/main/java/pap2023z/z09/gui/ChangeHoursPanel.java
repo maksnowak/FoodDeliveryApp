@@ -73,7 +73,7 @@ public class ChangeHoursPanel extends JPanel {
 
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
         });
-        add(saveButton);
+
 
         // Dodanie przycisku powrotu
         JButton backButton = new JButton("Powrót");
@@ -81,6 +81,7 @@ public class ChangeHoursPanel extends JPanel {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
         });
         add(backButton);
+        add(saveButton);
     }
 
     public void setRestaurant(RestaurantsEntity restaurant) {
