@@ -1,6 +1,7 @@
 package pap2023z.z09.gui;
 
 import pap2023z.z09.accounts.*;
+import pap2023z.z09.database.AccountsEntity;
 
 import javax.swing.*;
 import java.awt.*;

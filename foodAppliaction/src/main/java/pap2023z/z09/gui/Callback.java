@@ -15,4 +15,5 @@ public interface Callback {
     void enterBasket();
     void onOpinionRestaurantSelected(RestaurantsEntity restaurant);
     void enterPaymentMethods();
+    void enterPayment();
 }
