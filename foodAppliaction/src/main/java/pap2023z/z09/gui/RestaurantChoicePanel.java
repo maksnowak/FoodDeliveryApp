@@ -75,13 +75,25 @@ public class RestaurantChoicePanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(restaurantList);
         add(scrollPane, BorderLayout.CENTER);
 
+
+
+        JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
+
         JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e -> {
             restaurantList.clearSelection();
             searchField.setText("");
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
         });
-        add(backButton, BorderLayout.SOUTH);
+        bottomPanel.add(backButton);
+
+        JButton basketButton = new JButton("Koszyk");
+        basketButton.addActionListener(e -> {
+            searchField.setText("");
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "Basket");
+        });
+        bottomPanel.add(basketButton);
+        add(bottomPanel, BorderLayout.SOUTH);
     }
 
     private void updateClock() {

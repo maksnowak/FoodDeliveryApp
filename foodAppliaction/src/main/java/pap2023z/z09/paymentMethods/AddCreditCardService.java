@@ -14,10 +14,11 @@ public class AddCreditCardService {
     }
 
     public void addCreditCard(PaymentMethodsDTO methodDTO) throws ExpiredCardException, CardAlreadyAddedException {
+        // sprawdź czy dane karty są poprawne i karta nie wygasła
         creditCardValidationService.validateCardNumber(methodDTO.getCardNumber());
         creditCardValidationService.validateCvv(methodDTO.getCvv());
         creditCardValidationService.validateExpiryDate(methodDTO.getExpiryDate());
-        verifyIfCustomerAlreadyAddedCardService.verifyIfCustomerAlreadyAddedCard(methodDTO);
+        verifyIfCustomerAlreadyAddedCardService.verifyIfCustomerAlreadyAddedCard(methodDTO); // sprawdzanie czy użytkownik nie dodał już karty o podanym numerze
         PaymentMethodsEntity entity = new PaymentMethodsEntity();
         entity.setCardNumber(methodDTO.getCardNumber());
         entity.setCvv(methodDTO.getCvv());

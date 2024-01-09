@@ -1,8 +1,10 @@
 package pap2023z.z09.gui;
 
 import pap2023z.z09.accounts.*;
+import pap2023z.z09.baskets.BasketsDAO;
 import pap2023z.z09.database.AccountsEntity;
 import pap2023z.z09.database.RestaurantsEntity;
+import pap2023z.z09.dishes.favourites.FavoritesDAO;
 import pap2023z.z09.orders.OrdersDAO;
 import pap2023z.z09.paymentMethods.PaymentMethodsDAO;
 
@@ -24,6 +26,7 @@ public class App extends JFrame implements Callback {
     private EditAccountPanel editAccountPanel;
     private ModifyRestaurantsPanel modifyRestaurantsPanel;
     private ModifyRestaurantDetailsPanel modifyRestaurantDetailsPanel;
+    private BasketPanel basketPanel;
     private JLabel clockLabel;
     public RestaurantsEntity selectedRestaurant;
     public AccountsEntity loggedAccount;
@@ -56,6 +59,7 @@ public class App extends JFrame implements Callback {
         editAccountPanel = new EditAccountPanel(this);
         modifyRestaurantsPanel = new ModifyRestaurantsPanel(this);
         modifyRestaurantDetailsPanel = new ModifyRestaurantDetailsPanel(this);
+        basketPanel = new BasketPanel(this);
 
         add(welcomePanel, "Welcome");
         add(loginPanel, "Login");
@@ -67,6 +71,7 @@ public class App extends JFrame implements Callback {
         add(editAccountPanel, "EditAccount");
         add(modifyRestaurantsPanel, "ModifyRestaurants");
         add(modifyRestaurantDetailsPanel, "ModifyRestaurantDetails");
+        add(basketPanel, "Basket");
 
         cardLayout.show(this.getContentPane(), "Welcome");
 
@@ -134,7 +139,9 @@ public class App extends JFrame implements Callback {
         AccountsDAO ADAO = new AccountsDAO();
         OrdersDAO ODAO = new OrdersDAO();
         PaymentMethodsDAO PMDAO = new PaymentMethodsDAO();
-        DeleteService DS = new DeleteService(ADAO, ODAO, PMDAO);
+        FavoritesDAO FDAO = new FavoritesDAO();
+        BasketsDAO BDAO = new BasketsDAO();
+        DeleteService DS = new DeleteService(ADAO, ODAO, PMDAO, FDAO, BDAO);
         DS.deleteAccount(loggedAccount.getAccountId());
         loggedAccount = null;
         JOptionPane.showMessageDialog(this, "Konto zostało usunięte.");

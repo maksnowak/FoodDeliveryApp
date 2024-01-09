@@ -33,8 +33,8 @@ public class SignUpServiceTest {
 
     @Test
     public void signUpSuccessTest() throws EmailAlreadyExistsException {
-        AccountsDTO dto = new AccountsDTO(1, "email", "password", 1, "name", "surname");
-        doReturn(null).when(accountsDAO).getAccountByEmail("email");
+        AccountsDTO dto = new AccountsDTO(1, "email@test.com", "password", 1, "name", "surname");
+        doReturn(null).when(accountsDAO).getAccountByEmail("email@test.com");
         doNothing().when(accountsDAO).addAccount(any());
         signUpService.signUp(dto);
         verify(accountsDAO, times(1)).addAccount(any());
@@ -42,9 +42,9 @@ public class SignUpServiceTest {
 
     @Test
     public void signUpFailEmailExistsTest() throws EmailAlreadyExistsException {
-        AccountsDTO dto = new AccountsDTO(1, "email", "password", 1, "name", "surname");
-        when(accountsDAO.getAccountByEmail("email")).thenReturn(account);
-        doThrow(EmailAlreadyExistsException.class).when(verifyIfEmailAlreadyExistsService).verifyEmail("email");
+        AccountsDTO dto = new AccountsDTO(1, "email@test.com", "password", 1, "name", "surname");
+        when(accountsDAO.getAccountByEmail("email@test.com")).thenReturn(account);
+        doThrow(EmailAlreadyExistsException.class).when(verifyIfEmailAlreadyExistsService).verifyEmail("email@test.com");
         assertThrows(EmailAlreadyExistsException.class, () -> signUpService.signUp(dto));
         verify(accountsDAO, times(0)).addAccount(any());
     }
@@ -66,8 +66,16 @@ public class SignUpServiceTest {
     }
 
     @Test
+    public void signUpFailNotValidEmailTest() throws EmailAlreadyExistsException {
+        AccountsDTO dto = new AccountsDTO(1, "email", "password", 1, "name", "surname");
+        doThrow(IllegalArgumentException.class).when(inputValidationService).validateEmail("email");
+        assertThrows(IllegalArgumentException.class, () -> signUpService.signUp(dto));
+        verify(accountsDAO, times(0)).addAccount(any());
+    }
+
+    @Test
     public void signUpFailPasswordNullTest() throws EmailAlreadyExistsException {
-        AccountsDTO dto = new AccountsDTO(1, "email", null, 1, "name", "surname");
+        AccountsDTO dto = new AccountsDTO(1, "email@test.com", null, 1, "name", "surname");
         doThrow(IllegalArgumentException.class).when(inputValidationService).validatePassword(null);
         assertThrows(IllegalArgumentException.class, () -> signUpService.signUp(dto));
         verify(accountsDAO, times(0)).addAccount(any());
@@ -75,7 +83,7 @@ public class SignUpServiceTest {
 
     @Test
     public void signUpFailPasswordEmptyTest() throws EmailAlreadyExistsException {
-        AccountsDTO dto = new AccountsDTO(1, "email", "", 1, "name", "surname");
+        AccountsDTO dto = new AccountsDTO(1, "email@test.com", "", 1, "name", "surname");
         doThrow(IllegalArgumentException.class).when(inputValidationService).validatePassword("");
         assertThrows(IllegalArgumentException.class, () -> signUpService.signUp(dto));
         verify(accountsDAO, times(0)).addAccount(any());
