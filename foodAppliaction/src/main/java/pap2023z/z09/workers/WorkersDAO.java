@@ -39,16 +39,16 @@ public class WorkersDAO {
         WorkersEntity worker = new WorkersEntity();
         worker.setWorker(accountId);
         worker.setRestaurantId(restaurantId);
-        session.save(worker);
+        session.persist(worker);
         session.getTransaction().commit();
         session.close();
     }
 
-    public void removeWorker(int id) {
+    public void deleteWorker(int id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         WorkersEntity worker = session.get(WorkersEntity.class, id);
-        session.delete(worker);
+        session.remove(worker);
         session.getTransaction().commit();
         session.close();
     }
@@ -59,7 +59,7 @@ public class WorkersDAO {
         WorkersEntity worker = session.get(WorkersEntity.class, id);
         worker.setWorker(accountId);
         worker.setRestaurantId(restaurantId);
-        session.update(worker);
+        session.merge(worker);
         session.getTransaction().commit();
         session.close();
     }
