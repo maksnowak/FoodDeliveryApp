@@ -21,25 +21,25 @@ public class ChangeHoursPanel extends JPanel {
     public ChangeHoursPanel(Callback callback) {
         setLayout(new GridLayout(5, 2));
 
-        add(new JLabel("Open Weekdays:"));
+        add(new JLabel("Otwarcie pon-pt:"));
         openWeekdaysSpinner = new JSpinner(new SpinnerDateModel());
         JSpinner.DateEditor openWeekdaysEditor = new JSpinner.DateEditor(openWeekdaysSpinner, "HH:mm");
         openWeekdaysSpinner.setEditor(openWeekdaysEditor);
         add(openWeekdaysSpinner);
 
-        add(new JLabel("Close Weekdays:"));
+        add(new JLabel("Zamknięcie pon-pt:"));
         closeWeekdaysSpinner = new JSpinner(new SpinnerDateModel());
         JSpinner.DateEditor closeWeekdaysEditor = new JSpinner.DateEditor(closeWeekdaysSpinner, "HH:mm");
         closeWeekdaysSpinner.setEditor(closeWeekdaysEditor);
         add(closeWeekdaysSpinner);
 
-        add(new JLabel("Open Weekends:"));
+        add(new JLabel("Otwarcie weekendy:"));
         openWeekendsSpinner = new JSpinner(new SpinnerDateModel());
         JSpinner.DateEditor openWeekendsEditor = new JSpinner.DateEditor(openWeekendsSpinner, "HH:mm");
         openWeekendsSpinner.setEditor(openWeekendsEditor);
         add(openWeekendsSpinner);
 
-        add(new JLabel("Close Weekends:"));
+        add(new JLabel("Zamknięcie weekendy:"));
         closeWeekendsSpinner = new JSpinner(new SpinnerDateModel());
         JSpinner.DateEditor closeWeekendsEditor = new JSpinner.DateEditor(closeWeekendsSpinner, "HH:mm");
         closeWeekendsSpinner.setEditor(closeWeekendsEditor);

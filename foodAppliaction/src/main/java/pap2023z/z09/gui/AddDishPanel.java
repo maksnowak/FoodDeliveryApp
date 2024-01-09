@@ -20,19 +20,19 @@ public class AddDishPanel extends JPanel {
 
         setLayout(new GridLayout(6, 2));
 
-        add(new JLabel("Name:"));
+        add(new JLabel("Nazwa:"));
         nameField = new JTextField();
         add(nameField);
 
-        add(new JLabel("Type ID:"));
+        add(new JLabel("Typ dania:"));
         typeIdField = new JTextField();
         add(typeIdField);
 
-        add(new JLabel("Vegetarian:"));
+        add(new JLabel("Wegetariańskie:"));
         vegetarianCheckBox = new JCheckBox();
         add(vegetarianCheckBox);
 
-        add(new JLabel("Price:"));
+        add(new JLabel("Cena:"));
         priceField = new JTextField();
         add(priceField);
 
@@ -46,7 +46,7 @@ public class AddDishPanel extends JPanel {
         });
         add(backButton);
 
-        addButton = new JButton("Add Dish");
+        addButton = new JButton("Dodaj danie");
         addButton.addActionListener(e -> {
             String name = nameField.getText();
             int typeId = Integer.parseInt(typeIdField.getText());

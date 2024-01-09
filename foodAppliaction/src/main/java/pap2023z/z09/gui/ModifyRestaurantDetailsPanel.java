@@ -21,12 +21,12 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
     public ModifyRestaurantDetailsPanel(Callback callback) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        titleLabel = new JLabel();
+        titleLabel = new JLabel("Zmień szczegóły restauracji:");
         add(titleLabel);
         JPanel buttonPanel = new JPanel(new GridLayout(4, 1));
 
         dishesDAO = new DishesDAO();
-        addDishButton = new JButton("Add Dish");
+        addDishButton = new JButton("Dodaj danie");
         addDishButton.addActionListener(e -> {
             AddDishPanel addDishPanel = new AddDishPanel(new AddDish(dishesDAO), callback);
             ((App) callback).add(addDishPanel, "AddDish");
@@ -34,13 +34,13 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
         });
         buttonPanel.add(addDishButton);
 
-        removeDishButton = new JButton("Remove Dish");
+        removeDishButton = new JButton("Usuń danie");
         removeDishButton.addActionListener(e -> {
             // Add code here to remove a dish
         });
         buttonPanel.add(removeDishButton);
 
-        changeOpensButton = new JButton("Change Opening Hours");
+        changeOpensButton = new JButton("Zmień godziny otwarcia");
         changeOpensButton.addActionListener(e -> {
             ChangeHoursPanel changeHoursPanel = new ChangeHoursPanel(callback);
             RestaurantsEntity restaurant = ((App) callback).selectedRestaurant;
