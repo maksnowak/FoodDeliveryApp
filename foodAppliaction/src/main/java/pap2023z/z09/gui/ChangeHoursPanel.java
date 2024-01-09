@@ -19,8 +19,11 @@ public class ChangeHoursPanel extends JPanel {
     private RestaurantsDAO restaurantsDAO = new RestaurantsDAO();
 
     public ChangeHoursPanel(Callback callback) {
+
+        // Stworznie siatki 5x2
         setLayout(new GridLayout(5, 2));
 
+        // Dodanie pól tekstowych, etykiet i spinnerów
         add(new JLabel("Otwarcie pon-pt:"));
         openWeekdaysSpinner = new JSpinner(new SpinnerDateModel());
         JSpinner.DateEditor openWeekdaysEditor = new JSpinner.DateEditor(openWeekdaysSpinner, "HH:mm");
@@ -45,6 +48,7 @@ public class ChangeHoursPanel extends JPanel {
         closeWeekendsSpinner.setEditor(closeWeekendsEditor);
         add(closeWeekendsSpinner);
 
+        // Dodanie przycisku do zapisywania zmian
         JButton saveButton = new JButton("Zapisz");
         saveButton.addActionListener(e -> {
             java.util.Date openWeekdaysDate = (java.util.Date) openWeekdaysSpinner.getValue();
@@ -71,6 +75,7 @@ public class ChangeHoursPanel extends JPanel {
         });
         add(saveButton);
 
+        // Dodanie przycisku powrotu
         JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e -> {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
