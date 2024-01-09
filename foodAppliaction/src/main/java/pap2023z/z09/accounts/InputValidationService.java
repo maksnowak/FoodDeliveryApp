@@ -5,6 +5,10 @@ public class InputValidationService {
         if (email == null || email.isEmpty()) {
             throw new IllegalArgumentException("Email cannot be empty");
         }
+        String regex = "^[A-Za-z0-9+_.-]+@(.+)$"; // wyrażenie regularne do sprawdzania poprawności adresu email
+        if (!email.matches(regex)) {
+            throw new IllegalArgumentException("Not a valid email address");
+        }
     }
 
     public void validatePassword(String password) {
