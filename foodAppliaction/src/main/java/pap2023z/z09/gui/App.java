@@ -28,7 +28,7 @@ public class App extends JFrame implements Callback {
     private DishSelectionPanel dishSelectionPanel;
     private AccountInfoPanel accountInfoPanel;
     private EditAccountPanel editAccountPanel;
-    private ModifyRestaurantsPanel modifyRestaurantsPanel;
+    ModifyRestaurantsPanel modifyRestaurantsPanel;
     private ModifyRestaurantDetailsPanel modifyRestaurantDetailsPanel;
     private BasketPanel basketPanel;
     private JLabel clockLabel;

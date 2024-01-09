@@ -80,6 +80,10 @@ public class AddNewRestaurantPanel extends JPanel {
             restaurant.setRestaurantId(restaurantId);
 
             JOptionPane.showMessageDialog(this, "Dodano restauracje.");
+
+            ((App) callback).modifyRestaurantsPanel.refreshRestaurantList();
+
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurants");
         });
 
 

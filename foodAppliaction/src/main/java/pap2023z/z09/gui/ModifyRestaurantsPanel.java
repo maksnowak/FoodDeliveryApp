@@ -17,6 +17,7 @@ public class ModifyRestaurantsPanel extends JPanel {
     private JList<String> restaurantList;
     private JButton addNewRestaurantButton;
     private JButton removeRestaurantButton;
+    private JButton modifyRestaurantButton;
     private DefaultListModel<String> restaurantListModel;
 
     public ModifyRestaurantsPanel(Callback callback) {
@@ -31,7 +32,7 @@ public class ModifyRestaurantsPanel extends JPanel {
         refreshRestaurantList();
         add(new JScrollPane(restaurantList));
 
-        JPanel buttonPanel = new JPanel(new GridLayout(3, 1));
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 2));
 
         // Dodanie przycisku do dodawania restauracji
         addNewRestaurantButton = new JButton("Dodaj restaurację");
@@ -56,6 +57,18 @@ public class ModifyRestaurantsPanel extends JPanel {
         });
         buttonPanel.add(removeRestaurantButton);
 
+        // Dodanie przycisku do modyfikacji restauracji
+        modifyRestaurantButton = new JButton("Modyfikuj restaurację");
+        modifyRestaurantButton.addActionListener(e -> {
+            String selectedRestaurantName = restaurantList.getSelectedValue();
+            if (selectedRestaurantName != null) {
+                RestaurantsEntity restaurant = RD.getRestaurantByName(selectedRestaurantName);
+                ((App) callback).selectedRestaurant = restaurant;
+                ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
+            }
+        });
+        buttonPanel.add(modifyRestaurantButton);
+
         JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e -> {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
@@ -65,7 +78,7 @@ public class ModifyRestaurantsPanel extends JPanel {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    private void refreshRestaurantList() {
+    void refreshRestaurantList() {
         restaurants = RD.getAllRestaurants();
         restaurantListModel.clear();
         for (RestaurantsEntity restaurant : restaurants) {
