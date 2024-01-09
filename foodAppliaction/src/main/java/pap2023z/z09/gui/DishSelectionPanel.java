@@ -141,10 +141,10 @@ public class DishSelectionPanel extends JPanel {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting() && dishList.getSelectedValue() != null) {
                     int index = dishList.getSelectedIndex();
-                    selectedRestaurantsDishes = searchAndFilterList();
+                    List<DishesEntity> filteredList = searchAndFilterList();
                     dishList.clearSelection();
 
-                    DishesDTO dish = DishesDTO.fromEntity(dishesDAO.getDishById(selectedRestaurantsDishes.get(index).getDishId()));
+                    DishesDTO dish = DishesDTO.fromEntity(dishesDAO.getDishById(filteredList.get(index).getDishId()));
 
                     callback.addToBasket(dish);
                 }
