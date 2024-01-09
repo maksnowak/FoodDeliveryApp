@@ -161,6 +161,12 @@ public class App extends JFrame implements Callback {
         JOptionPane.showMessageDialog(this, "Dodano " + dish.getName() + " do koszyka.");
     }
 
+    @Override
+    public void enterBasket() {
+        basketPanel.enter(loggedAccount.getAccountId());
+        cardLayout.show(getContentPane(), "Basket");
+    }
+
     public void updateAccountInfo() {
         mainMenuPanel.updateAccountLabel(loggedAccount.getEmail());
         accountInfoPanel.updateAccountInfo("Imię: " + loggedAccount.getName() + "\nNazwisko: " + loggedAccount.getSurname() + "\nEmail: " + loggedAccount.getEmail() + "\nTyp: " + loggedAccount.getType());

@@ -10,8 +10,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.restaurants.RestaurantsDAO;
+import pap2023z.z09.baskets.BasketsDAO;
+import pap2023z.z09.database.BasketsEntity;
+import pap2023z.z09.dishes.DishesDAO;
 
 public class BasketPanel extends JPanel {
 //    RestaurantsDAO DAO = new RestaurantsDAO();
@@ -68,11 +72,26 @@ public class BasketPanel extends JPanel {
         orderButton.addActionListener(e -> {
             dishesList.clearSelection();
             JOptionPane.showMessageDialog(null, "Zamówiono!");
-
-//            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
         });
         bottomPanel.add(orderButton);
         add(bottomPanel, BorderLayout.SOUTH);
+    }
+
+    public void enter(int accountId) {
+        listBasket(accountId);
+    }
+
+    private void listBasket(int accountId) {
+        System.out.println("listBasket");
+        model.clear();
+        BasketsDAO basketsDAO = new BasketsDAO();
+        DishesDAO dishesDAO = new DishesDAO();
+        List<BasketsEntity> baskets = basketsDAO.getAllDishesOfClientId(accountId);
+        System.out.println(baskets.size());
+        for (BasketsEntity basket : baskets) {
+            DishesEntity dish = dishesDAO.getDishById(basket.getDishId());
+            model.addElement(dish.getName());
+        }
     }
 
     private void updateClock() {

@@ -184,7 +184,7 @@ public class DishSelectionPanel extends JPanel {
         basketButton.addActionListener(e -> {
             isListenerActive = false;
             searchField.setText("");
-            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "Basket");
+            callback.enterBasket();
         });
         bottomPanel.add(basketButton);
         add(bottomPanel, BorderLayout.SOUTH);

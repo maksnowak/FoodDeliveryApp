@@ -12,4 +12,5 @@ public interface Callback {
     void onDeleteAccount();
     void onAccountLogout();
     void addToBasket(DishesDTO dish);
+    void enterBasket();
 }
