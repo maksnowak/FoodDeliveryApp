@@ -144,6 +144,7 @@ public class DishSelectionPanel extends JPanel {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting() && dishList.getSelectedValue() != null) {
                     String selected = dishList.getSelectedValue();
+                    selected = selected.substring(0, selected.indexOf(" - "));
                     int index = dishList.getSelectedIndex();
                     dishList.clearSelection();
                     OrdersDTO order = new OrdersDTO();
