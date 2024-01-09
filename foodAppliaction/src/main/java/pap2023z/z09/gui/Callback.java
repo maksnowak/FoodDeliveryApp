@@ -13,4 +13,5 @@ public interface Callback {
     void onAccountLogout();
     void addToBasket(DishesDTO dish);
     void enterBasket();
+    void onOpinionRestaurantSelected(RestaurantsEntity restaurant);
 }

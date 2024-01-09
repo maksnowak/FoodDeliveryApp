@@ -25,6 +25,7 @@ public class App extends JFrame implements Callback {
     private RegisterPanel registerPanel;
     private MainMenuPanel mainMenuPanel;
     private RestaurantChoicePanel restaurantChoicePanel;
+    private OpinionRestaurantChoicePanel opinionRestaurantChoicePanel;
     private DishSelectionPanel dishSelectionPanel;
     private AccountInfoPanel accountInfoPanel;
     private EditAccountPanel editAccountPanel;
@@ -58,6 +59,7 @@ public class App extends JFrame implements Callback {
         registerPanel = new RegisterPanel(this);
         mainMenuPanel = new MainMenuPanel(this);
         restaurantChoicePanel = new RestaurantChoicePanel(this);
+        opinionRestaurantChoicePanel = new OpinionRestaurantChoicePanel(this);
         dishSelectionPanel = new DishSelectionPanel(this);
         accountInfoPanel = new AccountInfoPanel(this);
         editAccountPanel = new EditAccountPanel(this);
@@ -70,6 +72,7 @@ public class App extends JFrame implements Callback {
         add(registerPanel, "Register");
         add(mainMenuPanel, "MainMenu");
         add(restaurantChoicePanel, "RestaurantChoice");
+        add(opinionRestaurantChoicePanel, "OpinionRestaurantChoice");
         add(dishSelectionPanel, "DishSelection");
         add(accountInfoPanel, "AccountInfo");
         add(editAccountPanel, "EditAccount");
@@ -97,6 +100,11 @@ public class App extends JFrame implements Callback {
         selectedRestaurant = restaurant;
         dishSelectionPanel.enter(selectedRestaurant);
         cardLayout.show(getContentPane(), "DishSelection");
+    }
+
+    @Override
+    public void onOpinionRestaurantSelected(RestaurantsEntity restaurant) {
+        JOptionPane.showMessageDialog(this, "Wybrano restaurację " + restaurant.getName());
     }
 
     @Override

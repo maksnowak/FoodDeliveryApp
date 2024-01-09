@@ -12,7 +12,12 @@ public class MainMenuPanel extends JPanel {
     public MainMenuPanel(Callback callback) {
         JButton orderButton = new JButton("Zamów");
         JButton accountButton = new JButton("Konto");
+        JButton opinionButton = new JButton("Opinie");
+        JButton complaintsButton = new JButton("Reklamacje");
+        JButton orderStatusButton = new JButton("Status zamówienia");
         JButton restaurantsButton = new JButton("Restauracje");
+        JButton statisticsButton = new JButton("Statystyki");
+
 
         orderButton.addActionListener(new ActionListener() {
             @Override
@@ -35,13 +40,18 @@ public class MainMenuPanel extends JPanel {
             }
         });
 
-        setLayout(new GridLayout(6, 1));
+        setLayout(new GridLayout(10, 1));
         add(new JLabel("Food!! (main menu)", SwingConstants.CENTER));
         add(orderButton);
         add(accountButton);
+        add(opinionButton);
+        add(complaintsButton);
+        add(orderStatusButton);
         add(restaurantsButton);
+        add(statisticsButton);
         add(new JLabel("Zalogowano jako: ", SwingConstants.CENTER));
         restaurantsButton.setVisible(false);
+        statisticsButton.setVisible(false);
 
         clockLabel = new JLabel();
         clockLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -57,16 +67,16 @@ public class MainMenuPanel extends JPanel {
     }
 
     public void updateAccountLabel(String accountName) {
-        ((JLabel) getComponent(4)).setText("Zalogowano jako: " + accountName);
+        ((JLabel) getComponent(8)).setText("Zalogowano jako: " + accountName);
     }
 
     public void showRestaurantsButton() {
-//        setBackground(new Color(42, 0, 93));
-        getComponent(3).setVisible(true);
+        getComponent(6).setVisible(true);
+        getComponent(7).setVisible(true);
     }
 
     public void hideRestaurantsButton() {
-//        setBackground(new Color(68, 0, 93));
-        getComponent(3).setVisible(false);
+        getComponent(6).setVisible(false);
+        getComponent(7).setVisible(false);
     }
 }
