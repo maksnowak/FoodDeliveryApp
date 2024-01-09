@@ -33,6 +33,13 @@ public class MainMenuPanel extends JPanel {
             }
         });
 
+        opinionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((App) callback).cardLayout.show(((App) callback).getContentPane(), "OpinionRestaurantChoice");
+            }
+        });
+
         restaurantsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
