@@ -18,9 +18,6 @@ import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.dishes.DishesDAO;
 import pap2023z.z09.dishes.DishesDTO;
-import pap2023z.z09.orders.OrdersDTO;
-import pap2023z.z09.orders.OrdersDAO;
-import pap2023z.z09.orders.OrderHandler;
 
 class DishListModel extends DefaultListModel<String> {
     public void addElementWithNumber(String name, BigDecimal price, BigDecimal kcal){
@@ -29,10 +26,9 @@ class DishListModel extends DefaultListModel<String> {
 }
 
 public class DishSelectionPanel extends JPanel {
-    DishesDAO DD = new DishesDAO();
-    OrdersDAO OD = new OrdersDAO();
+    DishesDAO dishesDAO = new DishesDAO();
 
-    List<DishesEntity> dishes;
+    List<DishesEntity> selectedRestaurantsDishes;
     DishListModel model = new DishListModel();
     JList<String> dishList = new JList<>(model);
     boolean isListenerActive = false;
@@ -145,24 +141,12 @@ public class DishSelectionPanel extends JPanel {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting() && dishList.getSelectedValue() != null) {
                     int index = dishList.getSelectedIndex();
+                    selectedRestaurantsDishes = searchAndFilterList();
                     dishList.clearSelection();
-                    DishesDTO dish = DishesDTO.fromEntity(DD.getDishById(dishes.get(index).getDishId()));
+
+                    DishesDTO dish = DishesDTO.fromEntity(dishesDAO.getDishById(selectedRestaurantsDishes.get(index).getDishId()));
+
                     callback.addToBasket(dish);
-//                    OrdersDTO order = new OrdersDTO();
-//                    OrderHandler orderHandler = new OrderHandler(OD);
-//                    //Some of the values hardcoded for now, will be updated
-//                    order.setCustomerId(((App) callback).loggedAccount.getAccountId());
-//                    order.setTotal(dishes.get(index).getPrice());
-//                    order.setPaymentMethodId(1);
-//                    order.setStreet("ulica");
-//                    order.setStreetNumber(1);
-//                    order.setApartment(1);
-//                    order.setCity("miasto");
-//                    order.setDiscountId(1);
-//                    order.setStatusId(1);
-//                    order.setTip(new BigDecimal(0));
-//                    orderHandler.addOrder(order);
-//                    JOptionPane.showMessageDialog(null, "Zamówiono danie: " + selected);
                 }
             }
         });
@@ -198,21 +182,23 @@ public class DishSelectionPanel extends JPanel {
     public void enter(RestaurantsEntity restaurant) {
         isListenerActive = true;
         titleLabel.setText("Wybierz danie w restauracji: " + restaurant.getName());
-        dishes = DD.getDishesByRestaurant(restaurant.getRestaurantId());
+        selectedRestaurantsDishes = dishesDAO.getDishesByRestaurant(restaurant.getRestaurantId());
         searchAndFilterList();
     }
 
-    public void searchAndFilterList() {
+    public List<DishesEntity> searchAndFilterList() {
         model.clear();
         String search = searchField.getText();
-        for (DishesEntity dish : dishes) {
+        for (DishesEntity dish : selectedRestaurantsDishes) {
             if (dish.getName().toLowerCase().contains(search.toLowerCase()) &&
                     (typeComboBox.getSelectedIndex() == 0 || dish.getTypeId() == typeComboBox.getSelectedIndex()) &&
                     (priceMinField.getText().isEmpty() || dish.getPrice().compareTo(new BigDecimal(priceMinField.getText())) >= 0) &&
                     (priceMaxField.getText().isEmpty() || dish.getPrice().compareTo(new BigDecimal(priceMaxField.getText())) <= 0) &&
                     (!vegetarianCheckBox.isSelected() || dish.isVegetarian())) {
+
                 if ((kcalMinField.getText().isEmpty() || dish.getKcal().compareTo(new BigDecimal(kcalMinField.getText())) >= 0) &&
-                    (kcalMaxField.getText().isEmpty() || dish.getKcal().compareTo(new BigDecimal(kcalMaxField.getText())) <= 0)) {
+                        (kcalMaxField.getText().isEmpty() || dish.getKcal().compareTo(new BigDecimal(kcalMaxField.getText())) <= 0)) {
+
                     model.addElementWithNumber(dish.getName(), dish.getPrice(), dish.getKcal());
                 }
             }
@@ -220,7 +206,7 @@ public class DishSelectionPanel extends JPanel {
         List<DishesEntity> dishesList = new ArrayList<>();
         for (int i = 0; i < model.size(); i++) {
             int finalI = i;
-            dishesList.add(dishes.stream().filter(dish -> dish.getName().equals(model.get(finalI).split(" - ")[0])).findFirst().get());
+            dishesList.add(selectedRestaurantsDishes.stream().filter(dish -> dish.getName().equals(model.get(finalI).split(" - ")[0])).findFirst().get());
         }
         if (sortComboBox.getSelectedIndex() == 0) {
             dishesList.sort(Comparator.comparing(DishesEntity::getPrice));
@@ -234,9 +220,11 @@ public class DishSelectionPanel extends JPanel {
         else if (sortComboBox.getSelectedIndex() == 3) {
             dishesList.sort(Comparator.comparing(DishesEntity::getKcal).reversed());
         }
+
         model.clear();
         for (DishesEntity dish : dishesList) {
             model.addElementWithNumber(dish.getName(), dish.getPrice(), dish.getKcal());
         }
+        return dishesList;
     }
 }
