@@ -17,86 +17,14 @@ import java.util.List;
 import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.dishes.DishesDAO;
+import pap2023z.z09.dishes.DishesDTO;
 import pap2023z.z09.orders.OrdersDTO;
 import pap2023z.z09.orders.OrdersDAO;
 import pap2023z.z09.orders.OrderHandler;
 
 class DishListModel extends DefaultListModel<String> {
-    public void addElementWithNumber(String name, int number) {
-        addElement(name + " - " + number);
-    }
-}
-
-class DishListRenderer extends DefaultListCellRenderer {
-    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
-        // Dostosowujemy komponent renderujący
-        setHorizontalAlignment(SwingConstants.LEFT);
-        setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-
-        // Pobieramy wartość z modelu i dzielimy ją na nazwę i liczbę
-        String[] parts = value.toString().split(" - ");
-
-        // Ustawiamy tekst dla komórki z nazwą (po lewej)
-//        setText(parts[0]);
-        JLabel nameLabel = new JLabel(parts[0]);
-//        nameLabel.setHorizontalAlignment(SwingConstants.LEFT);
-
-        // Dodajemy liczbę jako etykietę, ustawiając ją po prawej stronie
-        JLabel numberLabel = new JLabel(parts[1]);
-//        numberLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-
-        // Dodajemy etykietę jako komponent do komórki
-        setLayout(new GridLayout(1, 2));
-        add(nameLabel);
-        add(numberLabel);
-
-        return this;
-    }
-}
-
-class DishListPanel extends JPanel {
-    private static final int ELEMENT_HEIGHT = 1000; // Stała wysokość elementu
-    public DishListPanel(ArrayList<String> elements) {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        for (String element : elements) {
-            // Dzielimy tekst na nazwę i liczbę
-            String[] parts = element.split(" - ");
-
-            // Tworzymy etykiety dla nazwy i liczbę
-            JLabel nameLabel = new JLabel(parts[0]);
-            JLabel numberLabel = new JLabel(parts[1]);
-
-            // Ustawiamy tekst po lewej stronie
-            nameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-            // Ustawiamy liczbę po prawej stronie
-            numberLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
-
-            // Ustawiamy stałą wysokość dla etykiet
-            nameLabel.setMinimumSize(new Dimension(20, ELEMENT_HEIGHT));
-            numberLabel.setMinimumSize(new Dimension(20, ELEMENT_HEIGHT));
-            nameLabel.setMaximumSize(new Dimension(1870, ELEMENT_HEIGHT));
-            numberLabel.setMaximumSize(new Dimension(50, ELEMENT_HEIGHT));
-
-            // Tworzymy kontener panelu dla etykiet
-            JPanel labelPanel = new JPanel();
-            labelPanel.setLayout(new BorderLayout());
-            labelPanel.add(nameLabel, BorderLayout.WEST);
-            labelPanel.add(numberLabel, BorderLayout.EAST);
-
-            // Ustawiamy stałą wysokość dla kontenera panelu
-            labelPanel.setMinimumSize(new Dimension(20, ELEMENT_HEIGHT));
-            labelPanel.setMaximumSize(new Dimension(1920, ELEMENT_HEIGHT));
-
-            // Dodajemy panel z etykietami do panelu głównego
-            add(labelPanel);
-        }
-
-        setMinimumSize(new Dimension(20, elements.size() * ELEMENT_HEIGHT));
-        setMaximumSize(new Dimension(1920, elements.size() * ELEMENT_HEIGHT));
+    public void addElementWithNumber(String name, BigDecimal price, BigDecimal kcal){
+        addElement(name + " - " + price + " zł, " + kcal + " kcal");
     }
 }
 
@@ -123,7 +51,6 @@ public class DishSelectionPanel extends JPanel {
 
     public DishSelectionPanel(Callback callback) {
         setLayout(new BorderLayout());
-        dishList.setCellRenderer(new DishListRenderer());
 
         typeComboBox.addItem("Wszystkie");
         typeComboBox.addItem("Przystawka");
@@ -217,55 +144,28 @@ public class DishSelectionPanel extends JPanel {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting() && dishList.getSelectedValue() != null) {
-                    String selected = dishList.getSelectedValue();
                     int index = dishList.getSelectedIndex();
                     dishList.clearSelection();
-                    OrdersDTO order = new OrdersDTO();
-                    OrderHandler orderHandler = new OrderHandler(OD);
-                    //Some of the values hardcoded for now, will be updated
-                    order.setCustomerId(((App) callback).loggedAccount.getAccountId());
-                    order.setTotal(dishes.get(index).getPrice());
-                    order.setPaymentMethodId(1);
-                    order.setStreet("ulica");
-                    order.setStreetNumber(1);
-                    order.setApartment(1);
-                    order.setCity("miasto");
-                    order.setDiscountId(1);
-                    order.setStatusId(1);
-                    order.setTip(new BigDecimal(0));
-                    orderHandler.addOrder(order);
-                    JOptionPane.showMessageDialog(null, "Zamówiono danie: " + selected);
+                    DishesDTO dish = DishesDTO.fromEntity(DD.getDishById(dishes.get(index).getDishId()));
+                    callback.addToBasket(dish);
+//                    OrdersDTO order = new OrdersDTO();
+//                    OrderHandler orderHandler = new OrderHandler(OD);
+//                    //Some of the values hardcoded for now, will be updated
+//                    order.setCustomerId(((App) callback).loggedAccount.getAccountId());
+//                    order.setTotal(dishes.get(index).getPrice());
+//                    order.setPaymentMethodId(1);
+//                    order.setStreet("ulica");
+//                    order.setStreetNumber(1);
+//                    order.setApartment(1);
+//                    order.setCity("miasto");
+//                    order.setDiscountId(1);
+//                    order.setStatusId(1);
+//                    order.setTip(new BigDecimal(0));
+//                    orderHandler.addOrder(order);
+//                    JOptionPane.showMessageDialog(null, "Zamówiono danie: " + selected);
                 }
             }
         });
-
-//        ArrayList<String> elements = new ArrayList<String>();
-//        // add elements to the list
-//        elements.add("Element 1 - 10");
-//        elements.add("Element 2 - 20");
-//        elements.add("Element 3 - 30");
-//        elements.add("Element 1 - 10");
-//        elements.add("Element 2 - 20");
-//        elements.add("Element 3 - 30");
-//        elements.add("Element 1 - 10");
-//        elements.add("Element 2 - 20");
-//        elements.add("Element 3 - 30");
-//        elements.add("Element 1 - 10");
-//        elements.add("Element 2 - 20");
-//        elements.add("Element 3 - 30");
-//        elements.add("Element 1 - 10");
-//        elements.add("Element 2 - 20");
-//        elements.add("Element 3 - 30");
-//        elements.add("Element 1 - 10");
-//        elements.add("Element 2 - 20");
-//        elements.add("Element 3 - 30");
-//        elements.add("Element 1 - 10");
-//        elements.add("Element 2 - 20");
-//        elements.add("Element 3 - 30");
-//        elements.add("Element 1 - 10");
-//        elements.add("Element 2 - 20");
-//        elements.add("Element 3 - 30");
-//        DishListPanel dishList = new DishListPanel(elements);
 
         JScrollPane scrollPane = new JScrollPane(dishList);
         add(scrollPane, BorderLayout.CENTER);
@@ -284,7 +184,7 @@ public class DishSelectionPanel extends JPanel {
         basketButton.addActionListener(e -> {
             isListenerActive = false;
             searchField.setText("");
-            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "Basket");
+            callback.enterBasket();
         });
         bottomPanel.add(basketButton);
         add(bottomPanel, BorderLayout.SOUTH);
@@ -313,7 +213,7 @@ public class DishSelectionPanel extends JPanel {
                     (!vegetarianCheckBox.isSelected() || dish.isVegetarian())) {
                 if ((kcalMinField.getText().isEmpty() || dish.getKcal().compareTo(new BigDecimal(kcalMinField.getText())) >= 0) &&
                     (kcalMaxField.getText().isEmpty() || dish.getKcal().compareTo(new BigDecimal(kcalMaxField.getText())) <= 0)) {
-                    model.addElementWithNumber(dish.getName(), dish.getKcal().intValue());
+                    model.addElementWithNumber(dish.getName(), dish.getPrice(), dish.getKcal());
                 }
             }
         }
@@ -336,7 +236,7 @@ public class DishSelectionPanel extends JPanel {
         }
         model.clear();
         for (DishesEntity dish : dishesList) {
-            model.addElementWithNumber(dish.getName(), dish.getKcal().intValue());
+            model.addElementWithNumber(dish.getName(), dish.getPrice(), dish.getKcal());
         }
     }
 }

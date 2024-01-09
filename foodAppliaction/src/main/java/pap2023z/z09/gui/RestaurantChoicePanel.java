@@ -90,7 +90,7 @@ public class RestaurantChoicePanel extends JPanel {
         JButton basketButton = new JButton("Koszyk");
         basketButton.addActionListener(e -> {
             searchField.setText("");
-            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "Basket");
+            callback.enterBasket();
         });
         bottomPanel.add(basketButton);
         add(bottomPanel, BorderLayout.SOUTH);

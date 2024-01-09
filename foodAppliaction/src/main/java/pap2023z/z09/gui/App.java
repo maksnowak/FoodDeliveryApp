@@ -2,8 +2,12 @@ package pap2023z.z09.gui;
 
 import pap2023z.z09.accounts.*;
 import pap2023z.z09.baskets.BasketsDAO;
+import pap2023z.z09.baskets.BasketsDTO;
+import pap2023z.z09.baskets.AddBasket;
+import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.AccountsEntity;
 import pap2023z.z09.database.RestaurantsEntity;
+import pap2023z.z09.dishes.DishesDTO;
 import pap2023z.z09.dishes.favourites.FavoritesDAO;
 import pap2023z.z09.orders.OrdersDAO;
 import pap2023z.z09.paymentMethods.PaymentMethodsDAO;
@@ -152,6 +156,22 @@ public class App extends JFrame implements Callback {
     public void onAccountLogout() {
         loggedAccount = null;
         cardLayout.show(getContentPane(), "Welcome");
+    }
+
+    @Override
+    public void addToBasket(DishesDTO dish) {
+        BasketsDTO basket = new BasketsDTO();
+        AddBasket addBasket = new AddBasket(new BasketsDAO());
+        basket.setCustomerId(loggedAccount.getAccountId());
+        basket.setDishId(dish.getDishId());
+        addBasket.addBasket(basket);
+        JOptionPane.showMessageDialog(this, "Dodano " + dish.getName() + " do koszyka.");
+    }
+
+    @Override
+    public void enterBasket() {
+        basketPanel.enter(loggedAccount.getAccountId());
+        cardLayout.show(getContentPane(), "Basket");
     }
 
     public void updateAccountInfo() {
