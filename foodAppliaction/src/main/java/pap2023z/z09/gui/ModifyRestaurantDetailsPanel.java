@@ -25,9 +25,12 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
         add(titleLabel);
         JPanel buttonPanel = new JPanel(new GridLayout(4, 1));
 
+        dishesDAO = new DishesDAO();
         addDishButton = new JButton("Add Dish");
         addDishButton.addActionListener(e -> {
-            // Add code here to add a dish
+            AddDishPanel addDishPanel = new AddDishPanel(new AddDish(dishesDAO), callback);
+            ((App) callback).add(addDishPanel, "AddDish");
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "AddDish");
         });
         buttonPanel.add(addDishButton);
 
