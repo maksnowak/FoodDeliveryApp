@@ -58,7 +58,11 @@ public class AddNewRestaurantPanel extends JPanel {
 
         addButton = new JButton("Dodaj restaurację");
         addButton.addActionListener(e -> {
-            String name = nameField.getText();
+            String name = nameField.getText().isEmpty() ? null : nameField.getText();
+            if (name == null) {
+                JOptionPane.showMessageDialog(this, "Nazwa nie może być pusta.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             Time opensWeekdays = Time.valueOf(((JSpinner.DateEditor) opensWeekdaysSpinner.getEditor()).getFormat().format(opensWeekdaysSpinner.getValue()) + ":00");
             Time closesWeekdays = Time.valueOf(((JSpinner.DateEditor) closesWeekdaysSpinner.getEditor()).getFormat().format(closesWeekdaysSpinner.getValue()) + ":00");
             Time opensWeekends = Time.valueOf(((JSpinner.DateEditor) opensWeekendsSpinner.getEditor()).getFormat().format(opensWeekendsSpinner.getValue()) + ":00");
@@ -81,7 +85,7 @@ public class AddNewRestaurantPanel extends JPanel {
                 ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurants");
             } catch (InvalidTimeException ex) {
                 if (ex.getMessage().equals("Weekdays closing time cannot be before opening time")) {
-                    JOptionPane.showMessageDialog(this, "Weekdays closing time cannot be before opening time.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Godzina zamknięcia nie może być mniejsza niż od godziny otwarcia.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     throw new RuntimeException(ex);
                 }
