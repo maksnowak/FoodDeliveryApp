@@ -63,6 +63,7 @@ public class PaymentMethodsPanel extends JPanel {
                     paymentMethodsList.clearSelection();
                     searchField.setText("");
                     ((App) callback).cardLayout.show(((App) callback).getContentPane(), "PaymentMethodDetails");
+                    // TODO: modyfikacja i usuwanie karty
                 }
             }
         });

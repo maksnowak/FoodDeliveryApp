@@ -68,10 +68,10 @@ public class BasketPanel extends JPanel {
         });
         bottomPanel.add(backButton);
 
-        JButton orderButton = new JButton("Zamów");
+        JButton orderButton = new JButton("Zapłać");
         orderButton.addActionListener(e -> {
             dishesList.clearSelection();
-            JOptionPane.showMessageDialog(null, "Zamówiono!");
+            callback.enterPayment();
         });
         bottomPanel.add(orderButton);
         add(bottomPanel, BorderLayout.SOUTH);
