@@ -74,16 +74,19 @@ public class AddNewRestaurantPanel extends JPanel {
             int restaurantId = 0;
             try {
                 restaurantId = addRestaurant.addRestaurant(restaurant);
+                restaurant.setRestaurantId(restaurantId);
+                JOptionPane.showMessageDialog(this, "Dodano restauracje.");
+                // Refresh the restaurant list in ModifyRestaurantsPanel
+                ((App) callback).modifyRestaurantsPanel.refreshRestaurantList();
+                ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurants");
             } catch (InvalidTimeException ex) {
-                throw new RuntimeException(ex);
+                if (ex.getMessage().equals("Weekdays closing time cannot be before opening time")) {
+                    JOptionPane.showMessageDialog(this, "Weekdays closing time cannot be before opening time.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    throw new RuntimeException(ex);
+                }
             }
             restaurant.setRestaurantId(restaurantId);
-
-            JOptionPane.showMessageDialog(this, "Dodano restauracje.");
-
-            ((App) callback).modifyRestaurantsPanel.refreshRestaurantList();
-
-            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurants");
         });
 
 
