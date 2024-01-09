@@ -22,83 +22,83 @@ import pap2023z.z09.orders.OrdersDAO;
 import pap2023z.z09.orders.OrderHandler;
 
 class DishListModel extends DefaultListModel<String> {
-    public void addElementWithNumber(String name, int number) {
-        addElement(name + " - " + number);
+    public void addElementWithNumber(String name, BigDecimal price, BigDecimal kcal){
+        addElement(name + " - " + price + " zł, " + kcal + " kcal");
     }
 }
 
-class DishListRenderer extends DefaultListCellRenderer {
-    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+//class DishListRenderer extends DefaultListCellRenderer {
+//    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+//        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+//
+//        // Dostosowujemy komponent renderujący
+//        setHorizontalAlignment(SwingConstants.LEFT);
+//        setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+//
+//        // Pobieramy wartość z modelu i dzielimy ją na nazwę i liczbę
+//        String[] parts = value.toString().split(" - ");
+//
+//        // Ustawiamy tekst dla komórki z nazwą (po lewej)
+////        setText(parts[0]);
+//        JLabel nameLabel = new JLabel(parts[0]);
+////        nameLabel.setHorizontalAlignment(SwingConstants.LEFT);
+//
+//        // Dodajemy liczbę jako etykietę, ustawiając ją po prawej stronie
+//        JLabel numberLabel = new JLabel(parts[1]);
+////        numberLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+//
+//        // Dodajemy etykietę jako komponent do komórki
+//        setLayout(new GridLayout(1, 2));
+//        add(nameLabel);
+//        add(numberLabel);
+//
+//        return this;
+//    }
+//}
 
-        // Dostosowujemy komponent renderujący
-        setHorizontalAlignment(SwingConstants.LEFT);
-        setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-
-        // Pobieramy wartość z modelu i dzielimy ją na nazwę i liczbę
-        String[] parts = value.toString().split(" - ");
-
-        // Ustawiamy tekst dla komórki z nazwą (po lewej)
-//        setText(parts[0]);
-        JLabel nameLabel = new JLabel(parts[0]);
-//        nameLabel.setHorizontalAlignment(SwingConstants.LEFT);
-
-        // Dodajemy liczbę jako etykietę, ustawiając ją po prawej stronie
-        JLabel numberLabel = new JLabel(parts[1]);
-//        numberLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-
-        // Dodajemy etykietę jako komponent do komórki
-        setLayout(new GridLayout(1, 2));
-        add(nameLabel);
-        add(numberLabel);
-
-        return this;
-    }
-}
-
-class DishListPanel extends JPanel {
-    private static final int ELEMENT_HEIGHT = 1000; // Stała wysokość elementu
-    public DishListPanel(ArrayList<String> elements) {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        for (String element : elements) {
-            // Dzielimy tekst na nazwę i liczbę
-            String[] parts = element.split(" - ");
-
-            // Tworzymy etykiety dla nazwy i liczbę
-            JLabel nameLabel = new JLabel(parts[0]);
-            JLabel numberLabel = new JLabel(parts[1]);
-
-            // Ustawiamy tekst po lewej stronie
-            nameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-            // Ustawiamy liczbę po prawej stronie
-            numberLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
-
-            // Ustawiamy stałą wysokość dla etykiet
-            nameLabel.setMinimumSize(new Dimension(20, ELEMENT_HEIGHT));
-            numberLabel.setMinimumSize(new Dimension(20, ELEMENT_HEIGHT));
-            nameLabel.setMaximumSize(new Dimension(1870, ELEMENT_HEIGHT));
-            numberLabel.setMaximumSize(new Dimension(50, ELEMENT_HEIGHT));
-
-            // Tworzymy kontener panelu dla etykiet
-            JPanel labelPanel = new JPanel();
-            labelPanel.setLayout(new BorderLayout());
-            labelPanel.add(nameLabel, BorderLayout.WEST);
-            labelPanel.add(numberLabel, BorderLayout.EAST);
-
-            // Ustawiamy stałą wysokość dla kontenera panelu
-            labelPanel.setMinimumSize(new Dimension(20, ELEMENT_HEIGHT));
-            labelPanel.setMaximumSize(new Dimension(1920, ELEMENT_HEIGHT));
-
-            // Dodajemy panel z etykietami do panelu głównego
-            add(labelPanel);
-        }
-
-        setMinimumSize(new Dimension(20, elements.size() * ELEMENT_HEIGHT));
-        setMaximumSize(new Dimension(1920, elements.size() * ELEMENT_HEIGHT));
-    }
-}
+//class DishListPanel extends JPanel {
+//    private static final int ELEMENT_HEIGHT = 1000; // Stała wysokość elementu
+//    public DishListPanel(ArrayList<String> elements) {
+//        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+//
+//        for (String element : elements) {
+//            // Dzielimy tekst na nazwę i liczbę
+//            String[] parts = element.split(" - ");
+//
+//            // Tworzymy etykiety dla nazwy i liczbę
+//            JLabel nameLabel = new JLabel(parts[0]);
+//            JLabel numberLabel = new JLabel(parts[1]);
+//
+//            // Ustawiamy tekst po lewej stronie
+//            nameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+//
+//            // Ustawiamy liczbę po prawej stronie
+//            numberLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+//
+//            // Ustawiamy stałą wysokość dla etykiet
+//            nameLabel.setMinimumSize(new Dimension(20, ELEMENT_HEIGHT));
+//            numberLabel.setMinimumSize(new Dimension(20, ELEMENT_HEIGHT));
+//            nameLabel.setMaximumSize(new Dimension(1870, ELEMENT_HEIGHT));
+//            numberLabel.setMaximumSize(new Dimension(50, ELEMENT_HEIGHT));
+//
+//            // Tworzymy kontener panelu dla etykiet
+//            JPanel labelPanel = new JPanel();
+//            labelPanel.setLayout(new BorderLayout());
+//            labelPanel.add(nameLabel, BorderLayout.WEST);
+//            labelPanel.add(numberLabel, BorderLayout.EAST);
+//
+//            // Ustawiamy stałą wysokość dla kontenera panelu
+//            labelPanel.setMinimumSize(new Dimension(20, ELEMENT_HEIGHT));
+//            labelPanel.setMaximumSize(new Dimension(1920, ELEMENT_HEIGHT));
+//
+//            // Dodajemy panel z etykietami do panelu głównego
+//            add(labelPanel);
+//        }
+//
+//        setMinimumSize(new Dimension(20, elements.size() * ELEMENT_HEIGHT));
+//        setMaximumSize(new Dimension(1920, elements.size() * ELEMENT_HEIGHT));
+//    }
+//}
 
 public class DishSelectionPanel extends JPanel {
     DishesDAO DD = new DishesDAO();
@@ -123,7 +123,7 @@ public class DishSelectionPanel extends JPanel {
 
     public DishSelectionPanel(Callback callback) {
         setLayout(new BorderLayout());
-        dishList.setCellRenderer(new DishListRenderer());
+//        dishList.setCellRenderer(new DishListRenderer());
 
         typeComboBox.addItem("Wszystkie");
         typeComboBox.addItem("Przystawka");
@@ -313,7 +313,7 @@ public class DishSelectionPanel extends JPanel {
                     (!vegetarianCheckBox.isSelected() || dish.isVegetarian())) {
                 if ((kcalMinField.getText().isEmpty() || dish.getKcal().compareTo(new BigDecimal(kcalMinField.getText())) >= 0) &&
                     (kcalMaxField.getText().isEmpty() || dish.getKcal().compareTo(new BigDecimal(kcalMaxField.getText())) <= 0)) {
-                    model.addElementWithNumber(dish.getName(), dish.getKcal().intValue());
+                    model.addElementWithNumber(dish.getName(), dish.getPrice(), dish.getKcal());
                 }
             }
         }
@@ -336,7 +336,7 @@ public class DishSelectionPanel extends JPanel {
         }
         model.clear();
         for (DishesEntity dish : dishesList) {
-            model.addElementWithNumber(dish.getName(), dish.getKcal().intValue());
+            model.addElementWithNumber(dish.getName(), dish.getPrice(), dish.getKcal());
         }
     }
 }
