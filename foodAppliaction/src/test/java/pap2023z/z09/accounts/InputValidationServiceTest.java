@@ -9,17 +9,22 @@ public class InputValidationServiceTest {
 
     @Test
     public void validateEmailSuccessTest() {
-        inputValidationService.validateEmail("email");
+        inputValidationService.validateEmail("email@test.com");
     }
 
     @Test
-    public void validateEmailThrowsExceptionTest() {
+    public void validateEmailThrowsExceptionEmptyTest() {
         assertThrows(IllegalArgumentException.class, () -> inputValidationService.validateEmail(""));
     }
 
     @Test
     public void validateEmailThrowsExceptionNullTest() {
         assertThrows(IllegalArgumentException.class, () -> inputValidationService.validateEmail(null));
+    }
+
+    @Test
+    public void validateEmailThrowsExceptionInvalidTest() {
+        assertThrows(IllegalArgumentException.class, () -> inputValidationService.validateEmail("email"));
     }
 
     @Test
