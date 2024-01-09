@@ -40,7 +40,9 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
         // Dodanie przycisku do usuwania dań
         removeDishButton = new JButton("Usuń danie");
         removeDishButton.addActionListener(e -> {
-            // Add code here to remove a dish
+            RemoveDishPanel removeDishPanel = new RemoveDishPanel(callback);
+            ((App) callback).add(removeDishPanel, "RemoveDish");
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "RemoveDish");
         });
         buttonPanel.add(removeDishButton);
 
