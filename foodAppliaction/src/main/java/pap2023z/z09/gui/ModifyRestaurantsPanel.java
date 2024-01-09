@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import pap2023z.z09.database.RestaurantsEntity;
+import pap2023z.z09.restaurants.AddRestaurant;
 import pap2023z.z09.restaurants.RestaurantsDAO;
 import pap2023z.z09.restaurants.RestaurantsDTO;
 
@@ -41,6 +42,8 @@ public class ModifyRestaurantsPanel extends JPanel {
 
         addNewRestaurantButton = new JButton("Add New Restaurant");
         addNewRestaurantButton.addActionListener(e -> {
+            AddNewRestaurantPanel addNewRestaurantPanel = new AddNewRestaurantPanel(new AddRestaurant(new RestaurantsDAO()), callback);
+            ((App) callback).add(addNewRestaurantPanel, "AddNewRestaurant");
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "AddNewRestaurant");
         });
         buttonPanel.add(addNewRestaurantButton);
