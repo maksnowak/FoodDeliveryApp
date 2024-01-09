@@ -62,14 +62,12 @@ public class PaymentMethodsPanel extends JPanel {
                     String selected = paymentMethodsList.getSelectedValue();
                     paymentMethodsList.clearSelection();
                     searchField.setText("");
-                    JOptionPane.showMessageDialog(null, "Wybrano metodę płatności: " + selected);
+                    ((App) callback).cardLayout.show(((App) callback).getContentPane(), "PaymentMethodDetails");
                 }
             }
         });
         JScrollPane scrollPane = new JScrollPane(paymentMethodsList);
         add(scrollPane, BorderLayout.CENTER);
-
-
 
         JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
 
@@ -84,7 +82,7 @@ public class PaymentMethodsPanel extends JPanel {
         JButton basketButton = new JButton("Dodaj metodę płatności");
         basketButton.addActionListener(e -> {
             searchField.setText("");
-            JOptionPane.showMessageDialog(null, "Dodaj metodę płatności panel type beat");
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "AddPaymentMethod");
         });
         bottomPanel.add(basketButton);
         add(bottomPanel, BorderLayout.SOUTH);

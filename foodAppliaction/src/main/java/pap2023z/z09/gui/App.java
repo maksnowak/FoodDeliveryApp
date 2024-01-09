@@ -34,6 +34,7 @@ public class App extends JFrame implements Callback {
     private BasketPanel basketPanel;
     private OpinionPanel opinionPanel;
     private PaymentMethodsPanel paymentMethodsPanel;
+    private AddPaymentMethodPanel addPaymentMethodPanel;
 
 
     private JLabel clockLabel;
@@ -73,6 +74,7 @@ public class App extends JFrame implements Callback {
         basketPanel = new BasketPanel(this);
         opinionPanel = new OpinionPanel(this);
         paymentMethodsPanel = new PaymentMethodsPanel(this);
+        addPaymentMethodPanel = new AddPaymentMethodPanel(this);
 
         add(welcomePanel, "Welcome");
         add(loginPanel, "Login");
@@ -88,6 +90,7 @@ public class App extends JFrame implements Callback {
         add(basketPanel, "Basket");
         add(opinionPanel, "Opinion");
         add(paymentMethodsPanel, "PaymentMethods");
+        add(addPaymentMethodPanel, "AddPaymentMethod");
 
         cardLayout.show(this.getContentPane(), "Welcome");
 
