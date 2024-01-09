@@ -2,8 +2,12 @@ package pap2023z.z09.gui;
 
 import pap2023z.z09.accounts.*;
 import pap2023z.z09.baskets.BasketsDAO;
+import pap2023z.z09.baskets.BasketsDTO;
+import pap2023z.z09.baskets.AddBasket;
+import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.AccountsEntity;
 import pap2023z.z09.database.RestaurantsEntity;
+import pap2023z.z09.dishes.DishesDTO;
 import pap2023z.z09.dishes.favourites.FavoritesDAO;
 import pap2023z.z09.orders.OrdersDAO;
 import pap2023z.z09.paymentMethods.PaymentMethodsDAO;
@@ -16,17 +20,17 @@ import java.util.Date;
 public class App extends JFrame implements Callback {
     public CardLayout cardLayout;
 
-    private WelcomePanel welcomePanel;
-    private LoginPanel loginPanel;
-    private RegisterPanel registerPanel;
-    private MainMenuPanel mainMenuPanel;
-    private RestaurantChoicePanel restaurantChoicePanel;
-    private DishSelectionPanel dishSelectionPanel;
-    private AccountInfoPanel accountInfoPanel;
-    private EditAccountPanel editAccountPanel;
-    private ModifyRestaurantsPanel modifyRestaurantsPanel;
-    private BasketPanel basketPanel;
-    private JLabel clockLabel;
+    private final WelcomePanel welcomePanel;
+    private final LoginPanel loginPanel;
+    private final RegisterPanel registerPanel;
+    private final MainMenuPanel mainMenuPanel;
+    private final RestaurantChoicePanel restaurantChoicePanel;
+    private final DishSelectionPanel dishSelectionPanel;
+    private final AccountInfoPanel accountInfoPanel;
+    private final EditAccountPanel editAccountPanel;
+    private final ModifyRestaurantsPanel modifyRestaurantsPanel;
+    private final BasketPanel basketPanel;
+    private final JLabel clockLabel;
     public RestaurantsEntity selectedRestaurant;
     public AccountsEntity loggedAccount;
 
@@ -145,6 +149,16 @@ public class App extends JFrame implements Callback {
     public void onAccountLogout() {
         loggedAccount = null;
         cardLayout.show(getContentPane(), "Welcome");
+    }
+
+    @Override
+    public void addToBasket(DishesDTO dish) {
+        BasketsDTO basket = new BasketsDTO();
+        AddBasket addBasket = new AddBasket(new BasketsDAO());
+        basket.setCustomerId(loggedAccount.getAccountId());
+        basket.setDishId(dish.getDishId());
+        addBasket.addBasket(basket);
+        JOptionPane.showMessageDialog(this, "Dodano " + dish.getName() + " do koszyka.");
     }
 
     public void updateAccountInfo() {

@@ -68,6 +68,7 @@ public class BasketPanel extends JPanel {
         orderButton.addActionListener(e -> {
             dishesList.clearSelection();
             JOptionPane.showMessageDialog(null, "Zamówiono!");
+
 //            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
         });
         bottomPanel.add(orderButton);

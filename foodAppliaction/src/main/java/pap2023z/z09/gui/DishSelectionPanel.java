@@ -17,6 +17,7 @@ import java.util.List;
 import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.dishes.DishesDAO;
+import pap2023z.z09.dishes.DishesDTO;
 import pap2023z.z09.orders.OrdersDTO;
 import pap2023z.z09.orders.OrdersDAO;
 import pap2023z.z09.orders.OrderHandler;
@@ -143,25 +144,25 @@ public class DishSelectionPanel extends JPanel {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting() && dishList.getSelectedValue() != null) {
-                    String selected = dishList.getSelectedValue();
-                    selected = selected.substring(0, selected.indexOf(" - "));
                     int index = dishList.getSelectedIndex();
                     dishList.clearSelection();
-                    OrdersDTO order = new OrdersDTO();
-                    OrderHandler orderHandler = new OrderHandler(OD);
-                    //Some of the values hardcoded for now, will be updated
-                    order.setCustomerId(((App) callback).loggedAccount.getAccountId());
-                    order.setTotal(dishes.get(index).getPrice());
-                    order.setPaymentMethodId(1);
-                    order.setStreet("ulica");
-                    order.setStreetNumber(1);
-                    order.setApartment(1);
-                    order.setCity("miasto");
-                    order.setDiscountId(1);
-                    order.setStatusId(1);
-                    order.setTip(new BigDecimal(0));
-                    orderHandler.addOrder(order);
-                    JOptionPane.showMessageDialog(null, "Zamówiono danie: " + selected);
+                    DishesDTO dish = DishesDTO.fromEntity(DD.getDishById(dishes.get(index).getDishId()));
+                    callback.addToBasket(dish);
+//                    OrdersDTO order = new OrdersDTO();
+//                    OrderHandler orderHandler = new OrderHandler(OD);
+//                    //Some of the values hardcoded for now, will be updated
+//                    order.setCustomerId(((App) callback).loggedAccount.getAccountId());
+//                    order.setTotal(dishes.get(index).getPrice());
+//                    order.setPaymentMethodId(1);
+//                    order.setStreet("ulica");
+//                    order.setStreetNumber(1);
+//                    order.setApartment(1);
+//                    order.setCity("miasto");
+//                    order.setDiscountId(1);
+//                    order.setStatusId(1);
+//                    order.setTip(new BigDecimal(0));
+//                    orderHandler.addOrder(order);
+//                    JOptionPane.showMessageDialog(null, "Zamówiono danie: " + selected);
                 }
             }
         });
