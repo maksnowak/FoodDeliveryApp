@@ -25,6 +25,7 @@ public class App extends JFrame implements Callback {
     private AccountInfoPanel accountInfoPanel;
     private EditAccountPanel editAccountPanel;
     private ModifyRestaurantsPanel modifyRestaurantsPanel;
+    private BasketPanel basketPanel;
     private JLabel clockLabel;
     public RestaurantsEntity selectedRestaurant;
     public AccountsEntity loggedAccount;
@@ -52,6 +53,7 @@ public class App extends JFrame implements Callback {
         accountInfoPanel = new AccountInfoPanel(this);
         editAccountPanel = new EditAccountPanel(this);
         modifyRestaurantsPanel = new ModifyRestaurantsPanel(this);
+        basketPanel = new BasketPanel(this);
 
         add(welcomePanel, "Welcome");
         add(loginPanel, "Login");
@@ -62,6 +64,7 @@ public class App extends JFrame implements Callback {
         add(accountInfoPanel, "AccountInfo");
         add(editAccountPanel, "EditAccount");
         add(modifyRestaurantsPanel, "ModifyRestaurants");
+        add(basketPanel, "Basket");
 
         cardLayout.show(this.getContentPane(), "Welcome");
 
