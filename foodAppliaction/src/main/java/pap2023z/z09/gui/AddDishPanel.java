@@ -65,6 +65,8 @@ public class AddDishPanel extends JPanel {
             RestaurantsEntity restaurant = ((App) callback).selectedRestaurant;
             dish.setRestaurantId(restaurant.getRestaurantId());
             addDish.addDish(dish);
+            JOptionPane.showMessageDialog(this, "Dodano danie.");
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurants");
 
 
         });
