@@ -12,12 +12,15 @@ public class AddFavoriteService {
     }
 
     public void addFavorite(int dishId, int customerId) {
+        // sprawdź czy dany klient już nie ma tego dania w ulubionych
         List<FavoritesEntity> customerFavorites = favoritesDAO.getFavoritesByCustomer(customerId);
         for (FavoritesEntity favorite : customerFavorites) {
             if (favorite.getDishId() == dishId) {
+                // jeśli tak, to rzuć wyjątek
                 throw new IllegalArgumentException("Dish is already in favorites");
             }
         }
+        // jeśli nie, to dodaj do ulubionych
         FavoritesEntity newFavorite = new FavoritesEntity();
         newFavorite.setDishId(dishId);
         newFavorite.setCustomer(customerId);
