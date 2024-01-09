@@ -14,6 +14,14 @@ public class AccountInfoPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(accountInfoTextArea);
         add(scrollPane, BorderLayout.CENTER);
 
+        JButton paymentMethodsButton = new JButton("Metody płatności");
+        paymentMethodsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                callback.enterPaymentMethods();
+            }
+        });
+
         JButton editButton = new JButton("Edytuj dane");
         editButton.addActionListener(new ActionListener() {
             @Override
@@ -51,7 +59,9 @@ public class AccountInfoPanel extends JPanel {
             }
         });
 
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 2));
+        JPanel buttonPanel = new JPanel(new GridLayout(3, 2));
+        buttonPanel.add(new JPanel());
+        buttonPanel.add(paymentMethodsButton);
         buttonPanel.add(editButton);
         buttonPanel.add(deleteButton);
         buttonPanel.add(backButton);

@@ -25,14 +25,22 @@ public class App extends JFrame implements Callback {
     private RegisterPanel registerPanel;
     private MainMenuPanel mainMenuPanel;
     private RestaurantChoicePanel restaurantChoicePanel;
+    private OpinionRestaurantChoicePanel opinionRestaurantChoicePanel;
     private DishSelectionPanel dishSelectionPanel;
     private AccountInfoPanel accountInfoPanel;
     private EditAccountPanel editAccountPanel;
     ModifyRestaurantsPanel modifyRestaurantsPanel;
     private ModifyRestaurantDetailsPanel modifyRestaurantDetailsPanel;
     private BasketPanel basketPanel;
+    private OpinionPanel opinionPanel;
+    private PaymentMethodsPanel paymentMethodsPanel;
+    private AddPaymentMethodPanel addPaymentMethodPanel;
+    private PaymentPanel paymentPanel;
+
+
     private JLabel clockLabel;
     public RestaurantsEntity selectedRestaurant;
+
     public AccountsEntity loggedAccount;
 
     public ModifyRestaurantDetailsPanel getModifyRestaurantDetailsPanel() {
@@ -58,24 +66,34 @@ public class App extends JFrame implements Callback {
         registerPanel = new RegisterPanel(this);
         mainMenuPanel = new MainMenuPanel(this);
         restaurantChoicePanel = new RestaurantChoicePanel(this);
+        opinionRestaurantChoicePanel = new OpinionRestaurantChoicePanel(this);
         dishSelectionPanel = new DishSelectionPanel(this);
         accountInfoPanel = new AccountInfoPanel(this);
         editAccountPanel = new EditAccountPanel(this);
         modifyRestaurantsPanel = new ModifyRestaurantsPanel(this);
         modifyRestaurantDetailsPanel = new ModifyRestaurantDetailsPanel(this);
         basketPanel = new BasketPanel(this);
+        opinionPanel = new OpinionPanel(this);
+        paymentMethodsPanel = new PaymentMethodsPanel(this);
+        addPaymentMethodPanel = new AddPaymentMethodPanel(this);
+        paymentPanel = new PaymentPanel(this);
 
         add(welcomePanel, "Welcome");
         add(loginPanel, "Login");
         add(registerPanel, "Register");
         add(mainMenuPanel, "MainMenu");
         add(restaurantChoicePanel, "RestaurantChoice");
+        add(opinionRestaurantChoicePanel, "OpinionRestaurantChoice");
         add(dishSelectionPanel, "DishSelection");
         add(accountInfoPanel, "AccountInfo");
         add(editAccountPanel, "EditAccount");
         add(modifyRestaurantsPanel, "ModifyRestaurants");
         add(modifyRestaurantDetailsPanel, "ModifyRestaurantDetails");
         add(basketPanel, "Basket");
+        add(opinionPanel, "Opinion");
+        add(paymentMethodsPanel, "PaymentMethods");
+        add(addPaymentMethodPanel, "AddPaymentMethod");
+        add(paymentPanel, "PaymentPanel");
 
         cardLayout.show(this.getContentPane(), "Welcome");
 
@@ -97,6 +115,13 @@ public class App extends JFrame implements Callback {
         selectedRestaurant = restaurant;
         dishSelectionPanel.enter(selectedRestaurant);
         cardLayout.show(getContentPane(), "DishSelection");
+    }
+
+    @Override
+    public void onOpinionRestaurantSelected(RestaurantsEntity restaurant) {
+        selectedRestaurant = restaurant;
+        opinionPanel.enter(loggedAccount.getAccountId(), selectedRestaurant.getRestaurantId());
+        cardLayout.show(getContentPane(), "Opinion");
     }
 
     @Override
@@ -172,6 +197,18 @@ public class App extends JFrame implements Callback {
     public void enterBasket() {
         basketPanel.enter(loggedAccount.getAccountId());
         cardLayout.show(getContentPane(), "Basket");
+    }
+
+    @Override
+    public void enterPaymentMethods() {
+        paymentMethodsPanel.enter(loggedAccount.getAccountId());
+        cardLayout.show(getContentPane(), "PaymentMethods");
+    }
+
+    @Override
+    public void enterPayment() {
+        paymentPanel.enter(loggedAccount.getAccountId());
+        cardLayout.show(getContentPane(), "PaymentPanel");
     }
 
     public void updateAccountInfo() {
