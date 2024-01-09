@@ -1,7 +1,7 @@
 # Uruchomienie bazy danych w kontenerze Dockera oraz załadowanie danych początkowych
 
 # Sprawdź czy istnieje kontener o nazwie papdb
-if [ "$(docker ps | grep papdb)" ]; then
+if [ "$(docker ps -a | grep papdb)" ]; then
     # Jeśli istnieje to go uruchom
     echo "Kontener papdb już istnieje, trwa uruchamianie..."
     docker start papdb
@@ -19,6 +19,6 @@ fi
 
 echo "Uruchamianie aplikacji..."
 cd foodAppliaction
-mvn clean install -DskipTests
+mvn clean install
 mvn exec:java -Dexec.mainClass="pap2023z.z09.gui.App"
 
