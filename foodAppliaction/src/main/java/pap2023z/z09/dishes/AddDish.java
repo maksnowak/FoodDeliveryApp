@@ -10,7 +10,7 @@ public class AddDish {
         this.dishesDAO = dishesDAO;
     }
 
-    public void addDish(DishesDTO dish) {
+    public int addDish(DishesDTO dish) {
         DishesEntity entity = new DishesEntity();
         entity.setName(dish.getName());
         entity.setRestaurantId(dish.getRestaurantId());
@@ -18,6 +18,6 @@ public class AddDish {
         entity.setVegetarian(dish.getVegetarian());
         entity.setPrice(dish.getPrice());
         entity.setKcal(dish.getKcal());
-        dishesDAO.addDish(entity);
+        return dishesDAO.addDish(entity);
     }
 }

@@ -68,7 +68,8 @@ public class AddDishPanel extends JPanel {
 
             RestaurantsEntity restaurant = ((App) callback).selectedRestaurant;
             dish.setRestaurantId(restaurant.getRestaurantId());
-            addDish.addDish(dish);
+            int dishId = addDish.addDish(dish);
+            dish.setDishId(dishId);
 
             // Wyświetlenie komunikatu o dodaniu dania i przejście do panelu modyfikacji restauracji
             JOptionPane.showMessageDialog(this, "Dodano danie.");

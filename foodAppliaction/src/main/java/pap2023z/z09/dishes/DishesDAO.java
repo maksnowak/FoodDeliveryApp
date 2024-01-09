@@ -42,12 +42,13 @@ public class DishesDAO {
             return dish;
         }
 
-    public void addDish(DishesEntity dish) {
+    public int addDish(DishesEntity dish) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.persist(dish);
         transaction.commit();
         session.close();
+        return dish.getDishId();
     }
 
     public void updateDish(DishesEntity dish) {

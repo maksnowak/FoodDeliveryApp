@@ -9,11 +9,11 @@ import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.dishes.*;
 
 public class RemoveDishPanel extends JPanel {
-    private JList<String> dishList;
+    private JList<DishesEntity> dishList;
     private JButton removeButton;
     private JButton backButton;
     private DishesDAO dishesDAO;
-    private DefaultListModel<String> dishListModel;
+    private DefaultListModel<DishesEntity> dishListModel;
 
     public RemoveDishPanel(Callback callback) {
         dishesDAO = new DishesDAO();
@@ -21,25 +21,29 @@ public class RemoveDishPanel extends JPanel {
 
         setLayout(new BorderLayout());
 
-        // Stworzenie listy dań
         dishListModel = new DefaultListModel<>();
         dishList = new JList<>(dishListModel);
+        dishList.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                DishesEntity dish = (DishesEntity) value;
+                return super.getListCellRendererComponent(list, dish.getName(), index, isSelected, cellHasFocus);
+            }
+        });
         refreshDishList(selectedRestaurant.getRestaurantId());
         add(new JScrollPane(dishList), BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
 
-        // Dodanie przycisku usuwania dania
         removeButton = new JButton("Usuń danie");
         removeButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, removeButton.getPreferredSize().height));
         removeButton.addActionListener(e -> {
-            String selectedDish = dishList.getSelectedValue();
+            DishesEntity selectedDish = dishList.getSelectedValue();
             if (selectedDish != null) {
-                int response = JOptionPane.showConfirmDialog(this, "Na pewno chesz usunąć " + selectedDish + "?", "Potwierdź", JOptionPane.YES_NO_OPTION);
+                int response = JOptionPane.showConfirmDialog(this, "Na pewno chesz usunąć " + selectedDish.getName() + "?", "Potwierdź", JOptionPane.YES_NO_OPTION);
                 if (response == JOptionPane.YES_OPTION) {
-                    DishesEntity dish = dishesDAO.getDishByName(selectedDish);
-                    dishesDAO.removeDish(dish.getDishId());
+                    dishesDAO.removeDish(selectedDish.getDishId());
                     JOptionPane.showMessageDialog(this, "Usunięto danie.");
                     refreshDishList(selectedRestaurant.getRestaurantId());
                 }
@@ -47,7 +51,6 @@ public class RemoveDishPanel extends JPanel {
         });
         buttonPanel.add(removeButton);
 
-        // Dodanie przycisku powrotu
         backButton = new JButton("Powrót");
         backButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, backButton.getPreferredSize().height));
         backButton.addActionListener(e -> {
@@ -58,12 +61,11 @@ public class RemoveDishPanel extends JPanel {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    // Funckja odświeżająca listę dań
     private void refreshDishList(int restaurantId) {
         List<DishesEntity> dishes = dishesDAO.getDishesByRestaurant(restaurantId);
         dishListModel.clear();
         for (DishesEntity dish : dishes) {
-            dishListModel.addElement(dish.getName());
+            dishListModel.addElement(dish);
         }
     }
 }
