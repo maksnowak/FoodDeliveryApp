@@ -14,4 +14,5 @@ public interface Callback {
     void addToBasket(DishesDTO dish);
     void enterBasket();
     void onOpinionRestaurantSelected(RestaurantsEntity restaurant);
+    void enterPaymentMethods();
 }

@@ -33,8 +33,12 @@ public class App extends JFrame implements Callback {
     private ModifyRestaurantDetailsPanel modifyRestaurantDetailsPanel;
     private BasketPanel basketPanel;
     private OpinionPanel opinionPanel;
+    private PaymentMethodsPanel paymentMethodsPanel;
+
+
     private JLabel clockLabel;
     public RestaurantsEntity selectedRestaurant;
+
     public AccountsEntity loggedAccount;
 
     public ModifyRestaurantDetailsPanel getModifyRestaurantDetailsPanel() {
@@ -68,6 +72,7 @@ public class App extends JFrame implements Callback {
         modifyRestaurantDetailsPanel = new ModifyRestaurantDetailsPanel(this);
         basketPanel = new BasketPanel(this);
         opinionPanel = new OpinionPanel(this);
+        paymentMethodsPanel = new PaymentMethodsPanel(this);
 
         add(welcomePanel, "Welcome");
         add(loginPanel, "Login");
@@ -82,6 +87,7 @@ public class App extends JFrame implements Callback {
         add(modifyRestaurantDetailsPanel, "ModifyRestaurantDetails");
         add(basketPanel, "Basket");
         add(opinionPanel, "Opinion");
+        add(paymentMethodsPanel, "PaymentMethods");
 
         cardLayout.show(this.getContentPane(), "Welcome");
 
@@ -184,6 +190,12 @@ public class App extends JFrame implements Callback {
     public void enterBasket() {
         basketPanel.enter(loggedAccount.getAccountId());
         cardLayout.show(getContentPane(), "Basket");
+    }
+
+    @Override
+    public void enterPaymentMethods() {
+        paymentMethodsPanel.enter(loggedAccount.getAccountId());
+        cardLayout.show(getContentPane(), "PaymentMethods");
     }
 
     public void updateAccountInfo() {
