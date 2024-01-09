@@ -71,11 +71,13 @@ public class AddNewRestaurantPanel extends JPanel {
             restaurant.setOpensWeekends(opensWeekends);
             restaurant.setClosesWeekends(closesWeekends);
 
+            int restaurantId = 0;
             try {
-                addRestaurant.addRestaurant(restaurant);
+                restaurantId = addRestaurant.addRestaurant(restaurant);
             } catch (InvalidTimeException ex) {
                 throw new RuntimeException(ex);
             }
+            restaurant.setRestaurantId(restaurantId);
 
             JOptionPane.showMessageDialog(this, "Dodano restauracje.");
         });

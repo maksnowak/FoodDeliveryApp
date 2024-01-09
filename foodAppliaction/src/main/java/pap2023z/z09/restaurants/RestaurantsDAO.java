@@ -33,12 +33,13 @@ public class RestaurantsDAO {
         return restaurant;
     }
 
-    public void addRestaurant(RestaurantsEntity restaurant) {
+    public int addRestaurant(RestaurantsEntity restaurant) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.persist(restaurant);
         transaction.commit();
         session.close();
+        return restaurant.getRestaurantId();
     }
 
     public void updateRestaurant(RestaurantsEntity restaurant) {
