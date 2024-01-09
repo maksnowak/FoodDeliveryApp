@@ -10,7 +10,7 @@ public class AddRestaurant {
         this.restaurantsDAO = restaurantsDAO;
     }
 
-    public void addRestaurant(RestaurantsDTO restaurant) throws InvalidTimeException{
+    public int addRestaurant(RestaurantsDTO restaurant) throws InvalidTimeException{
         verifyWeekdays(restaurant);
         verifyWeekends(restaurant);
         RestaurantsEntity entity = new RestaurantsEntity();
@@ -19,7 +19,7 @@ public class AddRestaurant {
         entity.setClosesWeekdays(restaurant.getClosesWeekdays());
         entity.setOpensWeekends(restaurant.getOpensWeekends());
         entity.setClosesWeekends(restaurant.getClosesWeekends());
-        restaurantsDAO.addRestaurant(entity);
+        return restaurantsDAO.addRestaurant(entity);
     }
 
     public void verifyWeekdays(RestaurantsDTO restaurant) throws InvalidTimeException {
