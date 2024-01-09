@@ -24,7 +24,14 @@ public class ModifyRestaurantsPanel extends JPanel {
         restaurantList = new JList<>(restaurants.stream().map(RestaurantsEntity::getName).toArray(String[]::new));
         restaurantList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         restaurantList.addListSelectionListener(e -> {
-            JOptionPane.showMessageDialog(null, restaurantList.getSelectedValue() + " została wybrana do modyfikacji");
+            if (!e.getValueIsAdjusting() && restaurantList.getSelectedValue() != null) {
+                String selected = restaurantList.getSelectedValue();
+                restaurantList.clearSelection();
+                RestaurantsDAO DAO = new RestaurantsDAO();
+                RestaurantsEntity restaurant = DAO.getRestaurantByName(selected);
+                ((App) callback).selectedRestaurant = restaurant;
+                ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
+            }
         });
         JScrollPane scrollPane = new JScrollPane(restaurantList);
         add(scrollPane, BorderLayout.CENTER);
@@ -35,4 +42,6 @@ public class ModifyRestaurantsPanel extends JPanel {
         });
         add(backButton, BorderLayout.SOUTH);
     }
+
+
 }
