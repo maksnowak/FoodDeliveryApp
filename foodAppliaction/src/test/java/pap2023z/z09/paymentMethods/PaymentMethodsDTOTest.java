@@ -12,7 +12,7 @@ import java.sql.Date;
 
 import pap2023z.z09.database.PaymentMethodsEntity;
 
-public class paymentMethodDTOTest {
+public class PaymentMethodsDTOTest {
     private PaymentMethodsDTO paymentMethodDTO;
     public int exampleInt = 1;
     public String exampleCvv = "123";
