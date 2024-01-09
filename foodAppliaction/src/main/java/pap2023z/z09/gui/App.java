@@ -120,6 +120,7 @@ public class App extends JFrame implements Callback {
     @Override
     public void onOpinionRestaurantSelected(RestaurantsEntity restaurant) {
         selectedRestaurant = restaurant;
+        opinionPanel.enter(loggedAccount.getAccountId(), selectedRestaurant.getRestaurantId());
         cardLayout.show(getContentPane(), "Opinion");
     }
 

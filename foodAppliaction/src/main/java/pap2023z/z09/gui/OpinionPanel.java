@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class OpinionPanel extends JPanel {
+    int customerId;
+    int restaurantId;
         public OpinionPanel(Callback callback) {
             JLabel upperLabel = new JLabel("Wystaw opinię");
             JTextField opinionField = new JTextField();
@@ -48,5 +50,10 @@ public class OpinionPanel extends JPanel {
             bottomPanel.add(returnButton);
             bottomPanel.add(sendButton);
             add(bottomPanel);
+        }
+
+        public void enter(int cId, int rId) {
+            customerId = cId;
+            restaurantId = rId;
         }
     }
