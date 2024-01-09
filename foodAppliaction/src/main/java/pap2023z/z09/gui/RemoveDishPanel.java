@@ -21,6 +21,7 @@ public class RemoveDishPanel extends JPanel {
 
         setLayout(new BorderLayout());
 
+        // Dodanie listy dań
         dishListModel = new DefaultListModel<>();
         dishList = new JList<>(dishListModel);
         dishList.setCellRenderer(new DefaultListCellRenderer() {
@@ -36,6 +37,7 @@ public class RemoveDishPanel extends JPanel {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
 
+        // Dodanie przycisku do usuwania dania
         removeButton = new JButton("Usuń danie");
         removeButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, removeButton.getPreferredSize().height));
         removeButton.addActionListener(e -> {
@@ -51,6 +53,7 @@ public class RemoveDishPanel extends JPanel {
         });
         buttonPanel.add(removeButton);
 
+        // Dodanie przycisku powrotu
         backButton = new JButton("Powrót");
         backButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, backButton.getPreferredSize().height));
         backButton.addActionListener(e -> {
