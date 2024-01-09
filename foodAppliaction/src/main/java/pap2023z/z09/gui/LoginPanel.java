@@ -11,11 +11,11 @@ import pap2023z.z09.accounts.LoginService;
 public class LoginPanel extends JPanel {
     public LoginPanel(Callback callback) {
         JLabel loginLabel = new JLabel("Login:");
-        JLabel passwordLabel = new JLabel("Password:");
+        JLabel passwordLabel = new JLabel("Hasło:");
         JTextField loginField = new JTextField(15);
         JPasswordField passwordField = new JPasswordField(15);
-        JButton loginButton = new JButton("Log in");
-        JButton returnButton = new JButton("Return");
+        JButton loginButton = new JButton("Zaloguj");
+        JButton returnButton = new JButton("Powrót");
         JLabel errorLabel = new JLabel();
 
         loginButton.addActionListener(new ActionListener() {
@@ -35,7 +35,7 @@ public class LoginPanel extends JPanel {
                     errorLabel.setText("");
                 }
                 else {
-                    errorLabel.setText("Incorrect username or password");
+                    errorLabel.setText("Nieprawidłowe dane logowania");
                 }
             }
         });
@@ -51,7 +51,7 @@ public class LoginPanel extends JPanel {
         });
 
         setLayout(new GridLayout(5, 2));
-        add(new JLabel("Log into account"));
+        add(new JLabel("Zaloguj się:"));
         add(new JLabel());
         add(loginLabel);
         add(loginField);
