@@ -32,6 +32,7 @@ public class App extends JFrame implements Callback {
     private ModifyRestaurantsPanel modifyRestaurantsPanel;
     private ModifyRestaurantDetailsPanel modifyRestaurantDetailsPanel;
     private BasketPanel basketPanel;
+    private OpinionPanel opinionPanel;
     private JLabel clockLabel;
     public RestaurantsEntity selectedRestaurant;
     public AccountsEntity loggedAccount;
@@ -66,6 +67,7 @@ public class App extends JFrame implements Callback {
         modifyRestaurantsPanel = new ModifyRestaurantsPanel(this);
         modifyRestaurantDetailsPanel = new ModifyRestaurantDetailsPanel(this);
         basketPanel = new BasketPanel(this);
+        opinionPanel = new OpinionPanel(this);
 
         add(welcomePanel, "Welcome");
         add(loginPanel, "Login");
@@ -79,6 +81,7 @@ public class App extends JFrame implements Callback {
         add(modifyRestaurantsPanel, "ModifyRestaurants");
         add(modifyRestaurantDetailsPanel, "ModifyRestaurantDetails");
         add(basketPanel, "Basket");
+        add(opinionPanel, "Opinion");
 
         cardLayout.show(this.getContentPane(), "Welcome");
 
@@ -104,7 +107,8 @@ public class App extends JFrame implements Callback {
 
     @Override
     public void onOpinionRestaurantSelected(RestaurantsEntity restaurant) {
-        JOptionPane.showMessageDialog(this, "Wybrano restaurację " + restaurant.getName());
+        selectedRestaurant = restaurant;
+        cardLayout.show(getContentPane(), "Opinion");
     }
 
     @Override
