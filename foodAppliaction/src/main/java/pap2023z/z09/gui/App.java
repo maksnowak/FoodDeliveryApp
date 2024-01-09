@@ -20,19 +20,24 @@ import java.util.Date;
 public class App extends JFrame implements Callback {
     public CardLayout cardLayout;
 
-    private final WelcomePanel welcomePanel;
-    private final LoginPanel loginPanel;
-    private final RegisterPanel registerPanel;
-    private final MainMenuPanel mainMenuPanel;
-    private final RestaurantChoicePanel restaurantChoicePanel;
-    private final DishSelectionPanel dishSelectionPanel;
-    private final AccountInfoPanel accountInfoPanel;
-    private final EditAccountPanel editAccountPanel;
-    private final ModifyRestaurantsPanel modifyRestaurantsPanel;
-    private final BasketPanel basketPanel;
-    private final JLabel clockLabel;
+    private WelcomePanel welcomePanel;
+    private LoginPanel loginPanel;
+    private RegisterPanel registerPanel;
+    private MainMenuPanel mainMenuPanel;
+    private RestaurantChoicePanel restaurantChoicePanel;
+    private DishSelectionPanel dishSelectionPanel;
+    private AccountInfoPanel accountInfoPanel;
+    private EditAccountPanel editAccountPanel;
+    private ModifyRestaurantsPanel modifyRestaurantsPanel;
+    private ModifyRestaurantDetailsPanel modifyRestaurantDetailsPanel;
+    private BasketPanel basketPanel;
+    private JLabel clockLabel;
     public RestaurantsEntity selectedRestaurant;
     public AccountsEntity loggedAccount;
+
+    public ModifyRestaurantDetailsPanel getModifyRestaurantDetailsPanel() {
+        return modifyRestaurantDetailsPanel;
+    }
 
     public App() {
         setTitle("PAP2023Z - Z09");
@@ -57,6 +62,7 @@ public class App extends JFrame implements Callback {
         accountInfoPanel = new AccountInfoPanel(this);
         editAccountPanel = new EditAccountPanel(this);
         modifyRestaurantsPanel = new ModifyRestaurantsPanel(this);
+        modifyRestaurantDetailsPanel = new ModifyRestaurantDetailsPanel(this);
         basketPanel = new BasketPanel(this);
 
         add(welcomePanel, "Welcome");
@@ -68,6 +74,7 @@ public class App extends JFrame implements Callback {
         add(accountInfoPanel, "AccountInfo");
         add(editAccountPanel, "EditAccount");
         add(modifyRestaurantsPanel, "ModifyRestaurants");
+        add(modifyRestaurantDetailsPanel, "ModifyRestaurantDetails");
         add(basketPanel, "Basket");
 
         cardLayout.show(this.getContentPane(), "Welcome");
