@@ -27,10 +27,10 @@ public class AddOrderedDishes {
     {
         List<BasketsEntity> items = B_DAO.getAllDishesOfClientId(accountId);
 
-        OrderedDishsesDTO dish;
+        OrderedDishesDTO dish;
         for(BasketsEntity item : items)
         {
-            dish = new OrderedDishsesDTO();
+            dish = new OrderedDishesDTO();
             dish.setDishId(item.getDishId());
             dish.setOrderId(orderID);
 
@@ -39,7 +39,7 @@ public class AddOrderedDishes {
         cleanBasket();
     }
 
-    public void addOrderedDish(OrderedDishsesDTO dish)
+    public void addOrderedDish(OrderedDishesDTO dish)
     {
         checkOrderId(dish.getOrderId());
         checkDishId(dish.getDishId());

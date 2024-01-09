@@ -1,19 +1,19 @@
 package pap2023z.z09.dishes.orderedDishes;
 import pap2023z.z09.database.OrderedDishesEntity;
 
-public class OrderedDishsesDTO
+public class OrderedDishesDTO
 {
     private int id;
     private int orderId;
     private int dishId;
-    public OrderedDishsesDTO(int id, int orderId, int dishId)
+    public OrderedDishesDTO(int id, int orderId, int dishId)
     {
         this.id = id;
         this.orderId = orderId;
         this.dishId = dishId;
     }
 
-    public OrderedDishsesDTO()
+    public OrderedDishesDTO()
     {
 
     }
@@ -41,8 +41,8 @@ public class OrderedDishsesDTO
         this.dishId = dishId;
     }
 
-    public static OrderedDishsesDTO fromEntity(OrderedDishesEntity entity) {
-        return new OrderedDishsesDTO(
+    public static OrderedDishesDTO fromEntity(OrderedDishesEntity entity) {
+        return new OrderedDishesDTO(
                 entity.getId(),
                 entity.getOrderId(),
                 entity.getDishId()
