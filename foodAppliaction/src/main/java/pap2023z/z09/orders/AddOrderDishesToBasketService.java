@@ -18,8 +18,10 @@ public class AddOrderDishesToBasketService {
     }
 
     public void addOrderDishesToBasket(int orderId) {
+        // pobierz z bazdy danych zamówienia dla konta o podanym id
         List<DishesDTO> dishes = viewOrderDetailsService.getOrderedDishes(orderId);
         for (DishesDTO dish : dishes) {
+            // dodaj każde z zamówionych dań do koszyka klienta
             BasketsDTO basket = new BasketsDTO();
             basket.setCustomerId(ordersDAO.getOrderById(orderId).getCustomer());
             basket.setDishId(dish.getDishId());
