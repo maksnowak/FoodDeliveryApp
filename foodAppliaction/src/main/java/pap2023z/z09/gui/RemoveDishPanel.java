@@ -13,20 +13,24 @@ public class RemoveDishPanel extends JPanel {
     private JButton removeButton;
     private JButton backButton;
     private DishesDAO dishesDAO;
+    private DefaultListModel<String> dishListModel;
 
     public RemoveDishPanel(Callback callback) {
         dishesDAO = new DishesDAO();
         RestaurantsEntity selectedRestaurant = ((App) callback).selectedRestaurant;
-        List<DishesEntity> dishes = dishesDAO.getDishesByRestaurant(selectedRestaurant.getRestaurantId());
 
         setLayout(new BorderLayout());
 
-        dishList = new JList<>(dishes.stream().map(DishesEntity::getName).toArray(String[]::new));
+        // Stworzenie listy dań
+        dishListModel = new DefaultListModel<>();
+        dishList = new JList<>(dishListModel);
+        refreshDishList(selectedRestaurant.getRestaurantId());
         add(new JScrollPane(dishList), BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
 
+        // Dodanie przycisku usuwania dania
         removeButton = new JButton("Usuń danie");
         removeButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, removeButton.getPreferredSize().height));
         removeButton.addActionListener(e -> {
@@ -37,11 +41,13 @@ public class RemoveDishPanel extends JPanel {
                     DishesEntity dish = dishesDAO.getDishByName(selectedDish);
                     dishesDAO.removeDish(dish.getDishId());
                     JOptionPane.showMessageDialog(this, "Usunięto danie.");
+                    refreshDishList(selectedRestaurant.getRestaurantId());
                 }
             }
         });
         buttonPanel.add(removeButton);
 
+        // Dodanie przycisku powrotu
         backButton = new JButton("Powrót");
         backButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, backButton.getPreferredSize().height));
         backButton.addActionListener(e -> {
@@ -50,5 +56,14 @@ public class RemoveDishPanel extends JPanel {
         buttonPanel.add(backButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    // Funckja odświeżająca listę dań
+    private void refreshDishList(int restaurantId) {
+        List<DishesEntity> dishes = dishesDAO.getDishesByRestaurant(restaurantId);
+        dishListModel.clear();
+        for (DishesEntity dish : dishes) {
+            dishListModel.addElement(dish.getName());
+        }
     }
 }
