@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
 
+import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.dishes.*;
 
 public class AddDishPanel extends JPanel {
@@ -61,6 +62,8 @@ public class AddDishPanel extends JPanel {
             dish.setPrice(price);
             dish.setKcal(kcal);
 
+            RestaurantsEntity restaurant = ((App) callback).selectedRestaurant;
+            dish.setRestaurantId(restaurant.getRestaurantId());
             addDish.addDish(dish);
 
 

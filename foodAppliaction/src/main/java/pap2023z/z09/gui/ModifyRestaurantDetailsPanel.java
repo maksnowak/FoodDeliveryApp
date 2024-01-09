@@ -21,7 +21,7 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
     public ModifyRestaurantDetailsPanel(Callback callback) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        titleLabel = new JLabel("Zmień szczegóły restauracji:");
+        titleLabel = new JLabel("Zmień szczegóły restauracji: ");
         add(titleLabel);
         JPanel buttonPanel = new JPanel(new GridLayout(4, 1));
 
