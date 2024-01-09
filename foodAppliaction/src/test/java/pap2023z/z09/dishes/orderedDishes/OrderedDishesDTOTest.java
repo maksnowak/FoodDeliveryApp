@@ -11,7 +11,7 @@ import static org.mockito.Mockito.*;
 import pap2023z.z09.database.OrderedDishesEntity;
 
 public class OrderedDishesDTOTest {
-    private OrderedDishsesDTO orderedDishDTO;
+    private OrderedDishesDTO orderedDishDTO;
     public static int exampleInt = 1;
     @Mock
     private OrderedDishesEntity orderEntity;
@@ -19,7 +19,7 @@ public class OrderedDishesDTOTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        orderedDishDTO = new OrderedDishsesDTO();
+        orderedDishDTO = new OrderedDishesDTO();
     }
 
     @Test
@@ -50,7 +50,7 @@ public class OrderedDishesDTOTest {
         when(orderEntity.getOrderId()).thenReturn(exampleInt);
         when(orderEntity.getDishId()).thenReturn(exampleInt);
 
-        orderedDishDTO = new OrderedDishsesDTO().fromEntity(orderEntity);
+        orderedDishDTO = new OrderedDishesDTO().fromEntity(orderEntity);
 
         assertEquals(exampleInt, orderedDishDTO.getId());
         assertEquals(exampleInt, orderedDishDTO.getOrderId());

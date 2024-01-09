@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import pap2023z.z09.database.AccountsEntity;
-import pap2023z.z09.database.OrdersEntity;
-import pap2023z.z09.database.PaymentMethodsEntity;
+import pap2023z.z09.baskets.BasketsDAO;
+import pap2023z.z09.database.*;
+import pap2023z.z09.dishes.favourites.FavoritesDAO;
 import pap2023z.z09.orders.OrdersDAO;
 import pap2023z.z09.paymentMethods.PaymentMethodsDAO;
 
@@ -29,6 +29,12 @@ public class DeleteServiceTest {
     private PaymentMethodsDAO paymentMethodsDAO;
 
     @Mock
+    private FavoritesDAO favoritesDAO;
+
+    @Mock
+    private BasketsDAO basketsDAO;
+
+    @Mock
     private AccountsEntity account;
 
     @Mock
@@ -36,6 +42,12 @@ public class DeleteServiceTest {
 
     @Mock
     private PaymentMethodsEntity method;
+
+    @Mock
+    private FavoritesEntity favorite;
+
+    @Mock
+    private BasketsEntity basket;
 
     @BeforeEach
     public void setUp() {
@@ -47,6 +59,8 @@ public class DeleteServiceTest {
         when(accountsDAO.getAccountById(1)).thenReturn(account);
         when(ordersDAO.getAllOrdersFromAccountId(1)).thenReturn(List.of());
         when(paymentMethodsDAO.getMethodsByCustomerId(1)).thenReturn(List.of());
+        when(favoritesDAO.getFavoritesByCustomer(1)).thenReturn(List.of());
+        when(basketsDAO.getAllDishesOfClientId(1)).thenReturn(List.of());
         deleteService.deleteAccount(1);
         verify(accountsDAO, times(1)).deleteAccount(account);
     }
@@ -56,6 +70,8 @@ public class DeleteServiceTest {
         when(accountsDAO.getAccountById(1)).thenReturn(account);
         when(ordersDAO.getAllOrdersFromAccountId(1)).thenReturn(List.of(order));
         when(paymentMethodsDAO.getMethodsByCustomerId(1)).thenReturn(List.of());
+        when(favoritesDAO.getFavoritesByCustomer(1)).thenReturn(List.of());
+        when(basketsDAO.getAllDishesOfClientId(1)).thenReturn(List.of());
         deleteService.deleteAccount(1);
         verify(accountsDAO, times(1)).deleteAccount(account);
     }
@@ -65,6 +81,30 @@ public class DeleteServiceTest {
         when(accountsDAO.getAccountById(1)).thenReturn(account);
         when(ordersDAO.getAllOrdersFromAccountId(1)).thenReturn(List.of());
         when(paymentMethodsDAO.getMethodsByCustomerId(1)).thenReturn(List.of(method));
+        when(favoritesDAO.getFavoritesByCustomer(1)).thenReturn(List.of());
+        when(basketsDAO.getAllDishesOfClientId(1)).thenReturn(List.of());
+        deleteService.deleteAccount(1);
+        verify(accountsDAO, times(1)).deleteAccount(account);
+    }
+
+    @Test
+    public void testDeleteAccountWithFavorites() {
+        when(accountsDAO.getAccountById(1)).thenReturn(account);
+        when(ordersDAO.getAllOrdersFromAccountId(1)).thenReturn(List.of());
+        when(paymentMethodsDAO.getMethodsByCustomerId(1)).thenReturn(List.of());
+        when(favoritesDAO.getFavoritesByCustomer(1)).thenReturn(List.of(favorite));
+        when(basketsDAO.getAllDishesOfClientId(1)).thenReturn(List.of());
+        deleteService.deleteAccount(1);
+        verify(accountsDAO, times(1)).deleteAccount(account);
+    }
+
+    @Test
+    public void testDeleteAccountWithBaskets() {
+        when(accountsDAO.getAccountById(1)).thenReturn(account);
+        when(ordersDAO.getAllOrdersFromAccountId(1)).thenReturn(List.of());
+        when(paymentMethodsDAO.getMethodsByCustomerId(1)).thenReturn(List.of());
+        when(favoritesDAO.getFavoritesByCustomer(1)).thenReturn(List.of());
+        when(basketsDAO.getAllDishesOfClientId(1)).thenReturn(List.of(basket));
         deleteService.deleteAccount(1);
         verify(accountsDAO, times(1)).deleteAccount(account);
     }
@@ -74,6 +114,17 @@ public class DeleteServiceTest {
         when(accountsDAO.getAccountById(1)).thenReturn(account);
         when(ordersDAO.getAllOrdersFromAccountId(1)).thenReturn(List.of(order));
         when(paymentMethodsDAO.getMethodsByCustomerId(1)).thenReturn(List.of(method));
+        deleteService.deleteAccount(1);
+        verify(accountsDAO, times(1)).deleteAccount(account);
+    }
+
+    @Test
+    public void testDeleteAccountWithEverything() {
+        when(accountsDAO.getAccountById(1)).thenReturn(account);
+        when(ordersDAO.getAllOrdersFromAccountId(1)).thenReturn(List.of(order));
+        when(paymentMethodsDAO.getMethodsByCustomerId(1)).thenReturn(List.of(method));
+        when(favoritesDAO.getFavoritesByCustomer(1)).thenReturn(List.of(favorite));
+        when(basketsDAO.getAllDishesOfClientId(1)).thenReturn(List.of(basket));
         deleteService.deleteAccount(1);
         verify(accountsDAO, times(1)).deleteAccount(account);
     }

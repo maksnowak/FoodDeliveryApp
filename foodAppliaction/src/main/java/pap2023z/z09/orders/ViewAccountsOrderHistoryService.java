@@ -15,6 +15,7 @@ public class ViewAccountsOrderHistoryService {
     }
 
     List<OrdersDTO> getOrdersHistory(int accountId) {
+        // pobierz z bazdy danych zamówienia dla konta o podanym id
         List<OrdersEntity> orders = ordersDAO.getAllOrdersFromAccountId(accountId);
         ArrayList<OrdersDTO> dtos = new ArrayList<>();
         for (OrdersEntity order : orders) {

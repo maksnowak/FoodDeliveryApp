@@ -22,6 +22,7 @@ public class UpdateService {
         }
 
         if (existingAccount.getEmail() != null && !existingAccount.getEmail().equals(account.getEmail())) {
+            // sprawdź czy nowy email nie jest już w bazie danych
             verifyIfEmailAlreadyExistsService.verifyEmail(account.getEmail());
         }
 

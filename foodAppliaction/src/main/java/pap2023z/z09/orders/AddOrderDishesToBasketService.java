@@ -1,13 +1,8 @@
 package pap2023z.z09.orders;
 
 import pap2023z.z09.baskets.AddBasket;
-import pap2023z.z09.baskets.BasketsDAO;
 import pap2023z.z09.baskets.BasketsDTO;
-import pap2023z.z09.database.OrderedDishesEntity;
-import pap2023z.z09.dishes.DishesDAO;
 import pap2023z.z09.dishes.DishesDTO;
-import pap2023z.z09.dishes.orderedDishes.OrderedDishesDAO;
-import pap2023z.z09.dishes.orderedDishes.OrderedDishsesDTO;
 
 import java.util.List;
 
@@ -23,8 +18,10 @@ public class AddOrderDishesToBasketService {
     }
 
     public void addOrderDishesToBasket(int orderId) {
+        // pobierz z bazdy danych zamówienia dla konta o podanym id
         List<DishesDTO> dishes = viewOrderDetailsService.getOrderedDishes(orderId);
         for (DishesDTO dish : dishes) {
+            // dodaj każde z zamówionych dań do koszyka klienta
             BasketsDTO basket = new BasketsDTO();
             basket.setCustomerId(ordersDAO.getOrderById(orderId).getCustomer());
             basket.setDishId(dish.getDishId());

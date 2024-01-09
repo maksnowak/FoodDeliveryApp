@@ -10,6 +10,8 @@ import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.dishes.DishesDAO;
 import pap2023z.z09.dishes.DishesDTO;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -37,8 +39,6 @@ public class FavoriteDishServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    //TODO: poprawić testy żeby sprawdzały cały obiekt
-
     @Test
     public void testGetFavoriteDish() {
         int id = 1;
@@ -55,5 +55,20 @@ public class FavoriteDishServiceTest {
         int id = 1;
         when(favoritesDAO.getFavoriteById(id)).thenReturn(null);
         assertNull(favoriteDishService.getFavoriteDish(id));
+    }
+
+    @Test
+    public void testGetAllCustomerFavorites() {
+        int customer = 1;
+        when(favoritesDAO.getFavoritesByCustomer(customer)).thenReturn(List.of(favoritesEntity));
+        when(favoritesEntity.getCustomer()).thenReturn(customer);
+        assertEquals(1, favoriteDishService.getAllCustomerFavorites(customer).size());
+    }
+
+    @Test
+    public void testGetAllCustomerFavoritesEmpty() {
+        int customer = 1;
+        when(favoritesDAO.getFavoritesByCustomer(customer)).thenReturn(List.of());
+        assertEquals(0, favoriteDishService.getAllCustomerFavorites(customer).size());
     }
 }

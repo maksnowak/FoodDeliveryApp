@@ -5,6 +5,9 @@ import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.dishes.DishesDAO;
 import pap2023z.z09.dishes.DishesDTO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class FavoriteDishService {
     private final FavoritesDAO favoritesDAO;
@@ -22,5 +25,14 @@ public class FavoriteDishService {
         }
         DishesEntity dish = dishesDAO.getDishById(favorite.getDishId());
         return DishesDTO.fromEntity(dish);
+    }
+
+    public List<FavoritesDTO> getAllCustomerFavorites(int customer) {
+        List<FavoritesEntity> favorite = favoritesDAO.getFavoritesByCustomer(customer);
+        ArrayList<FavoritesDTO> dtos = new ArrayList<>();
+        for (FavoritesEntity favoritesEntity : favorite) {
+            dtos.add(FavoritesDTO.fromEntity(favoritesEntity));
+        }
+        return dtos;
     }
 }

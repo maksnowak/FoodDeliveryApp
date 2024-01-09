@@ -28,7 +28,7 @@ public class VerifyIfCustomerAlreadyAddedCardServiceTest {
 
     @Test
     public void verifyIfCustomerAlreadyAddedCardSuccessTest() throws CardAlreadyAddedException {
-        when(paymentMethodsDAO.getAllMethods()).thenReturn(List.of());
+        when(paymentMethodsDAO.getMethodsByCustomerId(1)).thenReturn(List.of());
         LocalDate localDate = LocalDate.of(2024, 12, 31);
         PaymentMethodsDTO dto = new PaymentMethodsDTO(1, "1234567890123456", Date.valueOf(localDate), "123", 1);
         verifyIfCustomerAlreadyAddedCardService.verifyIfCustomerAlreadyAddedCard(dto);
@@ -41,7 +41,7 @@ public class VerifyIfCustomerAlreadyAddedCardServiceTest {
         PaymentMethodsEntity paymentMethodsEntity = new PaymentMethodsEntity();
         paymentMethodsEntity.setCardNumber("1234567890123456");
         paymentMethodsEntity.setCustomer(1);
-        when(paymentMethodsDAO.getAllMethods()).thenReturn(List.of(paymentMethodsEntity));
+        when(paymentMethodsDAO.getMethodsByCustomerId(1)).thenReturn(List.of(paymentMethodsEntity));
         assertThrows(CardAlreadyAddedException.class, () -> verifyIfCustomerAlreadyAddedCardService.verifyIfCustomerAlreadyAddedCard(dto));
     }
 
