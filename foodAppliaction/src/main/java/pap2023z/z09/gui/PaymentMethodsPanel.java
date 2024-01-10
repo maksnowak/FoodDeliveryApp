@@ -2,6 +2,7 @@ package pap2023z.z09.gui;
 
 import pap2023z.z09.database.PaymentMethodsEntity;
 import pap2023z.z09.paymentMethods.PaymentMethodsDAO;
+import pap2023z.z09.paymentMethods.DeleteCreditCardService;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -15,32 +16,18 @@ import java.util.List;
 
 public class PaymentMethodsPanel extends JPanel {
     PaymentMethodsDAO DAO = new PaymentMethodsDAO();
+    int accountId;
     List<PaymentMethodsEntity> paymentMethods;
     JList<String> paymentMethodsList;
     DefaultListModel<String> model = new DefaultListModel<>();
-    JTextField searchField = new JTextField();
     private JLabel clockLabel;
 
     public PaymentMethodsPanel(Callback callback) {
 
         setLayout(new BorderLayout());
-        searchField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                searchList();
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                searchList();
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                searchList();
-            }
-        });
 
         JPanel upperPanel = new JPanel();
-        upperPanel.setLayout(new GridLayout(3, 1));
+        upperPanel.setLayout(new GridLayout(2, 1));
         clockLabel = new JLabel();
         clockLabel.setHorizontalAlignment(JLabel.CENTER);
         updateClock();
@@ -49,40 +36,49 @@ public class PaymentMethodsPanel extends JPanel {
         timer.start();
         JLabel titleLabel = new JLabel("Wybierz metodę płatności:");
         upperPanel.add(titleLabel);
-        upperPanel.add(searchField);
         add(upperPanel, BorderLayout.NORTH);
         
         paymentMethodsList = new JList<>(model);
 
         paymentMethodsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        paymentMethodsList.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting() && paymentMethodsList.getSelectedValue() != null) {
-                    String selected = paymentMethodsList.getSelectedValue();
-                    paymentMethodsList.clearSelection();
-                    searchField.setText("");
-                    ((App) callback).cardLayout.show(((App) callback).getContentPane(), "PaymentMethodDetails");
-                    // TODO: modyfikacja i usuwanie karty
-                }
-            }
-        });
+
         JScrollPane scrollPane = new JScrollPane(paymentMethodsList);
         add(scrollPane, BorderLayout.CENTER);
 
-        JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
+        JPanel bottomPanel = new JPanel(new GridLayout(2, 2));
+
+        JButton deleteButton = new JButton("Usuń metodę płatności");
+        deleteButton.addActionListener(e -> {
+            int selectedId = paymentMethodsList.getSelectedIndex();
+            if (selectedId != -1) {
+                int actualId = paymentMethods.get(selectedId).getMethodId();
+                String number = paymentMethods.get(selectedId).getCardNumber();
+                DeleteCreditCardService deleteCreditCardService = new DeleteCreditCardService(DAO);
+                deleteCreditCardService.deleteCreditCard(actualId);
+                refreshPaymentMethods();
+                JOptionPane.showMessageDialog(this, "Usunięto metodę płatności " + number + ".");
+            }
+        });
+        bottomPanel.add(deleteButton);
+
+        JButton modifyButton = new JButton("Modyfikuj metodę płatności");
+        modifyButton.addActionListener(e -> {
+            String selected = paymentMethodsList.getSelectedValue();
+            if (selected != null) {
+                JOptionPane.showMessageDialog(this, "Modyfikowańsko");
+            }
+        });
+        bottomPanel.add(modifyButton);
 
         JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e -> {
             paymentMethodsList.clearSelection();
-            searchField.setText("");
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
         });
         bottomPanel.add(backButton);
 
         JButton basketButton = new JButton("Dodaj metodę płatności");
         basketButton.addActionListener(e -> {
-            searchField.setText("");
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "AddPaymentMethod");
         });
         bottomPanel.add(basketButton);
@@ -95,20 +91,15 @@ public class PaymentMethodsPanel extends JPanel {
     }
 
     public void enter(int accountId) {
+        this.accountId = accountId;
+        refreshPaymentMethods();
+    }
+
+    void refreshPaymentMethods() {
         paymentMethods = DAO.getMethodsByCustomerId(accountId);
         model.clear();
         for (PaymentMethodsEntity paymentMethod : paymentMethods) {
             model.addElement(paymentMethod.getCardNumber());
-        }
-    }
-
-    public void searchList() {
-        model.clear();
-        String search = searchField.getText();
-        for (PaymentMethodsEntity paymentMethod : paymentMethods) {
-            if (paymentMethod.getCardNumber().contains(search.toLowerCase())) {
-                model.addElement(paymentMethod.getCardNumber());
-            }
         }
     }
 }
