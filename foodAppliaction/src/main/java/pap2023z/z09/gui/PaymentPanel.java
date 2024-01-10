@@ -2,16 +2,30 @@ package pap2023z.z09.gui;
 
 import pap2023z.z09.accounts.AccountsDAO;
 import pap2023z.z09.accounts.LoginService;
+import pap2023z.z09.baskets.BasketsDAO;
+import pap2023z.z09.database.BasketsEntity;
+import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.PaymentMethodsEntity;
+import pap2023z.z09.dishes.DishesDAO;
 import pap2023z.z09.paymentMethods.PaymentMethodsDAO;
+import pap2023z.z09.orders.OrderHandler;
+import pap2023z.z09.orders.OrdersDAO;
+import pap2023z.z09.orders.OrdersDTO;
+import pap2023z.z09.discounts.DiscountsDAO;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 
 public class PaymentPanel extends JPanel {
+    OrdersDAO ordersDAO = new OrdersDAO();
+    BasketsDAO basketsDAO = new BasketsDAO();
+    DishesDAO dishesDAO = new DishesDAO();
+    OrderHandler orderHandler = new OrderHandler(ordersDAO);
     java.util.List<PaymentMethodsEntity> paymentMethods;
+    int accountId;
     JComboBox<String> paymentMethodComboBox = new JComboBox<>();
     JTextField streetField = new JTextField();
     JTextField streetNumberField = new JTextField();
@@ -28,15 +42,80 @@ public class PaymentPanel extends JPanel {
         orderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PaymentMethodsEntity paymentMethod = paymentMethods.get(paymentMethodComboBox.getSelectedIndex());
+                PaymentMethodsEntity paymentMethod;
+                int comboBoxSelection = paymentMethodComboBox.getSelectedIndex();
+                if (comboBoxSelection == -1) {
+                    errorLabel.setText("Wybierz metodę płatności");
+                    return;
+                } else {
+                    paymentMethod = paymentMethods.get(paymentMethodComboBox.getSelectedIndex());
+                }
                 String street = streetField.getText();
-                String streetNumber = streetNumberField.getText();
-                String apartment = apartmentField.getText();
+                if (street.isEmpty()) {
+                    errorLabel.setText("Podaj ulicę");
+                    return;
+                }
+                int streetNumber;
+                try {
+                    streetNumber = Integer.parseInt(streetNumberField.getText());
+                } catch (NumberFormatException ex) {
+                    errorLabel.setText("Podaj numer domu");
+                    return;
+                }
+                if (streetNumber < 1) {
+                    errorLabel.setText("Podaj prawidłowy numer domu");
+                    return;
+                }
+                int apartment;
+                if (apartmentField.getText().isEmpty()) {
+                    apartment = 0;
+                } else {
+                    try {
+                        apartment = Integer.parseInt(apartmentField.getText());
+                    } catch (NumberFormatException ex) {
+                        errorLabel.setText("Podaj prawidłowy numer mieszkania");
+                        return;
+                    }
+                }
                 String city = cityField.getText();
-                String discountCode = discountCodeField.getText();
-                String tip = tipField.getText();
+                if (city.equals("")) {
+                    errorLabel.setText("Podaj miasto");
+                    return;
+                }
+                Integer discountCode;
+                if (discountCodeField.getText().isEmpty()) {
+                    discountCode = null;
+                } else {
+                    try {
+                        DiscountsDAO discountsDAO = new DiscountsDAO();
+                        discountCode = discountsDAO.getDiscountByCode(discountCodeField.getText()).getDiscountId();
+                    } catch (NullPointerException ex) {
+                        errorLabel.setText("Podaj prawidłowy kod rabatowy");
+                        return;
+                    }
+                }
+                BigDecimal tip;
+                if (tipField.getText().isEmpty()) {
+                    tip = new BigDecimal(0);
+                } else {
+                    try {
+                        tip = new BigDecimal(tipField.getText());
+                    } catch (NumberFormatException ex) {
+                        errorLabel.setText("Podaj prawidłowy napiwek");
+                        return;
+                    }
+                }
 
                 // TODO: ORDER
+                BigDecimal total = new BigDecimal(0);
+                java.util.List<BasketsEntity> baskets = basketsDAO.getAllDishesOfClientId(accountId);
+                for (BasketsEntity basket : baskets) {
+                    DishesEntity dish = dishesDAO.getDishById(basket.getDishId());
+                    total = total.add(dish.getPrice());
+                }
+
+                OrdersDTO order = new OrdersDTO(0, 1, accountId, total, paymentMethod.getMethodId(), street, streetNumber, apartment, city, discountCode, tip);
+                orderHandler.addOrder(order);
 
                 if (paymentMethodComboBox.getItemCount() != 0) {
                     paymentMethodComboBox.setSelectedIndex(0);
@@ -94,6 +173,7 @@ public class PaymentPanel extends JPanel {
     }
 
     public void enter(int accountId) {
+        this.accountId = accountId;
         paymentMethodComboBox.removeAllItems();
         PaymentMethodsDAO paymentMethodsDAO = new PaymentMethodsDAO();
         paymentMethods = paymentMethodsDAO.getMethodsByCustomerId(accountId);

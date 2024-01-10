@@ -103,7 +103,10 @@ public class OrderHandler {
         throw new IllegalArgumentException("the foreign key PaymentMethodId does not exist in primary keys ");
     }
 
-    private void checkDiscountId(int id){
+    private void checkDiscountId(Integer id){
+        if(id == null){
+            return;
+        }
         DiscountsDAO discountDAO = new DiscountsDAO();
         List <DiscountsEntity> discounts = discountDAO.getAllDiscounts();
         for(DiscountsEntity discount : discounts){
