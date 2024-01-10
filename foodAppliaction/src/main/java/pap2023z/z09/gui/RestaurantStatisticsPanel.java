@@ -20,10 +20,10 @@ public class RestaurantStatisticsPanel extends JPanel {
 
         setLayout(new GridLayout(3, 1));
 
-        orderedDishesLabel = new JLabel();
+        orderedDishesLabel = new JLabel("Liczba zamówionych dań: ");
         add(orderedDishesLabel);
 
-        totalIncomeLabel = new JLabel();
+        totalIncomeLabel = new JLabel("Całkowity dochód: ");
         add(totalIncomeLabel);
 
         backButton = new JButton("Powrót");
@@ -34,10 +34,7 @@ public class RestaurantStatisticsPanel extends JPanel {
     }
 
     public void enter(RestaurantsEntity restaurant) {
-//        int orderedDishes = ordersDAO.getNumberOfOrderedDishes(restaurant.getRestaurantId());
-        orderedDishesLabel.setText("Liczba zamówionych dań: " );
-
-//        double totalIncome = dishesDAO.getTotalIncome(restaurant.getRestaurantId());
+        orderedDishesLabel.setText("Liczba zamówionych dań: ");
         totalIncomeLabel.setText("Całkowity dochód: ");
     }
 }
