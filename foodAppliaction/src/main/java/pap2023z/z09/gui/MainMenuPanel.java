@@ -13,6 +13,7 @@ public class MainMenuPanel extends JPanel {
     JButton accountButton = new JButton("Konto");
     JButton historyButton = new JButton("Historia zamówień");
     JButton opinionButton = new JButton("Opinie");
+    JButton favouritesButton = new JButton("Dodaj do ulubionych");
     JButton restaurantsButton = new JButton("Restauracje");
     JLabel loggedAsLabel = new JLabel("Zalogowano jako: ");
     public MainMenuPanel(Callback callback) {
@@ -43,7 +44,12 @@ public class MainMenuPanel extends JPanel {
                 callback.enterHistoryPanel();
             }
         });
-
+        favouritesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((App) callback).cardLayout.show(((App) callback).getContentPane(), "favouritesRestaurantChoicePanel");
+            }
+        });
         restaurantsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,14 +57,19 @@ public class MainMenuPanel extends JPanel {
             }
         });
 
-        setLayout(new GridLayout(8, 1));
+
+
+        setLayout(new GridLayout(9, 1));
         add(new JLabel("Food!! (main menu)", SwingConstants.CENTER));
         add(orderButton);
         add(accountButton);
         add(historyButton);
         add(opinionButton);
+        add(favouritesButton);
         add(restaurantsButton);
+
         add(loggedAsLabel);
+
         restaurantsButton.setVisible(false);
 
         clockLabel = new JLabel();
