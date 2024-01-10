@@ -42,6 +42,7 @@ public class App extends JFrame implements Callback {
     private ModifyPaymentMethodPanel modifyPaymentMethodPanel;
     private HistoryPanel historyPanel;
     private OrderDetailsPanel orderDetailsPanel;
+    private ComplaintPanel complaintPanel;
     private AddDiscountPanel addDiscountPanel;
     private RestaurantStatisticsPanel restaurantStatisticsPanel;
 
@@ -89,9 +90,9 @@ public class App extends JFrame implements Callback {
         modifyPaymentMethodPanel = new ModifyPaymentMethodPanel(this);
         historyPanel = new HistoryPanel(this);
         orderDetailsPanel = new OrderDetailsPanel(this);
+        complaintPanel = new ComplaintPanel(this);
         addDiscountPanel = new AddDiscountPanel(this);
         restaurantStatisticsPanel = new RestaurantStatisticsPanel(this);
-
 
 
         add(welcomePanel, "Welcome");
@@ -113,6 +114,7 @@ public class App extends JFrame implements Callback {
         add(modifyPaymentMethodPanel, "ModifyPaymentMethod");
         add(historyPanel, "History");
         add(orderDetailsPanel, "OrderDetails");
+        add(complaintPanel, "Complaint");
         add(addDiscountPanel, "AddDiscount");
         add(restaurantStatisticsPanel, "RestaurantStatistics");
 
@@ -253,6 +255,13 @@ public class App extends JFrame implements Callback {
     public void enterOrderDetailsPanel(int orderId) {
         orderDetailsPanel.enter(loggedAccount.getAccountId(), orderId);
         cardLayout.show(getContentPane(), "OrderDetails");
+    }
+
+    @Override
+
+    public void enterComplaintPanel(int orderId) {
+        complaintPanel.enter(loggedAccount.getAccountId(), orderId);
+        cardLayout.show(getContentPane(), "Complaint");
     }
 
     @Override
