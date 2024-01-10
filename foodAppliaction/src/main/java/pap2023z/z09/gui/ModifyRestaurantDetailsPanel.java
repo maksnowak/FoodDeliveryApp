@@ -60,12 +60,13 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
         buttonPanel.add(changeOpensButton);
 
         //Dodanie przycisku do dodawania kodów rabatowych
-        JButton addDiscountCodeButton = new JButton("Dodaj kod rabatowy");
-        addDiscountCodeButton.addActionListener(e -> {
+        JButton addDiscountButton = new JButton("Dodaj kod rabatowy");
+        addDiscountButton.addActionListener(e -> {
             AddDiscountPanel addDiscountPanel = new AddDiscountPanel(callback);
             ((App) callback).add(addDiscountPanel, "AddDiscount");
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "AddDiscount");
         });
+        buttonPanel.add(addDiscountButton);
 
         // Dodanie przycisku powrotu
         JButton backButton = new JButton("Powrót");

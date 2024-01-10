@@ -29,6 +29,13 @@ public class AddDiscountPanel extends JPanel {
         discountField = new JTextField();
         add(discountField);
 
+        // Add back button
+        JButton backButton = new JButton("Powrót");
+        backButton.addActionListener(e2 -> {
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
+        });
+        add(backButton);
+
         // Add button to add discount
         addButton = new JButton("Dodaj rabat");
         addButton.addActionListener(e -> {
