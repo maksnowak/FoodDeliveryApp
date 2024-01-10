@@ -1,9 +1,8 @@
 package pap2023z.z09.gui;
 
-import pap2023z.z09.database.BasketsEntity;
-import pap2023z.z09.database.DishesEntity;
+import pap2023z.z09.database.OrdersEntity;
+import pap2023z.z09.database.StatusesEntity;
 import pap2023z.z09.orders.OrdersDAO;
-import pap2023z.z09.orders.OrdersDTO;
 import pap2023z.z09.orders.ViewOrderDetailsService;
 import pap2023z.z09.dishes.DishesDAO;
 import pap2023z.z09.dishes.DishesDTO;
@@ -11,6 +10,7 @@ import pap2023z.z09.dishes.orderedDishes.OrderedDishesDAO;
 import pap2023z.z09.restaurants.RestaurantsDAO;
 import pap2023z.z09.restaurants.RestaurantsDTO;
 import pap2023z.z09.restaurants.ViewOrderRestaurantsService;
+import pap2023z.z09.statuses.StatusesDAO;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -23,8 +23,11 @@ import java.util.List;
 public class OrderDetailsPanel extends JPanel {
     private int accountId;
     private int orderId;
-    OrdersDAO DAO = new OrdersDAO();
+
+    OrdersDAO ordersDAO = new OrdersDAO();
     DishesDAO dishesDAO = new DishesDAO();
+
+    StatusesDAO statusesDAO = new StatusesDAO();
     OrderedDishesDAO orderedDishesDAO = new OrderedDishesDAO();
     RestaurantsDAO restaurantsDAO = new RestaurantsDAO();
     List<RestaurantsDTO> restaurantsList;
@@ -35,11 +38,14 @@ public class OrderDetailsPanel extends JPanel {
     DefaultListModel<String> restaurantsListModel = new DefaultListModel<>();
     private JLabel clockLabel;
 
+    private JLabel statusLabel= new JLabel("dia");
+
+
     public OrderDetailsPanel(Callback callback) {
         setLayout(new BorderLayout());
 
         JPanel upperPanel = new JPanel();
-        upperPanel.setLayout(new GridLayout(2, 1));
+        upperPanel.setLayout(new GridLayout(3, 1));
         clockLabel = new JLabel();
         clockLabel.setHorizontalAlignment(JLabel.CENTER);
         updateClock();
@@ -48,6 +54,10 @@ public class OrderDetailsPanel extends JPanel {
         timer.start();
         JLabel titleLabel = new JLabel("Szczegóły zamówienia");
         upperPanel.add(titleLabel);
+
+        upperPanel.add(statusLabel);
+
+
         add(upperPanel, BorderLayout.NORTH);
 
         dishesJList = new JList<>(dishesListModel);
@@ -81,6 +91,7 @@ public class OrderDetailsPanel extends JPanel {
 
         add(listsPanel, BorderLayout.CENTER);
 
+
         JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e -> {
             dishesJList.clearSelection();
@@ -94,6 +105,12 @@ public class OrderDetailsPanel extends JPanel {
         clockLabel.setText(format.format(new Date()));
     }
 
+    private String getStatusName(int orderId)
+    {
+        OrdersEntity order = ordersDAO.getOrderById(orderId);
+        StatusesEntity curr_stat = statusesDAO.getStatusById(order.getStatus());
+        return(curr_stat.getName());
+    }
     public void enter(int accountId, int orderId) {
         this.accountId = accountId;
         this.orderId = orderId;
@@ -107,11 +124,15 @@ public class OrderDetailsPanel extends JPanel {
         }
 
         ViewOrderDetailsService service = new ViewOrderDetailsService(DAO, orderedDishesDAO, dishesDAO);
+        statusLabel.setText("aktualny status: " + getStatusName(orderId));
+        ViewOrderDetailsService service = new ViewOrderDetailsService(ordersDAO, orderedDishesDAO, dishesDAO);
+
         dishesList = service.getOrderedDishes(orderId);
         System.out.println(dishesList);
         System.out.println(orderId);
 
         dishesListModel.clear();
+
         for (DishesDTO dish : dishesList) {
             dishesListModel.addElement(dish.getName() + " - " + restaurantsDAO.getRestaurantById(dish.getRestaurantId()).getName());
         }

@@ -43,6 +43,8 @@ public class App extends JFrame implements Callback {
     private HistoryPanel historyPanel;
     private OrderDetailsPanel orderDetailsPanel;
     private ComplaintPanel complaintPanel;
+    private AddDiscountPanel addDiscountPanel;
+    private RestaurantStatisticsPanel restaurantStatisticsPanel;
 
 
     private JLabel clockLabel;
@@ -89,6 +91,8 @@ public class App extends JFrame implements Callback {
         historyPanel = new HistoryPanel(this);
         orderDetailsPanel = new OrderDetailsPanel(this);
         complaintPanel = new ComplaintPanel(this);
+        addDiscountPanel = new AddDiscountPanel(this);
+        restaurantStatisticsPanel = new RestaurantStatisticsPanel(this);
 
 
         add(welcomePanel, "Welcome");
@@ -111,6 +115,8 @@ public class App extends JFrame implements Callback {
         add(historyPanel, "History");
         add(orderDetailsPanel, "OrderDetails");
         add(complaintPanel, "Complaint");
+        add(addDiscountPanel, "AddDiscount");
+        add(restaurantStatisticsPanel, "RestaurantStatistics");
 
         cardLayout.show(this.getContentPane(), "Welcome");
 
@@ -252,9 +258,16 @@ public class App extends JFrame implements Callback {
     }
 
     @Override
+
     public void enterComplaintPanel(int orderId) {
         complaintPanel.enter(loggedAccount.getAccountId(), orderId);
         cardLayout.show(getContentPane(), "Complaint");
+    }
+
+    @Override
+    public void enterRestaurantStats(int restaurantId) {
+        restaurantStatisticsPanel.enter(restaurantId);
+        cardLayout.show(getContentPane(), "RestaurantStatistics");
     }
 
     public void updateAccountInfo() {

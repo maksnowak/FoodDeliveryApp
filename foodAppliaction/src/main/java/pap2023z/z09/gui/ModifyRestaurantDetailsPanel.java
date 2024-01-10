@@ -25,7 +25,7 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
         // Dodanie tytułu
         titleLabel = new JLabel("Zmień szczegóły restauracji: ");
         add(titleLabel);
-        JPanel buttonPanel = new JPanel(new GridLayout(4, 1));
+        JPanel buttonPanel = new JPanel(new GridLayout(5, 1));
 
         // Dodanie przycisku do dodawania dań
         dishesDAO = new DishesDAO();
@@ -58,6 +58,15 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ChangeHours");
         });
         buttonPanel.add(changeOpensButton);
+
+        //Dodanie przycisku do dodawania kodów rabatowych
+        JButton addDiscountButton = new JButton("Dodaj kod rabatowy");
+        addDiscountButton.addActionListener(e -> {
+            AddDiscountPanel addDiscountPanel = new AddDiscountPanel(callback);
+            ((App) callback).add(addDiscountPanel, "AddDiscount");
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "AddDiscount");
+        });
+        buttonPanel.add(addDiscountButton);
 
         // Dodanie przycisku powrotu
         JButton backButton = new JButton("Powrót");
