@@ -123,7 +123,6 @@ public class OrderDetailsPanel extends JPanel {
             restaurantsListModel.addElement(restaurant.getName());
         }
 
-        ViewOrderDetailsService service = new ViewOrderDetailsService(DAO, orderedDishesDAO, dishesDAO);
         statusLabel.setText("aktualny status: " + getStatusName(orderId));
         ViewOrderDetailsService service = new ViewOrderDetailsService(ordersDAO, orderedDishesDAO, dishesDAO);
 
