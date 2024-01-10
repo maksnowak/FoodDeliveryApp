@@ -15,6 +15,7 @@ import pap2023z.z09.dishes.orderedDishes.OrderedDishesDAO;
 import pap2023z.z09.orders.OrdersDAO;
 import pap2023z.z09.paymentMethods.PaymentMethodsDAO;
 import pap2023z.z09.restaurants.RestaurantsDAO;
+import pap2023z.z09.reviews.ReviewsDAO;
 import pap2023z.z09.workers.WorkersDAO;
 
 import javax.swing.*;
@@ -210,8 +211,9 @@ public class App extends JFrame implements Callback {
         RestaurantsDAO RDAO = new RestaurantsDAO();
         DishesDAO DDAO = new DishesDAO();
         OrderedDishesDAO ODDAO = new OrderedDishesDAO();
+        ReviewsDAO RvDAO = new ReviewsDAO();
 
-        DeleteService DS = new DeleteService(ADAO, ODAO, PMDAO, FDAO, BDAO, WDAO, RDAO, DDAO, ODDAO);
+        DeleteService DS = new DeleteService(ADAO, ODAO, PMDAO, FDAO, BDAO, WDAO, RDAO, DDAO, ODDAO, RvDAO);
         DS.deleteAccount(loggedAccount.getAccountId());
         loggedAccount = null;
         JOptionPane.showMessageDialog(this, "Konto zostało usunięte.");

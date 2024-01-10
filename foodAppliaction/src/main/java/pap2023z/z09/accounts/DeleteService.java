@@ -11,6 +11,7 @@ import pap2023z.z09.paymentMethods.DeleteCreditCardService;
 import pap2023z.z09.paymentMethods.PaymentMethodsDAO;
 import pap2023z.z09.restaurants.RemoveRestaurant;
 import pap2023z.z09.restaurants.RestaurantsDAO;
+import pap2023z.z09.reviews.ReviewsDAO;
 import pap2023z.z09.workers.WorkersDAO;
 
 
@@ -26,8 +27,9 @@ public class DeleteService {
     private final RestaurantsDAO restaurantsDAO;
     private final DishesDAO dishesDAO;
     private final OrderedDishesDAO orderedDishesDAO;
+    private final ReviewsDAO reviewsDAO;
 
-    public DeleteService(AccountsDAO accountsDAO, OrdersDAO ordersDAO, PaymentMethodsDAO paymentMethodsDAO, FavoritesDAO favoritesDAO, BasketsDAO basketsDAO, WorkersDAO workersDAO, RestaurantsDAO restaurantsDAO, DishesDAO dishesDAO, OrderedDishesDAO orderedDishesDAO) {
+    public DeleteService(AccountsDAO accountsDAO, OrdersDAO ordersDAO, PaymentMethodsDAO paymentMethodsDAO, FavoritesDAO favoritesDAO, BasketsDAO basketsDAO, WorkersDAO workersDAO, RestaurantsDAO restaurantsDAO, DishesDAO dishesDAO, OrderedDishesDAO orderedDishesDAO, ReviewsDAO reviewsDAO) {
         this.accountsDAO = accountsDAO;
         this.ordersDAO = ordersDAO;
         this.paymentMethodsDAO = paymentMethodsDAO;
@@ -37,6 +39,7 @@ public class DeleteService {
         this.restaurantsDAO = restaurantsDAO;
         this.dishesDAO = dishesDAO;
         this.orderedDishesDAO = orderedDishesDAO;
+        this.reviewsDAO = reviewsDAO;
     }
 
     public void deleteAccount(int id) {
@@ -65,6 +68,11 @@ public class DeleteService {
             for (BasketsEntity basket : baskets) {
                 basketsDAO.deleteBasket(basket);
             }
+            // usuń wszystkie opinie klienta
+            List<ReviewsEntity> reviews = reviewsDAO.getAllReviewsFromCustomerId(id);
+            for (ReviewsEntity review : reviews) {
+                reviewsDAO.deleteReview(review);
+            }
             // jeśli to jest konto pracownika, usuń go z restauracji
             List<WorkersEntity> workers = workersDAO.getWorkersByAccountId(id);
             for (WorkersEntity worker : workers) {
@@ -72,7 +80,7 @@ public class DeleteService {
                 List<WorkersEntity> workersInRestaurant = workersDAO.getWorkersByRestaurantId(worker.getRestaurantId());
                 if (workersInRestaurant.size() == 1) {
                     // jeśli tak, usuń restaurację
-                    RemoveRestaurant removeRestaurant = new RemoveRestaurant(restaurantsDAO, dishesDAO, orderedDishesDAO, basketsDAO, favoritesDAO, workersDAO);
+                    RemoveRestaurant removeRestaurant = new RemoveRestaurant(restaurantsDAO, dishesDAO, orderedDishesDAO, basketsDAO, favoritesDAO, workersDAO, reviewsDAO);
                     removeRestaurant.removeRestaurant(worker.getRestaurantId());
                 } else {
                     // jeśli nie, usuń pracownika

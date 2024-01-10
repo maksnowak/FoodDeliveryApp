@@ -13,6 +13,7 @@ import pap2023z.z09.restaurants.AddRestaurant;
 import pap2023z.z09.restaurants.RemoveRestaurant;
 import pap2023z.z09.restaurants.RestaurantsDAO;
 import pap2023z.z09.restaurants.RestaurantsDTO;
+import pap2023z.z09.reviews.ReviewsDAO;
 import pap2023z.z09.workers.ViewWorkerRestaurantsService;
 import pap2023z.z09.workers.WorkersDAO;
 
@@ -70,7 +71,7 @@ public class ModifyRestaurantsPanel extends JPanel {
             int selectedRestaurantIndex = restaurantNameList.getSelectedIndex();
             if (selectedRestaurantIndex != -1) {
                 Integer selectedRestaurantId = restaurantIdListModel.get(selectedRestaurantIndex);
-                RemoveRestaurant removeRestaurant = new RemoveRestaurant(new RestaurantsDAO(), new DishesDAO(),  new OrderedDishesDAO(), new BasketsDAO(), new FavoritesDAO(), new WorkersDAO());
+                RemoveRestaurant removeRestaurant = new RemoveRestaurant(new RestaurantsDAO(), new DishesDAO(),  new OrderedDishesDAO(), new BasketsDAO(), new FavoritesDAO(), new WorkersDAO(), new ReviewsDAO());
                 removeRestaurant.removeRestaurant(selectedRestaurantId);
                 refreshRestaurantList();
                 JOptionPane.showMessageDialog(this, "Usunięto restaurację.");
