@@ -9,6 +9,8 @@ import pap2023z.z09.dishes.DishesDAO;
 import pap2023z.z09.dishes.DishesDTO;
 import pap2023z.z09.dishes.orderedDishes.OrderedDishesDAO;
 import pap2023z.z09.restaurants.RestaurantsDAO;
+import pap2023z.z09.restaurants.RestaurantsDTO;
+import pap2023z.z09.restaurants.ViewOrderRestaurantsService;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -24,9 +26,12 @@ public class OrderDetailsPanel extends JPanel {
     DishesDAO dishesDAO = new DishesDAO();
     OrderedDishesDAO orderedDishesDAO = new OrderedDishesDAO();
     RestaurantsDAO restaurantsDAO = new RestaurantsDAO();
+    List<RestaurantsDTO> restaurantsList;
     List<DishesDTO> dishesList;
-    JList<String> basketList;
-    DefaultListModel<String> model = new DefaultListModel<>();
+    JList<String> dishesJList;
+    JList<String> restaurantsJList;
+    DefaultListModel<String> dishesListModel = new DefaultListModel<>();
+    DefaultListModel<String> restaurantsListModel = new DefaultListModel<>();
     private JLabel clockLabel;
 
     public OrderDetailsPanel(Callback callback) {
@@ -44,23 +49,40 @@ public class OrderDetailsPanel extends JPanel {
         upperPanel.add(titleLabel);
         add(upperPanel, BorderLayout.NORTH);
 
-        basketList = new JList<>(model);
+        dishesJList = new JList<>(dishesListModel);
+        restaurantsJList = new JList<>(restaurantsListModel);
 
-        basketList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        basketList.addListSelectionListener(new ListSelectionListener() {
+        JPanel listsPanel = new JPanel(new GridLayout(2, 1));
+
+        dishesJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        dishesJList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting() && basketList.getSelectedValue() != null) {
-                    DishesDTO selectedDish = dishesList.get(basketList.getSelectedIndex());
-                    JOptionPane.showMessageDialog(null, "Nazwa: " + selectedDish.getName());
-            }
+                dishesJList.clearSelection();
         }});
-        JScrollPane scrollPane = new JScrollPane(basketList);
-        add(scrollPane, BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(dishesJList);
+        listsPanel.add(scrollPane, BorderLayout.CENTER);
+
+        restaurantsJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        restaurantsJList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting() && restaurantsJList.getSelectedValue() != null) {
+                    RestaurantsDTO selectedRestaurant = restaurantsList.get(restaurantsJList.getSelectedIndex());
+                    restaurantsJList.clearSelection();
+                    JOptionPane.showMessageDialog(null, "Nazwa: " + selectedRestaurant.getName());
+                }
+            }
+        });
+
+        JScrollPane scrollPane2 = new JScrollPane(restaurantsJList);
+        listsPanel.add(scrollPane2, BorderLayout.EAST);
+
+        add(listsPanel, BorderLayout.CENTER);
 
         JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e -> {
-            basketList.clearSelection();
+            dishesJList.clearSelection();
             callback.enterHistoryPanel();
         });
         add(backButton, BorderLayout.SOUTH);
@@ -73,14 +95,22 @@ public class OrderDetailsPanel extends JPanel {
 
     public void enter(int accountId, int orderId) {
         this.accountId = accountId;
+        ViewOrderRestaurantsService viewOrderRestaurantsService = new ViewOrderRestaurantsService(restaurantsDAO, dishesDAO, orderedDishesDAO);
+        restaurantsList = viewOrderRestaurantsService.getRestaurantsFromOrder(orderId);
+
+        restaurantsListModel.clear();
+        for (RestaurantsDTO restaurant : restaurantsList) {
+            restaurantsListModel.addElement(restaurant.getName());
+        }
+
         ViewOrderDetailsService service = new ViewOrderDetailsService(DAO, orderedDishesDAO, dishesDAO);
         dishesList = service.getOrderedDishes(orderId);
         System.out.println(dishesList);
         System.out.println(orderId);
-        
-        model.clear();
+
+        dishesListModel.clear();
         for (DishesDTO dish : dishesList) {
-            model.addElement(dish.getName() + " - " + restaurantsDAO.getRestaurantById(dish.getRestaurantId()).getName());
+            dishesListModel.addElement(dish.getName() + " - " + restaurantsDAO.getRestaurantById(dish.getRestaurantId()).getName());
         }
     }
 }
