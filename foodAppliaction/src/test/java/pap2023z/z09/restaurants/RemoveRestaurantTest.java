@@ -1,4 +1,4 @@
-package pap2023z.z09.dishes;
+package pap2023z.z09.restaurants;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,14 +6,25 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pap2023z.z09.baskets.BasketsDAO;
-import pap2023z.z09.dishes.favourites.FavoritesDAO;
+import pap2023z.z09.database.DishesEntity;
+import pap2023z.z09.database.RestaurantsEntity;
+import pap2023z.z09.dishes.DishesDAO;
+import pap2023z.z09.dishes.RemoveDish;
 import pap2023z.z09.dishes.orderedDishes.OrderedDishesDAO;
+import pap2023z.z09.dishes.favourites.FavoritesDAO;
+
+import java.util.Collections;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class RemoveDishTest {
+public class RemoveRestaurantTest {
     @InjectMocks
-    private RemoveDish removeDish;
+    private RemoveRestaurant removeRestaurant;
+
+    @Mock
+    private RestaurantsDAO restaurantsDAO;
 
     @Mock
     private DishesDAO dishesDAO;
@@ -27,6 +38,8 @@ public class RemoveDishTest {
     @Mock
     private FavoritesDAO favoritesDAO;
 
+    @Mock
+    private RemoveDish removeDish;
 
     @BeforeEach
     public void setUp() {
@@ -34,13 +47,7 @@ public class RemoveDishTest {
     }
 
     @Test
-    public void removeDishSuccessTest() {
-        int dishId = 1;
-        doNothing().when(dishesDAO).removeDish(anyInt());
-        doNothing().when(orderedDishesDAO).deleteDish(any());
-        doNothing().when(basketsDAO).deleteBasket(any());
-        doNothing().when(favoritesDAO).deleteFavorite(any());
-        removeDish.removeDish(dishId);
-        verify(dishesDAO, times(1)).removeDish(dishId);
+    public void removeRestaurantTest() {
+        // TODO: zaimplementować test
     }
 }
