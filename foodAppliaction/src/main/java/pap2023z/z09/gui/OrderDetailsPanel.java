@@ -51,11 +51,10 @@ public class OrderDetailsPanel extends JPanel {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting() && basketList.getSelectedValue() != null) {
-                    int orderId = Integer.parseInt(basketList.getSelectedValue().split(":")[0]);
-                    JOptionPane.showMessageDialog(null, "zamawiańsko zamówiania " + orderId);
-                }
+                    DishesDTO selectedDish = dishesList.get(basketList.getSelectedIndex());
+                    JOptionPane.showMessageDialog(null, "Nazwa: " + selectedDish.getName());
             }
-        });
+        }});
         JScrollPane scrollPane = new JScrollPane(basketList);
         add(scrollPane, BorderLayout.CENTER);
 
