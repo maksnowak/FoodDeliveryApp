@@ -27,7 +27,6 @@ public class ModifyPaymentMethodPanel extends JPanel {
         modifyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: modify payment method (na razie jest dodawanie)
                 String number = numberField.getText();
                 String date_str = monthField.getText() + "/" + yearField.getText();
                 String CVV = CVVField.getText();
