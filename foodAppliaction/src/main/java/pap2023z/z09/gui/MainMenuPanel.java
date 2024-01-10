@@ -38,6 +38,13 @@ public class MainMenuPanel extends JPanel {
             }
         });
 
+        historyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                callback.enterHistoryPanel();
+            }
+        });
+
         restaurantsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
