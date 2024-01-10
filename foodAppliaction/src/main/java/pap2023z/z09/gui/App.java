@@ -249,8 +249,11 @@ public class App extends JFrame implements Callback {
     }
 
     public void updateAccountInfo() {
+        AccountTypesDAO ATDAO = new AccountTypesDAO();
+        ViewAccountTypeNameService VATNS = new ViewAccountTypeNameService(ATDAO);
+        String type = VATNS.getAccountTypeName(loggedAccount.getType());
         mainMenuPanel.updateAccountLabel(loggedAccount.getEmail());
-        accountInfoPanel.updateAccountInfo("Imię: " + loggedAccount.getName() + "\nNazwisko: " + loggedAccount.getSurname() + "\nEmail: " + loggedAccount.getEmail() + "\nTyp: " + loggedAccount.getType());
+        accountInfoPanel.updateAccountInfo("Imię: " + loggedAccount.getName() + "\nNazwisko: " + loggedAccount.getSurname() + "\nEmail: " + loggedAccount.getEmail() + "\nTyp: " + type);
         editAccountPanel.setFields(loggedAccount.getName(), loggedAccount.getSurname(), loggedAccount.getEmail(), loggedAccount.getPassword());
     }
 

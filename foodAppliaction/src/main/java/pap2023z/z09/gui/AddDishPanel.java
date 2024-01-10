@@ -9,7 +9,7 @@ import pap2023z.z09.dishes.*;
 
 public class AddDishPanel extends JPanel {
     private JTextField nameField;
-    private JTextField typeIdField;
+    private JComboBox<String> typeComboBox;
     private JCheckBox vegetarianCheckBox;
     private JTextField priceField;
     private JTextField kcalField;
@@ -28,8 +28,15 @@ public class AddDishPanel extends JPanel {
         add(nameField);
 
         add(new JLabel("Typ dania:"));
-        typeIdField = new JTextField();
-        add(typeIdField);
+        typeComboBox = new JComboBox<>();
+        typeComboBox.addItem("Przystawka");
+        typeComboBox.addItem("Zupa");
+        typeComboBox.addItem("Danie główne");
+        typeComboBox.addItem("Deser");
+        typeComboBox.addItem("Dodatki");
+        typeComboBox.addItem("Sałatki");
+        typeComboBox.addItem("Napoje");
+        add(typeComboBox);
 
         add(new JLabel("Wegetariańskie:"));
         vegetarianCheckBox = new JCheckBox();
@@ -54,7 +61,7 @@ public class AddDishPanel extends JPanel {
         addButton = new JButton("Dodaj danie");
         addButton.addActionListener(e -> {
             String name = nameField.getText();
-            int typeId = Integer.parseInt(typeIdField.getText());
+            int typeId = typeComboBox.getSelectedIndex() + 1;
             boolean vegetarian = vegetarianCheckBox.isSelected();
             BigDecimal price = new BigDecimal(priceField.getText());
             BigDecimal kcal = new BigDecimal(kcalField.getText());
