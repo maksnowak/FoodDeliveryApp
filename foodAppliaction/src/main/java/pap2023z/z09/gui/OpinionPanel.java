@@ -1,11 +1,5 @@
 package pap2023z.z09.gui;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import pap2023z.z09.accounts.*;
-import pap2023z.z09.database.ReviewsEntity;
 import pap2023z.z09.reviews.AddReviews;
 import pap2023z.z09.reviews.ReviewsDAO;
 import pap2023z.z09.reviews.ReviewsDTO;
@@ -14,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class OpinionPanel extends JPanel {
     private final ReviewsDAO reviewsDAO = new ReviewsDAO();
@@ -35,8 +28,6 @@ public class OpinionPanel extends JPanel {
             sendButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String opinionText = opinionField.getText();
-
                     ReviewsDTO review = new ReviewsDTO();
 
                     review.setDescription(opinionField.getText());
