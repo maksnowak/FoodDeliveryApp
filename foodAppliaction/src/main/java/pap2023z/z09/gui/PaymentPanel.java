@@ -127,6 +127,9 @@ public class PaymentPanel extends JPanel {
                 discountCodeField.setText("");
                 tipField.setText("");
                 errorLabel.setText("");
+                for (BasketsEntity basket : baskets) {
+                    basketsDAO.deleteBasket(basket);
+                }
                 JOptionPane.showMessageDialog(null, "Zamówienie zostało złożone.");
                 ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
             }
