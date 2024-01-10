@@ -74,7 +74,7 @@ public class PaymentMethodsPanel extends JPanel {
         JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e -> {
             paymentMethodsList.clearSelection();
-            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "AccountInfo");
         });
         bottomPanel.add(backButton);
 
