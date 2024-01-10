@@ -1,30 +1,52 @@
 package pap2023z.z09.gui;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 import pap2023z.z09.accounts.*;
+import pap2023z.z09.database.ReviewsEntity;
+import pap2023z.z09.reviews.AddReviews;
+import pap2023z.z09.reviews.ReviewsDAO;
+import pap2023z.z09.reviews.ReviewsDTO;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class OpinionPanel extends JPanel {
+    private final ReviewsDAO reviewsDAO = new ReviewsDAO();
     int customerId;
     int restaurantId;
+
         public OpinionPanel(Callback callback) {
+            SpinnerModel sm = new SpinnerNumberModel(0, 0, 5, 1);
+
             JLabel upperLabel = new JLabel("Wystaw opinię");
             JTextField opinionField = new JTextField();
+            JLabel starLabel = new JLabel("ocen nas * * * * *");
+            JSpinner starField = new JSpinner(sm);
             JButton sendButton = new JButton("Wyślij");
             JButton returnButton = new JButton("Powrót");
+
 
             sendButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String opinionText = opinionField.getText();
 
-                    // TODO: wysłij opinię do bazy danych
-                    // rzeczy
-                    // wyślij opinię
-                    // FIXME - nie działa XDXDXD
+                    ReviewsDTO review = new ReviewsDTO();
+
+                    review.setDescription(opinionField.getText());
+                    review.setStars((Integer) starField.getValue());
+                    review.setRestaurantId(restaurantId);
+                    review.setCustomer(customerId);
+
+                    AddReviews adder = new AddReviews(reviewsDAO);
+
+                    adder.addReview(review);
 
                     JOptionPane.showMessageDialog(null, "Opinion sent!");
                     opinionField.setText("");
@@ -41,9 +63,19 @@ public class OpinionPanel extends JPanel {
                 }
             });
 
+
             setLayout(new GridLayout(3, 1));
-            add(upperLabel);
-            add(opinionField);
+
+            JPanel decisionPanel = new JPanel(new GridLayout(1, 2));
+            decisionPanel.add(upperLabel);
+            decisionPanel.add(opinionField);
+            add(decisionPanel);
+
+            JPanel starPanel = new JPanel();
+            starPanel.setLayout(new GridLayout(1, 2));
+            starPanel.add(starLabel);
+            starPanel.add(starField);
+            add(starPanel);
 
             JPanel bottomPanel = new JPanel();
             bottomPanel.setLayout(new GridLayout(1, 2));
