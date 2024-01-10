@@ -2,10 +2,15 @@ package pap2023z.z09.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.math.BigDecimal;
+import java.util.List;
 
+import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.orders.OrdersDAO;
 import pap2023z.z09.dishes.DishesDAO;
+import pap2023z.z09.dishes.orderedDishes.OrderedDishesDAO;
+import pap2023z.z09.database.OrderedDishesEntity;
 
 public class RestaurantStatisticsPanel extends JPanel {
     private JLabel orderedDishesLabel;
@@ -13,6 +18,8 @@ public class RestaurantStatisticsPanel extends JPanel {
     private JButton backButton;
     private OrdersDAO ordersDAO;
     private DishesDAO dishesDAO;
+    private OrderedDishesDAO orderedDishesDAO;
+
 
     public RestaurantStatisticsPanel(Callback callback) {
         ordersDAO = new OrdersDAO();
@@ -33,8 +40,24 @@ public class RestaurantStatisticsPanel extends JPanel {
         add(backButton);
     }
 
-    public void enter(RestaurantsEntity restaurant) {
-        orderedDishesLabel.setText("Liczba zamówionych dań: ");
-        totalIncomeLabel.setText("Całkowity dochód: ");
+    public void enter(int restaurantId) {
+        orderedDishesDAO = new OrderedDishesDAO();
+        List<OrderedDishesEntity> orderedDishes = orderedDishesDAO.getAllDishes();
+        BigDecimal totalIncome = new BigDecimal(0);
+        int totalDishes = 0;
+
+        for (OrderedDishesEntity orderedDish : orderedDishes) {
+            DishesEntity dish = dishesDAO.getDishById(orderedDish.getDishId());
+            if (dish.getRestaurantId() == restaurantId) {
+                totalIncome = totalIncome.add(dish.getPrice());
+                totalDishes += 1;
+            }
+        }
+
+        orderedDishesLabel.setText("Liczba zamówionych dań: " + totalDishes);
+        totalIncomeLabel.setText("Całkowity dochód: " + totalIncome + " zł");
     }
+
+
+
 }

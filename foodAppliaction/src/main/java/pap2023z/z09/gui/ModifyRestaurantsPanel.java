@@ -59,7 +59,7 @@ public class ModifyRestaurantsPanel extends JPanel {
                 RestaurantsEntity restaurant = restaurantsDAO.getRestaurantById(selectedRestaurantId);
                 ((App) callback).selectedRestaurant = restaurant;
                 restaurantNameList.clearSelection();
-                ((App) callback).cardLayout.show(((App) callback).getContentPane(), "RestaurantStatistics");
+                callback.enterRestaurantStats(restaurant.getRestaurantId());
             }
         });
         buttonPanel.add(restaurantStatisticsButton);
