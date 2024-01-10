@@ -45,7 +45,8 @@ public class HistoryPanel extends JPanel {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting() && orderList.getSelectedValue() != null) {
-                    JOptionPane.showMessageDialog(null, "zamawiańsko");
+                    int orderId = Integer.parseInt(orderList.getSelectedValue().split(":")[0]);
+                    JOptionPane.showMessageDialog(null, "zamawiańsko zamówiania " + orderId);
                 }
             }
         });
@@ -69,6 +70,8 @@ public class HistoryPanel extends JPanel {
         this.accountId = accountId;
         orders = DAO.getAllOrdersFromAccountId(accountId);
         model.clear();
-        model.addAll(orders.stream().map(OrdersEntity::getOrderId).map(String::valueOf).toList());
+        for (OrdersEntity order : orders) {
+            model.addElement(order.getOrderId() + ": " + order.getTotal() + " zł");
+        }
     }
 }
