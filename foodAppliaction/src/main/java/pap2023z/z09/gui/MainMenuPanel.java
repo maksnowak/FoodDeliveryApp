@@ -9,14 +9,13 @@ import java.util.Date;
 
 public class MainMenuPanel extends JPanel {
     private JLabel clockLabel;
+    JButton orderButton = new JButton("Zamów");
+    JButton accountButton = new JButton("Konto");
+    JButton historyButton = new JButton("Historia i reklamacje");
+    JButton opinionButton = new JButton("Opinie");
+    JButton restaurantsButton = new JButton("Restauracje");
+    JLabel loggedAsLabel = new JLabel("Zalogowano jako: ");
     public MainMenuPanel(Callback callback) {
-        JButton orderButton = new JButton("Zamów");
-        JButton accountButton = new JButton("Konto");
-        JButton orderStatusButton = new JButton("Status zamówienia");
-        JButton historyButton = new JButton("Historia i reklamacje");
-        JButton opinionButton = new JButton("Opinie");
-        JButton restaurantsButton = new JButton("Restauracje");
-
         orderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -38,6 +37,13 @@ public class MainMenuPanel extends JPanel {
             }
         });
 
+        historyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                callback.enterHistoryPanel();
+            }
+        });
+
         restaurantsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,15 +51,14 @@ public class MainMenuPanel extends JPanel {
             }
         });
 
-        setLayout(new GridLayout(9, 1));
+        setLayout(new GridLayout(8, 1));
         add(new JLabel("Food!! (main menu)", SwingConstants.CENTER));
         add(orderButton);
         add(accountButton);
-        add(orderStatusButton);
         add(historyButton);
         add(opinionButton);
         add(restaurantsButton);
-        add(new JLabel("Zalogowano jako: ", SwingConstants.CENTER));
+        add(loggedAsLabel);
         restaurantsButton.setVisible(false);
 
         clockLabel = new JLabel();
@@ -70,14 +75,15 @@ public class MainMenuPanel extends JPanel {
     }
 
     public void updateAccountLabel(String accountName) {
-        ((JLabel) getComponent(7)).setText("Zalogowano jako: " + accountName);
+        loggedAsLabel.setText("Zalogowano jako: " + accountName);
+        loggedAsLabel.setHorizontalAlignment(JLabel.CENTER);
     }
 
     public void showRestaurantsButton() {
-        getComponent(6).setVisible(true);
+        restaurantsButton.setVisible(true);
     }
 
     public void hideRestaurantsButton() {
-        getComponent(6).setVisible(false);
+        restaurantsButton.setVisible(false);
     }
 }

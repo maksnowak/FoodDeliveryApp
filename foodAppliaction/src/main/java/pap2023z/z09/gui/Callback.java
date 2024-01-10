@@ -18,4 +18,6 @@ public interface Callback {
     void enterPayment();
     void enterModifyPaymentMethod(int id);
     void enterModifyRestaurantPanel();
+    void enterHistoryPanel();
+    void enterOrderDetailsPanel(int orderId);
 }
