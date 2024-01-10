@@ -2,8 +2,6 @@ package pap2023z.z09.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 import pap2023z.z09.baskets.BasketsDAO;
@@ -15,17 +13,27 @@ import pap2023z.z09.restaurants.AddRestaurant;
 import pap2023z.z09.restaurants.RemoveRestaurant;
 import pap2023z.z09.restaurants.RestaurantsDAO;
 import pap2023z.z09.restaurants.RestaurantsDTO;
+import pap2023z.z09.workers.ViewWorkerRestaurantsService;
+import pap2023z.z09.workers.WorkersDAO;
 
 public class ModifyRestaurantsPanel extends JPanel {
-    RestaurantsDAO RD = new RestaurantsDAO();
-    List<RestaurantsEntity> restaurants = RD.getAllRestaurants();
+    private List<RestaurantsDTO> restaurants;
     private JList<String> restaurantList;
     private JButton addNewRestaurantButton;
     private JButton removeRestaurantButton;
     private JButton modifyRestaurantButton;
     private DefaultListModel<String> restaurantListModel;
+    private ViewWorkerRestaurantsService viewWorkerRestaurantsService;
+    private int accountId;
+    private WorkersDAO workersDAO;
+    private RestaurantsDAO restaurantsDAO;
 
     public ModifyRestaurantsPanel(Callback callback) {
+        workersDAO = new WorkersDAO();
+        restaurantsDAO = new RestaurantsDAO();
+
+        viewWorkerRestaurantsService = new ViewWorkerRestaurantsService(workersDAO, restaurantsDAO);
+
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Dodanie tytułu
@@ -34,10 +42,9 @@ public class ModifyRestaurantsPanel extends JPanel {
 
         restaurantListModel = new DefaultListModel<>();
         restaurantList = new JList<>(restaurantListModel);
-        refreshRestaurantList();
         add(new JScrollPane(restaurantList));
 
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 2));
+        JPanel buttonPanel = new JPanel(new GridLayout(4, 1));
 
         // Dodanie przycisku do dodawania restauracji
         addNewRestaurantButton = new JButton("Dodaj restaurację");
@@ -46,6 +53,7 @@ public class ModifyRestaurantsPanel extends JPanel {
             ((App) callback).add(addNewRestaurantPanel, "AddNewRestaurant");
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "AddNewRestaurant");
             refreshRestaurantList();
+
         });
         buttonPanel.add(addNewRestaurantButton);
 
@@ -69,7 +77,7 @@ public class ModifyRestaurantsPanel extends JPanel {
         modifyRestaurantButton.addActionListener(e -> {
             String selectedRestaurantName = restaurantList.getSelectedValue();
             if (selectedRestaurantName != null) {
-                RestaurantsEntity restaurant = RD.getRestaurantByName(selectedRestaurantName);
+                RestaurantsEntity restaurant = new RestaurantsDAO().getRestaurantByName(selectedRestaurantName);
                 ((App) callback).selectedRestaurant = restaurant;
                 ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
             }
@@ -86,10 +94,15 @@ public class ModifyRestaurantsPanel extends JPanel {
     }
 
     void refreshRestaurantList() {
-        restaurants = RD.getAllRestaurants();
+        restaurants = viewWorkerRestaurantsService.getWorkerRestaurants(accountId);
         restaurantListModel.clear();
-        for (RestaurantsEntity restaurant : restaurants) {
+        for (RestaurantsDTO restaurant : restaurants) {
             restaurantListModel.addElement(restaurant.getName());
         }
+    }
+
+    void enter(int accountId) {
+        this.accountId = accountId;
+        refreshRestaurantList();
     }
 }
