@@ -12,12 +12,10 @@ public class MainMenuPanel extends JPanel {
     public MainMenuPanel(Callback callback) {
         JButton orderButton = new JButton("Zamów");
         JButton accountButton = new JButton("Konto");
-        JButton opinionButton = new JButton("Opinie");
-        JButton complaintsButton = new JButton("Reklamacje");
         JButton orderStatusButton = new JButton("Status zamówienia");
+        JButton historyButton = new JButton("Historia i reklamacje");
+        JButton opinionButton = new JButton("Opinie");
         JButton restaurantsButton = new JButton("Restauracje");
-        JButton statisticsButton = new JButton("Statystyki");
-
 
         orderButton.addActionListener(new ActionListener() {
             @Override
@@ -47,18 +45,16 @@ public class MainMenuPanel extends JPanel {
             }
         });
 
-        setLayout(new GridLayout(10, 1));
+        setLayout(new GridLayout(9, 1));
         add(new JLabel("Food!! (main menu)", SwingConstants.CENTER));
         add(orderButton);
         add(accountButton);
-        add(opinionButton);
-        add(complaintsButton);
         add(orderStatusButton);
+        add(historyButton);
+        add(opinionButton);
         add(restaurantsButton);
-        add(statisticsButton);
         add(new JLabel("Zalogowano jako: ", SwingConstants.CENTER));
         restaurantsButton.setVisible(false);
-        statisticsButton.setVisible(false);
 
         clockLabel = new JLabel();
         clockLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -79,11 +75,9 @@ public class MainMenuPanel extends JPanel {
 
     public void showRestaurantsButton() {
         getComponent(6).setVisible(true);
-        getComponent(7).setVisible(true);
     }
 
     public void hideRestaurantsButton() {
         getComponent(6).setVisible(false);
-        getComponent(7).setVisible(false);
     }
 }

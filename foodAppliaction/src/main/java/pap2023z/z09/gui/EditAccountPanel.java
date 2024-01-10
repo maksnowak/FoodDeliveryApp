@@ -61,8 +61,8 @@ public class EditAccountPanel extends JPanel {
         });
 
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
-        buttonPanel.add(saveButton);
         buttonPanel.add(cancelButton);
+        buttonPanel.add(saveButton);
         add(buttonPanel, BorderLayout.SOUTH);
     }
 

@@ -16,5 +16,6 @@ public interface Callback {
     void onOpinionRestaurantSelected(RestaurantsEntity restaurant);
     void enterPaymentMethods();
     void enterPayment();
+    void enterModifyPaymentMethod(int id);
     void enterModifyRestaurantPanel();
 }

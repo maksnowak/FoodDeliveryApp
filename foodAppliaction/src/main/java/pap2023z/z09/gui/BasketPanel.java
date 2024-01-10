@@ -2,25 +2,20 @@ package pap2023z.z09.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import pap2023z.z09.database.DishesEntity;
-import pap2023z.z09.database.RestaurantsEntity;
-import pap2023z.z09.restaurants.RestaurantsDAO;
 import pap2023z.z09.baskets.BasketsDAO;
 import pap2023z.z09.database.BasketsEntity;
 import pap2023z.z09.dishes.DishesDAO;
 
 public class BasketPanel extends JPanel {
-//    RestaurantsDAO DAO = new RestaurantsDAO();
-//    List<RestaurantsEntity> restaurants = DAO.getAllRestaurants(); //orders?
-    JList<String> dishesList;
+    BasketsDAO basketsDAO = new BasketsDAO();
+    int accountId;
+    List<BasketsEntity> baskets;
+    JList<String> basketsJList;
     DefaultListModel<String> model = new DefaultListModel<>();
     private JLabel clockLabel;
 
@@ -40,37 +35,45 @@ public class BasketPanel extends JPanel {
         upperPanel.add(titleLabel);
         add(upperPanel, BorderLayout.NORTH);
 
-//        model.addAll(restaurants.stream().map(RestaurantsEntity::getName).toList());
-        dishesList = new JList<>(model);
+        basketsJList = new JList<>(model);
+        basketsJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        dishesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        dishesList.addListSelectionListener(new ListSelectionListener() {
-//            @Override
-//            public void valueChanged(ListSelectionEvent e) {
-//                if (!e.getValueIsAdjusting() && dishesList.getSelectedValue() != null) {
-//                    String selected = dishesList.getSelectedValue();
-//                    dishesList.clearSelection();
-//                    searchField.setText("");
-//                    RestaurantsDAO DAO = new RestaurantsDAO();
-//                    callback.onRestaurantSelected(DAO.getRestaurantByName(selected));
-//                }
-//            }
-//        });
-        JScrollPane scrollPane = new JScrollPane(dishesList);
+        JScrollPane scrollPane = new JScrollPane(basketsJList);
         add(scrollPane, BorderLayout.CENTER);
 
-        JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
+        JPanel bottomPanel = new JPanel(new GridLayout(2, 2));
+
+        bottomPanel.add(new JLabel());
+
+        JButton deleteButton = new JButton("Usuń danie");
+        deleteButton.addActionListener(e -> {
+            int selectedId = basketsJList.getSelectedIndex();
+            if (selectedId != -1) {
+                int actualId = baskets.get(selectedId).getId();
+                BasketsEntity basket = basketsDAO.getDishByBasketId(actualId);
+                basketsDAO.deleteBasket(basket);
+                listBasket();
+                if (baskets.isEmpty()) {
+                    basketsJList.clearSelection();
+                } else if (selectedId == baskets.size()) {
+                    basketsJList.setSelectedIndices(new int[] {selectedId - 1});
+                } else {
+                    basketsJList.setSelectedIndices(new int[] {selectedId});
+                }
+            }
+        });
+        bottomPanel.add(deleteButton);
 
         JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e -> {
-            dishesList.clearSelection();
+            basketsJList.clearSelection();
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
         });
         bottomPanel.add(backButton);
 
         JButton orderButton = new JButton("Zapłać");
         orderButton.addActionListener(e -> {
-            dishesList.clearSelection();
+            basketsJList.clearSelection();
             callback.enterPayment();
         });
         bottomPanel.add(orderButton);
@@ -78,18 +81,17 @@ public class BasketPanel extends JPanel {
     }
 
     public void enter(int accountId) {
-        listBasket(accountId);
+        this.accountId = accountId;
+        listBasket();
     }
 
-    private void listBasket(int accountId) {
-        System.out.println("listBasket");
+    private void listBasket() {
         model.clear();
         BasketsDAO basketsDAO = new BasketsDAO();
         DishesDAO dishesDAO = new DishesDAO();
-        List<BasketsEntity> baskets = basketsDAO.getAllDishesOfClientId(accountId);
-        System.out.println(baskets.size());
+        baskets = basketsDAO.getAllDishesOfClientId(accountId);
         for (BasketsEntity basket : baskets) {
-            DishesEntity dish = dishesDAO.getDishById(basket.getDishId());
+            DishesEntity dish = dishesDAO.getDishById(basket.getDishId()); // dish tylko dla nazwy
             model.addElement(dish.getName());
         }
     }
