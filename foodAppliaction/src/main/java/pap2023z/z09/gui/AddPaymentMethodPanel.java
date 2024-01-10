@@ -14,7 +14,6 @@ import java.sql.Date;
 public class AddPaymentMethodPanel extends JPanel {
         public AddPaymentMethodPanel(Callback callback) {
             JLabel numberLabel = new JLabel("Numer karty:");
-            JLabel dateLabel = new JLabel("Data ważności:");
             JLabel CVVLabel = new JLabel("CVV:");
             JTextField numberField = new JTextField(15);
             JTextField monthField = new JTextField(2);

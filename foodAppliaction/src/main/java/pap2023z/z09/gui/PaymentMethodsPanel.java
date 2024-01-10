@@ -63,9 +63,10 @@ public class PaymentMethodsPanel extends JPanel {
 
         JButton modifyButton = new JButton("Modyfikuj metodę płatności");
         modifyButton.addActionListener(e -> {
-            String selected = paymentMethodsList.getSelectedValue();
-            if (selected != null) {
-                JOptionPane.showMessageDialog(this, "Modyfikowańsko");
+            int selectedId = paymentMethodsList.getSelectedIndex();
+            if (selectedId != -1) {
+                int actualId = paymentMethods.get(selectedId).getMethodId();
+                callback.enterModifyPaymentMethod(actualId);
             }
         });
         bottomPanel.add(modifyButton);

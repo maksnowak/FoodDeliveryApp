@@ -36,6 +36,7 @@ public class App extends JFrame implements Callback {
     private PaymentMethodsPanel paymentMethodsPanel;
     private AddPaymentMethodPanel addPaymentMethodPanel;
     private PaymentPanel paymentPanel;
+    private ModifyPaymentMethodPanel modifyPaymentMethodPanel;
 
 
     private JLabel clockLabel;
@@ -77,6 +78,7 @@ public class App extends JFrame implements Callback {
         paymentMethodsPanel = new PaymentMethodsPanel(this);
         addPaymentMethodPanel = new AddPaymentMethodPanel(this);
         paymentPanel = new PaymentPanel(this);
+        modifyPaymentMethodPanel = new ModifyPaymentMethodPanel(this);
 
         add(welcomePanel, "Welcome");
         add(loginPanel, "Login");
@@ -94,6 +96,7 @@ public class App extends JFrame implements Callback {
         add(paymentMethodsPanel, "PaymentMethods");
         add(addPaymentMethodPanel, "AddPaymentMethod");
         add(paymentPanel, "PaymentPanel");
+        add(modifyPaymentMethodPanel, "ModifyPaymentMethod");
 
         cardLayout.show(this.getContentPane(), "Welcome");
 
@@ -209,6 +212,12 @@ public class App extends JFrame implements Callback {
     public void enterPayment() {
         paymentPanel.enter(loggedAccount.getAccountId());
         cardLayout.show(getContentPane(), "PaymentPanel");
+    }
+
+    @Override
+    public void enterModifyPaymentMethod(int id) {
+        modifyPaymentMethodPanel.enter(id);
+        cardLayout.show(getContentPane(), "ModifyPaymentMethod");
     }
 
     public void updateAccountInfo() {
