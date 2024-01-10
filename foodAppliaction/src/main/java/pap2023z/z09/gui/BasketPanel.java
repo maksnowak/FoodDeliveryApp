@@ -18,8 +18,9 @@ import pap2023z.z09.database.BasketsEntity;
 import pap2023z.z09.dishes.DishesDAO;
 
 public class BasketPanel extends JPanel {
-//    RestaurantsDAO DAO = new RestaurantsDAO();
-//    List<RestaurantsEntity> restaurants = DAO.getAllRestaurants(); //orders?
+    BasketsDAO basketsDAO = new BasketsDAO();
+    int accountId;
+    List<BasketsEntity> baskets;
     JList<String> dishesList;
     DefaultListModel<String> model = new DefaultListModel<>();
     private JLabel clockLabel;
@@ -59,7 +60,21 @@ public class BasketPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(dishesList);
         add(scrollPane, BorderLayout.CENTER);
 
-        JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
+        JPanel bottomPanel = new JPanel(new GridLayout(2, 2));
+
+        bottomPanel.add(new JLabel());
+
+        JButton deleteButton = new JButton("Usuń danie");
+        deleteButton.addActionListener(e -> {
+            int selectedId = dishesList.getSelectedIndex();
+            if (selectedId != -1) {
+                int actualId = baskets.get(selectedId).getDishId();
+                BasketsEntity basket = baskets.get(actualId);
+                basketsDAO.deleteBasket(basket);
+                listBasket();
+            }
+        });
+        bottomPanel.add(deleteButton);
 
         JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e -> {
@@ -78,15 +93,16 @@ public class BasketPanel extends JPanel {
     }
 
     public void enter(int accountId) {
-        listBasket(accountId);
+        this.accountId = accountId;
+        listBasket();
     }
 
-    private void listBasket(int accountId) {
+    private void listBasket() {
         System.out.println("listBasket");
         model.clear();
         BasketsDAO basketsDAO = new BasketsDAO();
         DishesDAO dishesDAO = new DishesDAO();
-        List<BasketsEntity> baskets = basketsDAO.getAllDishesOfClientId(accountId);
+        baskets = basketsDAO.getAllDishesOfClientId(accountId);
         System.out.println(baskets.size());
         for (BasketsEntity basket : baskets) {
             DishesEntity dish = dishesDAO.getDishById(basket.getDishId());
