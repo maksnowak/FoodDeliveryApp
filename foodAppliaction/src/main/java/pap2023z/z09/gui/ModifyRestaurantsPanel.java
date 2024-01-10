@@ -18,8 +18,12 @@ import pap2023z.z09.workers.WorkersDAO;
 
 public class ModifyRestaurantsPanel extends JPanel {
     RestaurantsDAO RD = new RestaurantsDAO();
-    List<RestaurantsEntity> restaurants = RD.getAllRestaurants();
+    WorkersDAO workersDAO = new WorkersDAO();
+    RestaurantsDAO restaurantsDAO = new RestaurantsDAO();
+    ViewWorkerRestaurantsService viewWorkerRestaurantsService = new ViewWorkerRestaurantsService(workersDAO, restaurantsDAO);
+    List<RestaurantsDTO> restaurants;
     JList<String> restaurantList;
+    int accountId;
 
     JButton removeRestaurantButton = new JButton("Usuń restaurację");
     JButton modifyRestaurantButton = new JButton("Modyfikuj restaurację");
@@ -28,12 +32,7 @@ public class ModifyRestaurantsPanel extends JPanel {
     DefaultListModel<String> restaurantListModel;
 
     public ModifyRestaurantsPanel(Callback callback) {
-        workersDAO = new WorkersDAO();
-        restaurantsDAO = new RestaurantsDAO();
-
-        viewWorkerRestaurantsService = new ViewWorkerRestaurantsService(workersDAO, restaurantsDAO);
-
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout());
 
         // Dodanie tytułu
         JLabel titleLabel = new JLabel("Wybierz restaurację do modyfikacji:");
@@ -43,7 +42,7 @@ public class ModifyRestaurantsPanel extends JPanel {
         restaurantList = new JList<>(restaurantListModel);
         add(new JScrollPane(restaurantList));
 
-        JPanel buttonPanel = new JPanel(new GridLayout(4, 1));
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 2));
 
         // Dodanie przycisku do usuwania restauracji
         removeRestaurantButton.addActionListener(e -> {
