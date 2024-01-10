@@ -70,7 +70,7 @@ public class MainMenuPanel extends JPanel {
     }
 
     public void updateAccountLabel(String accountName) {
-        ((JLabel) getComponent(8)).setText("Zalogowano jako: " + accountName);
+        ((JLabel) getComponent(7)).setText("Zalogowano jako: " + accountName);
     }
 
     public void showRestaurantsButton() {
