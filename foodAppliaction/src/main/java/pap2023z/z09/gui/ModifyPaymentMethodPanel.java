@@ -17,6 +17,7 @@ public class ModifyPaymentMethodPanel extends JPanel {
     JTextField monthField = new JTextField(2);
     JTextField yearField = new JTextField(2);
     JTextField CVVField = new JTextField(15);
+    int paymentMethodId;
 
     public ModifyPaymentMethodPanel(Callback callback) {
 
@@ -44,13 +45,13 @@ public class ModifyPaymentMethodPanel extends JPanel {
                 }
 
                 AccountsEntity account = ((App) callback).loggedAccount;
-                PaymentMethodsDTO methodDTO = new PaymentMethodsDTO(0, number, date, CVV, account.getAccountId());
+                PaymentMethodsDTO methodDTO = new PaymentMethodsDTO(paymentMethodId, number, date, CVV, account.getAccountId());
                 PaymentMethodsDAO methodDAO = new PaymentMethodsDAO();
                 CreditCardValidationService CCVS = new CreditCardValidationService();
                 VerifyIfCustomerAlreadyAddedCardService VIAACS = new VerifyIfCustomerAlreadyAddedCardService(methodDAO);
-                AddCreditCardService ACCS = new AddCreditCardService(methodDAO, CCVS, VIAACS);
+                ModifyCreditCardService MCCS = new ModifyCreditCardService(methodDAO, CCVS, VIAACS);
                 try {
-                    ACCS.addCreditCard(methodDTO);
+                    MCCS.modifyCreditCard(methodDTO);
                 } catch (IllegalArgumentException | ExpiredCardException | CardAlreadyAddedException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                     return;
@@ -98,6 +99,7 @@ public class ModifyPaymentMethodPanel extends JPanel {
     }
 
     public void enter(int id) {
+        paymentMethodId = id;
         PaymentMethodsDAO methodDAO = new PaymentMethodsDAO();
         PaymentMethodsEntity paymentMethod = methodDAO.getMethodIdById(id);
         numberField.setText(paymentMethod.getCardNumber());
