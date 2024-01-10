@@ -20,6 +20,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 public class PaymentPanel extends JPanel {
     OrdersDAO ordersDAO = new OrdersDAO();
@@ -86,12 +87,14 @@ public class PaymentPanel extends JPanel {
                     return;
                 }
                 Integer discountCode;
+                BigDecimal discount = new BigDecimal(0);
                 if (discountCodeField.getText().isEmpty()) {
                     discountCode = null;
                 } else {
                     try {
                         DiscountsDAO discountsDAO = new DiscountsDAO();
                         discountCode = discountsDAO.getDiscountByCode(discountCodeField.getText()).getDiscountId();
+                        discount = discountsDAO.getDiscountByCode(discountCodeField.getText()).getDiscount();
                     } catch (NullPointerException ex) {
                         errorLabel.setText("Podaj prawidłowy kod rabatowy");
                         return;
@@ -115,6 +118,8 @@ public class PaymentPanel extends JPanel {
                     DishesEntity dish = dishesDAO.getDishById(basket.getDishId());
                     total = total.add(dish.getPrice());
                 }
+                total = total.subtract(total.multiply(discount).divide(new BigDecimal(100)));
+                total = total.round(new MathContext(2));
                 total = total.add(tip);
 
                 AddOrderedDishes addOrderedDishes = new AddOrderedDishes(orderedDishesDAO, basketsDAO, accountId);
