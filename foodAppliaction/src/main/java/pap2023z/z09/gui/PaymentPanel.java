@@ -11,7 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PaymentPanel extends JPanel {
-    JComboBox<PaymentMethodsEntity> paymentMethodComboBox = new JComboBox<>();
+    java.util.List<PaymentMethodsEntity> paymentMethods;
+    JComboBox<String> paymentMethodComboBox = new JComboBox<>();
     JTextField streetField = new JTextField();
     JTextField streetNumberField = new JTextField();
     JTextField apartmentField = new JTextField();
@@ -27,7 +28,7 @@ public class PaymentPanel extends JPanel {
         orderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String paymentMethod = (String) paymentMethodComboBox.getSelectedItem(); // zamienic na PaymentMethodsEntity
+                PaymentMethodsEntity paymentMethod = paymentMethods.get(paymentMethodComboBox.getSelectedIndex());
                 String street = streetField.getText();
                 String streetNumber = streetNumberField.getText();
                 String apartment = apartmentField.getText();
@@ -95,9 +96,9 @@ public class PaymentPanel extends JPanel {
     public void enter(int accountId) {
         paymentMethodComboBox.removeAllItems();
         PaymentMethodsDAO paymentMethodsDAO = new PaymentMethodsDAO();
-        java.util.List<PaymentMethodsEntity> paymentMethods = paymentMethodsDAO.getMethodsByCustomerId(accountId);
+        paymentMethods = paymentMethodsDAO.getMethodsByCustomerId(accountId);
         for (PaymentMethodsEntity paymentMethod : paymentMethods) {
-            paymentMethodComboBox.addItem(paymentMethod);
+            paymentMethodComboBox.addItem(paymentMethod.getCardNumber());
         }
     }
 }
