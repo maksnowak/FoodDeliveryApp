@@ -28,7 +28,7 @@ public class AddRestaurantTest {
 
     @Test
     public void addRestaurantSuccessTest() throws InvalidTimeException {
-        doNothing().when(restaurantsDAO).addRestaurant(any());
+        when(restaurantsDAO.addRestaurant(any())).thenReturn(1);
         addRestaurant.addRestaurant(new RestaurantsDTO(1, "name", Time.valueOf("10:00:00"), Time.valueOf("22:00:00"), Time.valueOf("12:00:00"), Time.valueOf("24:00:00")));
         verify(restaurantsDAO, times(1)).addRestaurant(any());
     }

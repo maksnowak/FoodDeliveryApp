@@ -4,8 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+import pap2023z.z09.baskets.BasketsDAO;
 import pap2023z.z09.database.RestaurantsEntity;
+import pap2023z.z09.dishes.DishesDAO;
+import pap2023z.z09.dishes.favourites.FavoritesDAO;
+import pap2023z.z09.dishes.orderedDishes.OrderedDishesDAO;
 import pap2023z.z09.restaurants.AddRestaurant;
+import pap2023z.z09.restaurants.RemoveRestaurant;
 import pap2023z.z09.restaurants.RestaurantsDAO;
 import pap2023z.z09.restaurants.RestaurantsDTO;
 import pap2023z.z09.workers.ViewWorkerRestaurantsService;
@@ -55,10 +60,12 @@ public class ModifyRestaurantsPanel extends JPanel {
         // Dodanie przycisku do usuwania restauracji
         removeRestaurantButton = new JButton("Usuń restaurację");
         removeRestaurantButton.addActionListener(e -> {
+            // FIXME: Usuwanie restauracji powinno być po ID, a nie po nazwie
             String selectedRestaurantName = restaurantList.getSelectedValue();
+            RestaurantsEntity selectedRestaurant = RD.getRestaurantByName(selectedRestaurantName);
             if (selectedRestaurantName != null) {
-                RestaurantsEntity restaurant = new RestaurantsDAO().getRestaurantByName(selectedRestaurantName);
-                new RestaurantsDAO().removeRestaurant(restaurant.getRestaurantId());
+                RemoveRestaurant removeRestaurant = new RemoveRestaurant(new RestaurantsDAO(), new DishesDAO(), new OrderedDishesDAO(), new BasketsDAO(), new FavoritesDAO());
+                removeRestaurant.removeRestaurant(selectedRestaurant.getRestaurantId());
                 refreshRestaurantList();
                 JOptionPane.showMessageDialog(this, "Usunięto restaurację.");
             }
