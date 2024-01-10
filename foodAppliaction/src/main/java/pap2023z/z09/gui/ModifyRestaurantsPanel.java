@@ -22,14 +22,16 @@ public class ModifyRestaurantsPanel extends JPanel {
     RestaurantsDAO restaurantsDAO = new RestaurantsDAO();
     ViewWorkerRestaurantsService viewWorkerRestaurantsService = new ViewWorkerRestaurantsService(workersDAO, restaurantsDAO);
     List<RestaurantsDTO> restaurants;
-    JList<Integer> restaurantList;
+    JList<String> restaurantNameList;
+    JList<Integer> restaurantIdList;
     int accountId;
 
     JButton removeRestaurantButton = new JButton("Usuń restaurację");
     JButton modifyRestaurantButton = new JButton("Modyfikuj restaurację");
     JButton backButton = new JButton("Powrót");
     JButton addNewRestaurantButton = new JButton("Dodaj restaurację");
-    DefaultListModel<Integer> restaurantListModel;
+    DefaultListModel<String> restaurantNameListModel;
+    DefaultListModel<Integer> restaurantIdListModel;
 
     public ModifyRestaurantsPanel(Callback callback) {
         setLayout(new BorderLayout());
@@ -38,33 +40,39 @@ public class ModifyRestaurantsPanel extends JPanel {
         JLabel titleLabel = new JLabel("Wybierz restaurację do modyfikacji:");
         add(titleLabel);
 
-        restaurantListModel = new DefaultListModel<>();
-        restaurantList = new JList<>(restaurantListModel);
-        add(new JScrollPane(restaurantList));
+        restaurantNameListModel = new DefaultListModel<>();
+        restaurantNameList = new JList<>(restaurantNameListModel);
+        add(new JScrollPane(restaurantNameList));
+
+        restaurantIdListModel = new DefaultListModel<>();
+        restaurantIdList = new JList<>(restaurantIdListModel);
 
         JPanel buttonPanel = new JPanel(new GridLayout(2, 2));
 
         // Dodanie przycisku do usuwania restauracji
         removeRestaurantButton.addActionListener(e -> {
-            // FIXME: Usuwanie restauracji powinno być po ID, a nie po nazwie
-            Integer selectedRestaurantName = restaurantList.getSelectedValue();
-            RestaurantsEntity selectedRestaurant = restaurantsDAO.getRestaurantById(selectedRestaurantName);
-            RemoveRestaurant removeRestaurant = new RemoveRestaurant(new RestaurantsDAO(), new DishesDAO(), new OrderedDishesDAO(), new BasketsDAO(), new FavoritesDAO(), new WorkersDAO());
-            removeRestaurant.removeRestaurant(selectedRestaurant.getRestaurantId());
-            refreshRestaurantList();
-            JOptionPane.showMessageDialog(this, "Usunięto restaurację.");
-            restaurantList.clearSelection();
-
+            int selectedRestaurantIndex = restaurantNameList.getSelectedIndex();
+            if (selectedRestaurantIndex != -1) {
+                Integer selectedRestaurantId = restaurantIdListModel.get(selectedRestaurantIndex);
+                System.out.println(selectedRestaurantId);
+                System.out.println(selectedRestaurantIndex);
+                RemoveRestaurant removeRestaurant = new RemoveRestaurant(new RestaurantsDAO(), new DishesDAO(),  new OrderedDishesDAO(), new BasketsDAO(), new FavoritesDAO(), new WorkersDAO());
+                removeRestaurant.removeRestaurant(selectedRestaurantId);
+                refreshRestaurantList();
+                JOptionPane.showMessageDialog(this, "Usunięto restaurację.");
+                restaurantNameList.clearSelection();
+            }
         });
         buttonPanel.add(removeRestaurantButton);
 
         // Dodanie przycisku do modyfikacji restauracji
         modifyRestaurantButton.addActionListener(e -> {
-            Integer selectedRestaurantName = restaurantList.getSelectedValue();
-            if (selectedRestaurantName != null) {
-                RestaurantsEntity restaurant = new RestaurantsDAO().getRestaurantById(selectedRestaurantName);
+            int selectedRestaurantIndex = restaurantNameList.getSelectedIndex();
+            if (selectedRestaurantIndex != -1) {
+                Integer selectedRestaurantId = restaurantIdListModel.get(selectedRestaurantIndex);
+                RestaurantsEntity restaurant = restaurantsDAO.getRestaurantById(selectedRestaurantId);
                 ((App) callback).selectedRestaurant = restaurant;
-                restaurantList.clearSelection();
+                restaurantNameList.clearSelection();
                 ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
             }
         });
@@ -72,14 +80,14 @@ public class ModifyRestaurantsPanel extends JPanel {
 
         // Przycisk powrotu
         backButton.addActionListener(e -> {
-            restaurantList.clearSelection();
+            restaurantNameList.clearSelection();
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
         });
         buttonPanel.add(backButton);
 
         // Dodanie przycisku do dodawania restauracji
         addNewRestaurantButton.addActionListener(e -> {
-            restaurantList.clearSelection();
+            restaurantNameList.clearSelection();
             AddNewRestaurantPanel addNewRestaurantPanel = new AddNewRestaurantPanel(new AddRestaurant(new RestaurantsDAO()), callback);
             ((App) callback).add(addNewRestaurantPanel, "AddNewRestaurant");
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "AddNewRestaurant");
@@ -92,9 +100,11 @@ public class ModifyRestaurantsPanel extends JPanel {
 
     void refreshRestaurantList() {
         restaurants = viewWorkerRestaurantsService.getWorkerRestaurants(accountId);
-        restaurantListModel.clear();
+        restaurantNameListModel.clear();
+        restaurantIdListModel.clear();
         for (RestaurantsDTO restaurant : restaurants) {
-            restaurantListModel.addElement(restaurant.getRestaurantId());
+            restaurantNameListModel.addElement(restaurant.getName());
+            restaurantIdListModel.addElement(restaurant.getRestaurantId());
         }
     }
 
