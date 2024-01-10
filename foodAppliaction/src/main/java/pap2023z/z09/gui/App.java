@@ -293,6 +293,12 @@ public class App extends JFrame implements Callback {
         cardLayout.show(getContentPane(), "RestaurantStatistics");
     }
 
+    @Override
+    public void enterRestaurantChoicePanel() {
+        restaurantChoicePanel.enter();
+        cardLayout.show(getContentPane(), "RestaurantChoice");
+    }
+
     public void updateAccountInfo() {
         AccountTypesDAO ATDAO = new AccountTypesDAO();
         ViewAccountTypeNameService VATNS = new ViewAccountTypeNameService(ATDAO);

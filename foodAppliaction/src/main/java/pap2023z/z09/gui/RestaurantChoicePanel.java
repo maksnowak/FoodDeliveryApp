@@ -19,7 +19,7 @@ import pap2023z.z09.restaurants.RestaurantsDTO;
 
 public class RestaurantChoicePanel extends JPanel {
     RestaurantsDAO DAO = new RestaurantsDAO();
-    List<RestaurantsEntity> restaurants = DAO.getAllRestaurants();
+    List<RestaurantsEntity> restaurants;
     JList<String> restaurantList;
     DefaultListModel<String> model = new DefaultListModel<>();
     JTextField searchField = new JTextField();
@@ -56,7 +56,6 @@ public class RestaurantChoicePanel extends JPanel {
         upperPanel.add(searchField);
         add(upperPanel, BorderLayout.NORTH);
 
-        model.addAll(restaurants.stream().map(RestaurantsEntity::getName).toList());
         restaurantList = new JList<>(model);
 
         restaurantList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -99,6 +98,11 @@ public class RestaurantChoicePanel extends JPanel {
     private void updateClock() {
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         clockLabel.setText(format.format(new Date()));
+    }
+
+    public void enter() {
+        restaurants = DAO.getAllRestaurants();
+        searchList();
     }
 
     public void searchList() {

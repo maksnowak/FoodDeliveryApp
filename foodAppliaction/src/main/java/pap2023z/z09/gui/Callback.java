@@ -25,4 +25,5 @@ public interface Callback {
     void enterOrderDetailsPanel(int orderId);
     void enterComplaintPanel(int orderId);
     void enterRestaurantStats(int restaurantId);
+    void enterRestaurantChoicePanel();
 }

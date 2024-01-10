@@ -20,7 +20,7 @@ public class MainMenuPanel extends JPanel {
         orderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ((App) callback).cardLayout.show(((App) callback).getContentPane(), "RestaurantChoice");
+                callback.enterRestaurantChoicePanel();
             }
         });
 
