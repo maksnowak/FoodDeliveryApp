@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.List;
 
 public class OrderDetailsPanel extends JPanel {
-    private int accountId;
     OrdersDAO ordersDAO = new OrdersDAO();
     DishesDAO dishesDAO = new DishesDAO();
 
@@ -88,7 +87,6 @@ public class OrderDetailsPanel extends JPanel {
         return(curr_stat.getName());
     }
     public void enter(int accountId, int orderId) {
-        this.accountId = accountId;
         statusLabel.setText("aktualny status: " + getStatusName(orderId));
         ViewOrderDetailsService service = new ViewOrderDetailsService(ordersDAO, orderedDishesDAO, dishesDAO);
         dishesList = service.getOrderedDishes(orderId);
