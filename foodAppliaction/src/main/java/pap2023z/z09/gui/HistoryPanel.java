@@ -46,7 +46,7 @@ public class HistoryPanel extends JPanel {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting() && orderList.getSelectedValue() != null) {
                     int orderId = Integer.parseInt(orderList.getSelectedValue().split(":")[0]);
-                    JOptionPane.showMessageDialog(null, "zamawiańsko zamówiania " + orderId);
+                    callback.enterOrderDetailsPanel(orderId);
                 }
             }
         });

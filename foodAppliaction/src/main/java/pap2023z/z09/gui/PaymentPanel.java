@@ -7,6 +7,8 @@ import pap2023z.z09.database.BasketsEntity;
 import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.PaymentMethodsEntity;
 import pap2023z.z09.dishes.DishesDAO;
+import pap2023z.z09.dishes.orderedDishes.OrderedDishesDAO;
+import pap2023z.z09.dishes.orderedDishes.AddOrderedDishes;
 import pap2023z.z09.paymentMethods.PaymentMethodsDAO;
 import pap2023z.z09.orders.OrderHandler;
 import pap2023z.z09.orders.OrdersDAO;
@@ -23,6 +25,7 @@ public class PaymentPanel extends JPanel {
     OrdersDAO ordersDAO = new OrdersDAO();
     BasketsDAO basketsDAO = new BasketsDAO();
     DishesDAO dishesDAO = new DishesDAO();
+    OrderedDishesDAO orderedDishesDAO = new OrderedDishesDAO();
     OrderHandler orderHandler = new OrderHandler(ordersDAO);
     java.util.List<PaymentMethodsEntity> paymentMethods;
     int accountId;
@@ -106,16 +109,20 @@ public class PaymentPanel extends JPanel {
                     }
                 }
 
-                // TODO: ORDER
                 BigDecimal total = new BigDecimal(0);
                 java.util.List<BasketsEntity> baskets = basketsDAO.getAllDishesOfClientId(accountId);
                 for (BasketsEntity basket : baskets) {
                     DishesEntity dish = dishesDAO.getDishById(basket.getDishId());
                     total = total.add(dish.getPrice());
                 }
+                total = total.add(tip);
+
+                AddOrderedDishes addOrderedDishes = new AddOrderedDishes(orderedDishesDAO, basketsDAO, accountId);
 
                 OrdersDTO order = new OrdersDTO(0, 1, accountId, total, paymentMethod.getMethodId(), street, streetNumber, apartment, city, discountCode, tip);
-                orderHandler.addOrder(order);
+                int newOrderId = orderHandler.addOrder(order);
+
+                addOrderedDishes.addOrderedDishes(newOrderId);
 
                 if (paymentMethodComboBox.getItemCount() != 0) {
                     paymentMethodComboBox.setSelectedIndex(0);
@@ -127,9 +134,6 @@ public class PaymentPanel extends JPanel {
                 discountCodeField.setText("");
                 tipField.setText("");
                 errorLabel.setText("");
-                for (BasketsEntity basket : baskets) {
-                    basketsDAO.deleteBasket(basket);
-                }
                 JOptionPane.showMessageDialog(null, "Zamówienie zostało złożone.");
                 ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
             }
