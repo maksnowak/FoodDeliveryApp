@@ -19,16 +19,12 @@ import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.dishes.DishesDAO;
 import pap2023z.z09.dishes.DishesDTO;
 
-class FavouriteDishListModel extends DefaultListModel<String> {
-    public void addElementWithNumber(String name, BigDecimal price, BigDecimal kcal){
-        addElement(name + " - " + price + " zł, " + kcal + " kcal");
-    }
-}
+
 public class FavouritesSelectionPanel extends JPanel {
     DishesDAO dishesDAO = new DishesDAO();
 
     List<DishesEntity> selectedRestaurantsDishes;
-    FavouriteDishListModel model = new FavouriteDishListModel();
+    DishListModel model = new DishListModel();
     JList<String> dishList = new JList<>(model);
     boolean isListenerActive = false;
     JLabel titleLabel = new JLabel("Wybierz danie:");
@@ -40,7 +36,7 @@ public class FavouritesSelectionPanel extends JPanel {
     JTextField priceMaxField = new JTextField();
     JCheckBox vegetarianCheckBox = new JCheckBox("wege");
     JComboBox<String> sortComboBox = new JComboBox<>();
-    JLabel clockLabel = new JLabel();
+    JLabel clockLabel;
 
     public FavouritesSelectionPanel(Callback callback) {
         setLayout(new BorderLayout());

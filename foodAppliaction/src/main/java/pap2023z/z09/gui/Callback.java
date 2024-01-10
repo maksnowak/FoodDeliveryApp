@@ -2,7 +2,6 @@ package pap2023z.z09.gui;
 
 import pap2023z.z09.accounts.EmailAlreadyExistsException;
 import pap2023z.z09.database.AccountsEntity;
-import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.dishes.DishesDTO;
 public interface Callback {
