@@ -11,6 +11,7 @@ import pap2023z.z09.dishes.DishesDAO;
 import pap2023z.z09.dishes.RemoveDish;
 import pap2023z.z09.dishes.orderedDishes.OrderedDishesDAO;
 import pap2023z.z09.dishes.favourites.FavoritesDAO;
+import pap2023z.z09.workers.WorkersDAO;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,6 +36,9 @@ public class RemoveRestaurantTest {
     private BasketsDAO basketsDAO;
 
     @Mock
+    private WorkersDAO workersDAO;
+
+    @Mock
     private FavoritesDAO favoritesDAO;
 
     @BeforeEach
@@ -48,29 +52,35 @@ public class RemoveRestaurantTest {
         OrderedDishesEntity testOrderedDish = new OrderedDishesEntity();
         BasketsEntity testBasket = new BasketsEntity();
         FavoritesEntity testFavorite = new FavoritesEntity();
+        WorkersEntity testWorker = new WorkersEntity();
         when(dishesDAO.getDishesByRestaurant(1)).thenReturn(List.of(testDish));
         when(orderedDishesDAO.getDishesByDishId(1)).thenReturn(List.of(testOrderedDish));
         when(basketsDAO.getDishesByDishId(1)).thenReturn(List.of(testBasket));
         when(favoritesDAO.getFavoritesByDish(1)).thenReturn(List.of(testFavorite));
+        when(workersDAO.getWorkersByRestaurantId(1)).thenReturn(List.of(testWorker));
         doNothing().when(orderedDishesDAO).deleteDish(any());
         doNothing().when(basketsDAO).deleteBasket(any());
         doNothing().when(favoritesDAO).deleteFavorite(any());
         doNothing().when(dishesDAO).removeDish(anyInt());
         doNothing().when(restaurantsDAO).removeRestaurant(anyInt());
+        doNothing().when(workersDAO).deleteWorker(anyInt());
         removeRestaurant.removeRestaurant(1);
         verify(dishesDAO, times(1)).getDishesByRestaurant(anyInt());
         verify(orderedDishesDAO, times(1)).getDishesByDishId(anyInt());
         verify(basketsDAO, times(1)).getDishesByDishId(anyInt());
         verify(favoritesDAO, times(1)).getFavoritesByDish(anyInt());
+        verify(workersDAO, times(1)).getWorkersByRestaurantId(anyInt());
     }
 
     @Test
     public void removeRestaurantEmptyTest() {
         when(dishesDAO.getDishesByRestaurant(1)).thenReturn(Collections.emptyList());
+        when(workersDAO.getWorkersByRestaurantId(1)).thenReturn(Collections.emptyList());
         removeRestaurant.removeRestaurant(1);
         verify(dishesDAO, times(1)).getDishesByRestaurant(anyInt());
         verify(orderedDishesDAO, times(0)).getDishesByDishId(anyInt());
         verify(basketsDAO, times(0)).getDishesByDishId(anyInt());
         verify(favoritesDAO, times(0)).getFavoritesByDish(anyInt());
+        verify(workersDAO, times(1)).getWorkersByRestaurantId(anyInt());
     }
 }
