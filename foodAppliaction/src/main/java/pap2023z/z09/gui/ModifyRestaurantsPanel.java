@@ -62,9 +62,9 @@ public class ModifyRestaurantsPanel extends JPanel {
         removeRestaurantButton.addActionListener(e -> {
             // FIXME: Usuwanie restauracji powinno być po ID, a nie po nazwie
             String selectedRestaurantName = restaurantList.getSelectedValue();
-            RestaurantsEntity selectedRestaurant = RD.getRestaurantByName(selectedRestaurantName);
+            RestaurantsEntity selectedRestaurant = restaurantsDAO.getRestaurantByName(selectedRestaurantName);
             if (selectedRestaurantName != null) {
-                RemoveRestaurant removeRestaurant = new RemoveRestaurant(new RestaurantsDAO(), new DishesDAO(), new OrderedDishesDAO(), new BasketsDAO(), new FavoritesDAO());
+                RemoveRestaurant removeRestaurant = new RemoveRestaurant(new RestaurantsDAO(), new DishesDAO(), new OrderedDishesDAO(), new BasketsDAO(), new FavoritesDAO(), new WorkersDAO());
                 removeRestaurant.removeRestaurant(selectedRestaurant.getRestaurantId());
                 refreshRestaurantList();
                 JOptionPane.showMessageDialog(this, "Usunięto restaurację.");
