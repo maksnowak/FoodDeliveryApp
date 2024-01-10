@@ -7,6 +7,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 import pap2023z.z09.restaurants.*;
+import pap2023z.z09.workers.AddWorkerService;
+import pap2023z.z09.workers.WorkersDAO;
+import pap2023z.z09.workers.WorkersDTO;
 
 public class AddNewRestaurantPanel extends JPanel {
     private JTextField nameField;
@@ -79,6 +82,11 @@ public class AddNewRestaurantPanel extends JPanel {
             try {
                 restaurantId = addRestaurant.addRestaurant(restaurant);
                 restaurant.setRestaurantId(restaurantId);
+                AddWorkerService addWorkerService = new AddWorkerService(new WorkersDAO());
+                WorkersDTO worker = new WorkersDTO();
+                worker.setRestaurantId(restaurantId);
+                worker.setWorker(((App) callback).loggedAccount.getAccountId());
+                addWorkerService.addWorker(worker);
                 JOptionPane.showMessageDialog(this, "Dodano restauracje.");
                 // Refresh the restaurant list in ModifyRestaurantsPanel
                 ((App) callback).modifyRestaurantsPanel.refreshRestaurantList();

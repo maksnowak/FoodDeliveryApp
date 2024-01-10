@@ -25,6 +25,15 @@ public class BasketsDAO {
         return dishes;
     }
 
+    public List<BasketsEntity> getDishesByDishId(int dishId) {
+        Session session = sessionFactory.openSession();
+        List<BasketsEntity> dishes = session.createQuery("from BasketsEntity where dishId = :dishId", BasketsEntity.class)
+                .setParameter("dishId", dishId)
+                .list();
+        session.close();
+        return dishes;
+    }
+
     public BasketsEntity getDishByBasketId(int id) {
         Session session = sessionFactory.openSession();
         BasketsEntity dish = session.get(BasketsEntity.class, id);

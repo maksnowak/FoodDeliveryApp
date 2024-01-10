@@ -4,13 +4,16 @@ import pap2023z.z09.accounts.*;
 import pap2023z.z09.baskets.BasketsDAO;
 import pap2023z.z09.baskets.BasketsDTO;
 import pap2023z.z09.baskets.AddBasket;
-import pap2023z.z09.database.DishesEntity;
 import pap2023z.z09.database.AccountsEntity;
 import pap2023z.z09.database.RestaurantsEntity;
+import pap2023z.z09.dishes.DishesDAO;
 import pap2023z.z09.dishes.DishesDTO;
 import pap2023z.z09.dishes.favourites.FavoritesDAO;
+import pap2023z.z09.dishes.orderedDishes.OrderedDishesDAO;
 import pap2023z.z09.orders.OrdersDAO;
 import pap2023z.z09.paymentMethods.PaymentMethodsDAO;
+import pap2023z.z09.restaurants.RestaurantsDAO;
+import pap2023z.z09.workers.WorkersDAO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,6 +46,7 @@ public class App extends JFrame implements Callback {
     public RestaurantsEntity selectedRestaurant;
 
     public AccountsEntity loggedAccount;
+    private AccountsDAO accountsDAO = new AccountsDAO();
 
     public ModifyRestaurantDetailsPanel getModifyRestaurantDetailsPanel() {
         return modifyRestaurantDetailsPanel;
@@ -173,7 +177,12 @@ public class App extends JFrame implements Callback {
         PaymentMethodsDAO PMDAO = new PaymentMethodsDAO();
         FavoritesDAO FDAO = new FavoritesDAO();
         BasketsDAO BDAO = new BasketsDAO();
-        DeleteService DS = new DeleteService(ADAO, ODAO, PMDAO, FDAO, BDAO);
+        WorkersDAO WDAO = new WorkersDAO();
+        RestaurantsDAO RDAO = new RestaurantsDAO();
+        DishesDAO DDAO = new DishesDAO();
+        OrderedDishesDAO ODDAO = new OrderedDishesDAO();
+
+        DeleteService DS = new DeleteService(ADAO, ODAO, PMDAO, FDAO, BDAO, WDAO, RDAO, DDAO, ODDAO);
         DS.deleteAccount(loggedAccount.getAccountId());
         loggedAccount = null;
         JOptionPane.showMessageDialog(this, "Konto zostało usunięte.");
@@ -224,6 +233,13 @@ public class App extends JFrame implements Callback {
         mainMenuPanel.updateAccountLabel(loggedAccount.getEmail());
         accountInfoPanel.updateAccountInfo("Imię: " + loggedAccount.getName() + "\nNazwisko: " + loggedAccount.getSurname() + "\nEmail: " + loggedAccount.getEmail() + "\nTyp: " + loggedAccount.getType());
         editAccountPanel.setFields(loggedAccount.getName(), loggedAccount.getSurname(), loggedAccount.getEmail(), loggedAccount.getPassword());
+    }
+
+
+    @Override
+    public void enterModifyRestaurantPanel() {
+        modifyRestaurantsPanel.enter(loggedAccount.getAccountId());
+        cardLayout.show(getContentPane(), "ModifyRestaurants");
     }
 
     public static void main(String[] args) {

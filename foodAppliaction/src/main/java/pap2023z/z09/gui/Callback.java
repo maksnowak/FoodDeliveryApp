@@ -17,4 +17,5 @@ public interface Callback {
     void enterPaymentMethods();
     void enterPayment();
     void enterModifyPaymentMethod(int id);
+    void enterModifyRestaurantPanel();
 }
