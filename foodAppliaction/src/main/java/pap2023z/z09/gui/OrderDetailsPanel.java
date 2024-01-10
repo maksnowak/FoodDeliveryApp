@@ -22,6 +22,7 @@ import java.util.List;
 
 public class OrderDetailsPanel extends JPanel {
     private int accountId;
+    private int orderId;
     OrdersDAO DAO = new OrdersDAO();
     DishesDAO dishesDAO = new DishesDAO();
     OrderedDishesDAO orderedDishesDAO = new OrderedDishesDAO();
@@ -70,7 +71,7 @@ public class OrderDetailsPanel extends JPanel {
                 if (!e.getValueIsAdjusting() && restaurantsJList.getSelectedValue() != null) {
                     RestaurantsDTO selectedRestaurant = restaurantsList.get(restaurantsJList.getSelectedIndex());
                     restaurantsJList.clearSelection();
-                    JOptionPane.showMessageDialog(null, "Nazwa: " + selectedRestaurant.getName());
+                    callback.enterComplaintPanel(orderId);
                 }
             }
         });
@@ -95,6 +96,8 @@ public class OrderDetailsPanel extends JPanel {
 
     public void enter(int accountId, int orderId) {
         this.accountId = accountId;
+        this.orderId = orderId;
+
         ViewOrderRestaurantsService viewOrderRestaurantsService = new ViewOrderRestaurantsService(restaurantsDAO, dishesDAO, orderedDishesDAO);
         restaurantsList = viewOrderRestaurantsService.getRestaurantsFromOrder(orderId);
 
