@@ -8,7 +8,9 @@ import pap2023z.z09.database.AccountsEntity;
 import pap2023z.z09.database.RestaurantsEntity;
 import pap2023z.z09.dishes.DishesDAO;
 import pap2023z.z09.dishes.DishesDTO;
+import pap2023z.z09.dishes.favourites.AddFavoriteService;
 import pap2023z.z09.dishes.favourites.FavoritesDAO;
+import pap2023z.z09.dishes.favourites.FavoritesDTO;
 import pap2023z.z09.dishes.orderedDishes.OrderedDishesDAO;
 import pap2023z.z09.orders.OrdersDAO;
 import pap2023z.z09.paymentMethods.PaymentMethodsDAO;
@@ -43,7 +45,8 @@ public class App extends JFrame implements Callback {
     private HistoryPanel historyPanel;
     private OrderDetailsPanel orderDetailsPanel;
     private AddDiscountPanel addDiscountPanel;
-
+    private FavouritesSelectionPanel favouriteSelectionPanel;
+    private FavouritesRestaurantChoicePanel favouritesRestaurantChoicePanel;
 
     private JLabel clockLabel;
     public RestaurantsEntity selectedRestaurant;
@@ -89,7 +92,8 @@ public class App extends JFrame implements Callback {
         historyPanel = new HistoryPanel(this);
         orderDetailsPanel = new OrderDetailsPanel(this);
         addDiscountPanel = new AddDiscountPanel(this);
-
+        favouriteSelectionPanel = new FavouritesSelectionPanel(this);
+        favouritesRestaurantChoicePanel = new FavouritesRestaurantChoicePanel(this);
 
 
         add(welcomePanel, "Welcome");
@@ -112,6 +116,8 @@ public class App extends JFrame implements Callback {
         add(historyPanel, "History");
         add(orderDetailsPanel, "OrderDetails");
         add(addDiscountPanel, "AddDiscount");
+        add(favouriteSelectionPanel, "favouriteSelectionPanel");
+        add(favouritesRestaurantChoicePanel, "favouritesRestaurantChoicePanel");
 
         cardLayout.show(this.getContentPane(), "Welcome");
 
@@ -133,6 +139,12 @@ public class App extends JFrame implements Callback {
         selectedRestaurant = restaurant;
         dishSelectionPanel.enter(selectedRestaurant);
         cardLayout.show(getContentPane(), "DishSelection");
+    }
+    @Override
+    public void onFavouritesRestaurantSelected(RestaurantsEntity restaurant) {
+        selectedRestaurant = restaurant;
+        favouriteSelectionPanel.enter(selectedRestaurant);
+        cardLayout.show(getContentPane(), "favouriteSelectionPanel");
     }
 
     @Override
@@ -214,6 +226,14 @@ public class App extends JFrame implements Callback {
         basket.setDishId(dish.getDishId());
         addBasket.addBasket(basket);
         JOptionPane.showMessageDialog(this, "Dodano " + dish.getName() + " do koszyka.");
+    }
+    public void addToFavourites(DishesDTO dish) {
+        FavoritesDTO favourite = new FavoritesDTO();
+        AddFavoriteService addFav = new AddFavoriteService(new FavoritesDAO());
+        favourite.setCustomer(loggedAccount.getAccountId());
+        favourite.setDishId(dish.getDishId());
+        addFav.addFavorite(favourite);
+        JOptionPane.showMessageDialog(this, "Dodano " + dish.getName() + " do ulubionych.");
     }
 
     @Override
