@@ -32,6 +32,7 @@ public class ModifyRestaurantsPanel extends JPanel {
     JButton addNewRestaurantButton = new JButton("Dodaj restaurację");
     DefaultListModel<String> restaurantNameListModel;
     DefaultListModel<Integer> restaurantIdListModel;
+    JButton restaurantStatisticsButton = new JButton("Statystyki restauracji");
 
     public ModifyRestaurantsPanel(Callback callback) {
         setLayout(new BorderLayout());
@@ -47,15 +48,28 @@ public class ModifyRestaurantsPanel extends JPanel {
         restaurantIdListModel = new DefaultListModel<>();
         restaurantIdList = new JList<>(restaurantIdListModel);
 
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 2));
+        JPanel buttonPanel = new JPanel(new GridLayout(3, 2));
+
+        // Dodanie przycisku do statystyk restauracji
+
+        restaurantStatisticsButton.addActionListener(e -> {
+            int selectedRestaurantIndex = restaurantNameList.getSelectedIndex();
+            if (selectedRestaurantIndex != -1) {
+                Integer selectedRestaurantId = restaurantIdListModel.get(selectedRestaurantIndex);
+                RestaurantsEntity restaurant = restaurantsDAO.getRestaurantById(selectedRestaurantId);
+                ((App) callback).selectedRestaurant = restaurant;
+                restaurantNameList.clearSelection();
+                callback.enterRestaurantStats(restaurant.getRestaurantId());
+            }
+        });
+        buttonPanel.add(restaurantStatisticsButton);
+
 
         // Dodanie przycisku do usuwania restauracji
         removeRestaurantButton.addActionListener(e -> {
             int selectedRestaurantIndex = restaurantNameList.getSelectedIndex();
             if (selectedRestaurantIndex != -1) {
                 Integer selectedRestaurantId = restaurantIdListModel.get(selectedRestaurantIndex);
-                System.out.println(selectedRestaurantId);
-                System.out.println(selectedRestaurantIndex);
                 RemoveRestaurant removeRestaurant = new RemoveRestaurant(new RestaurantsDAO(), new DishesDAO(),  new OrderedDishesDAO(), new BasketsDAO(), new FavoritesDAO(), new WorkersDAO());
                 removeRestaurant.removeRestaurant(selectedRestaurantId);
                 refreshRestaurantList();
@@ -78,12 +92,7 @@ public class ModifyRestaurantsPanel extends JPanel {
         });
         buttonPanel.add(modifyRestaurantButton);
 
-        // Przycisk powrotu
-        backButton.addActionListener(e -> {
-            restaurantNameList.clearSelection();
-            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
-        });
-        buttonPanel.add(backButton);
+
 
         // Dodanie przycisku do dodawania restauracji
         addNewRestaurantButton.addActionListener(e -> {
@@ -94,6 +103,13 @@ public class ModifyRestaurantsPanel extends JPanel {
             refreshRestaurantList();
         });
         buttonPanel.add(addNewRestaurantButton);
+
+        // Przycisk powrotu
+        backButton.addActionListener(e -> {
+            restaurantNameList.clearSelection();
+            ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
+        });
+        buttonPanel.add(backButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
     }

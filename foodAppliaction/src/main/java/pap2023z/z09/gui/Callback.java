@@ -23,6 +23,6 @@ public interface Callback {
     void enterModifyRestaurantPanel();
     void enterHistoryPanel();
     void enterOrderDetailsPanel(int orderId);
-
-
+    void enterComplaintPanel(int orderId);
+    void enterRestaurantStats(int restaurantId);
 }
