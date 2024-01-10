@@ -11,7 +11,7 @@ public class MainMenuPanel extends JPanel {
     private JLabel clockLabel;
     JButton orderButton = new JButton("Zamów");
     JButton accountButton = new JButton("Konto");
-    JButton historyButton = new JButton("Historia i reklamacje");
+    JButton historyButton = new JButton("Historia zamówień");
     JButton opinionButton = new JButton("Opinie");
     JButton restaurantsButton = new JButton("Restauracje");
     JLabel loggedAsLabel = new JLabel("Zalogowano jako: ");

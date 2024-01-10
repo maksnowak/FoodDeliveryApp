@@ -70,8 +70,6 @@ public class ModifyRestaurantsPanel extends JPanel {
             int selectedRestaurantIndex = restaurantNameList.getSelectedIndex();
             if (selectedRestaurantIndex != -1) {
                 Integer selectedRestaurantId = restaurantIdListModel.get(selectedRestaurantIndex);
-                System.out.println(selectedRestaurantId);
-                System.out.println(selectedRestaurantIndex);
                 RemoveRestaurant removeRestaurant = new RemoveRestaurant(new RestaurantsDAO(), new DishesDAO(),  new OrderedDishesDAO(), new BasketsDAO(), new FavoritesDAO(), new WorkersDAO());
                 removeRestaurant.removeRestaurant(selectedRestaurantId);
                 refreshRestaurantList();

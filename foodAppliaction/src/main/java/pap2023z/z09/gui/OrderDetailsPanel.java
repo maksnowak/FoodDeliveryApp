@@ -4,6 +4,7 @@ import pap2023z.z09.database.OrdersEntity;
 import pap2023z.z09.database.StatusesEntity;
 import pap2023z.z09.orders.OrdersDAO;
 import pap2023z.z09.orders.ViewOrderDetailsService;
+import pap2023z.z09.orders.AddOrderDishesToBasketService;
 import pap2023z.z09.dishes.DishesDAO;
 import pap2023z.z09.dishes.DishesDTO;
 import pap2023z.z09.dishes.orderedDishes.OrderedDishesDAO;
@@ -11,6 +12,8 @@ import pap2023z.z09.restaurants.RestaurantsDAO;
 import pap2023z.z09.restaurants.RestaurantsDTO;
 import pap2023z.z09.restaurants.ViewOrderRestaurantsService;
 import pap2023z.z09.statuses.StatusesDAO;
+import pap2023z.z09.baskets.AddBasket;
+import pap2023z.z09.baskets.BasketsDAO;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -91,13 +94,25 @@ public class OrderDetailsPanel extends JPanel {
 
         add(listsPanel, BorderLayout.CENTER);
 
-
+        JPanel buttonsPanel = new JPanel(new GridLayout(1, 2));
         JButton backButton = new JButton("Powrót");
         backButton.addActionListener(e -> {
             dishesJList.clearSelection();
             callback.enterHistoryPanel();
         });
-        add(backButton, BorderLayout.SOUTH);
+        buttonsPanel.add(backButton);
+
+        JButton fastButton = new JButton("Zamów ponownie");
+        fastButton.addActionListener(e -> {
+            dishesJList.clearSelection();
+            ViewOrderDetailsService VODservice = new ViewOrderDetailsService(ordersDAO, orderedDishesDAO, dishesDAO);
+            AddBasket addBasket = new AddBasket(new BasketsDAO());
+            AddOrderDishesToBasketService service = new AddOrderDishesToBasketService(ordersDAO, VODservice, addBasket);
+            service.addOrderDishesToBasket(orderId);
+            callback.enterBasket();
+        });
+        buttonsPanel.add(fastButton);
+        add(buttonsPanel, BorderLayout.SOUTH);
     }
 
     private void updateClock() {
