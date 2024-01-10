@@ -46,7 +46,7 @@ public class App extends JFrame implements Callback {
     private OrderDetailsPanel orderDetailsPanel;
     private AddDiscountPanel addDiscountPanel;
     private FavouritesSelectionPanel favouriteSelectionPanel;
-    RestaurantStatisticsPanel restaurantStatisticsPanel;
+    private RestaurantStatisticsPanel restaurantStatisticsPanel;
     private FavouritesRestaurantChoicePanel favouritesRestaurantChoicePanel;
 
     private JLabel clockLabel;
