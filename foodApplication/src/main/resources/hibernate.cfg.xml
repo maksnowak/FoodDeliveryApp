@@ -8,20 +8,20 @@
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">admin</property>
-        <mapping class="pap2023z.z09.database.AccountTypesEntity"/>
-        <mapping class="pap2023z.z09.database.AccountsEntity"/>
-        <mapping class="pap2023z.z09.database.BasketsEntity"/>
-        <mapping class="pap2023z.z09.database.ComplaintsEntity"/>
-        <mapping class="pap2023z.z09.database.DiscountsEntity"/>
-        <mapping class="pap2023z.z09.database.DishTypesEntity"/>
-        <mapping class="pap2023z.z09.database.DishesEntity"/>
-        <mapping class="pap2023z.z09.database.FavoritesEntity"/>
-        <mapping class="pap2023z.z09.database.OrderedDishesEntity"/>
-        <mapping class="pap2023z.z09.database.OrdersEntity"/>
-        <mapping class="pap2023z.z09.database.PaymentMethodsEntity"/>
-        <mapping class="pap2023z.z09.database.RestaurantsEntity"/>
-        <mapping class="pap2023z.z09.database.ReviewsEntity"/>
-        <mapping class="pap2023z.z09.database.StatusesEntity"/>
-        <mapping class="pap2023z.z09.database.WorkersEntity"/>
+        <mapping class="pl.foodapp.database.AccountTypesEntity"/>
+        <mapping class="pl.foodapp.database.AccountsEntity"/>
+        <mapping class="pl.foodapp.database.BasketsEntity"/>
+        <mapping class="pl.foodapp.database.ComplaintsEntity"/>
+        <mapping class="pl.foodapp.database.DiscountsEntity"/>
+        <mapping class="pl.foodapp.database.DishTypesEntity"/>
+        <mapping class="pl.foodapp.database.DishesEntity"/>
+        <mapping class="pl.foodapp.database.FavoritesEntity"/>
+        <mapping class="pl.foodapp.database.OrderedDishesEntity"/>
+        <mapping class="pl.foodapp.database.OrdersEntity"/>
+        <mapping class="pl.foodapp.database.PaymentMethodsEntity"/>
+        <mapping class="pl.foodapp.database.RestaurantsEntity"/>
+        <mapping class="pl.foodapp.database.ReviewsEntity"/>
+        <mapping class="pl.foodapp.database.StatusesEntity"/>
+        <mapping class="pl.foodapp.database.WorkersEntity"/>
     </session-factory>
 </hibernate-configuration>
