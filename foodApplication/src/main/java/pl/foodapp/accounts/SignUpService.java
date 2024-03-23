@@ -14,7 +14,7 @@ public class SignUpService {
     }
 
     public void signUp(AccountsDTO account) throws EmailAlreadyExistsException {
-        // sprawdzanie poprawności danych oraz czy konto o podanym emailu już istnieje
+        // check if data is correct and if account with given email already exists
         inputValidationService.validateEmail(account.getEmail());
         inputValidationService.validatePassword(account.getPassword());
         verifyIfEmailAlreadyExistsService.verifyEmail(account.getEmail());

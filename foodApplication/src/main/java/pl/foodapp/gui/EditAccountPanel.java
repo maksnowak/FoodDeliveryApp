@@ -16,10 +16,10 @@ public class EditAccountPanel extends JPanel {
     public EditAccountPanel(Callback callback) {
         setLayout(new BorderLayout());
 
-        String currentFirstName = "imie";
-        String currentLastName = "nazwisko";
+        String currentFirstName = "name";
+        String currentLastName = "surname";
         String currentEmail = "mail@example.com";
-        String currentPassword = "haslo";
+        String currentPassword = "password";
 
         firstNameField = new JTextField(currentFirstName);
         lastNameField = new JTextField(currentLastName);
@@ -27,18 +27,18 @@ public class EditAccountPanel extends JPanel {
         passwordField = new JPasswordField(currentPassword);
 
         JPanel formPanel = new JPanel(new GridLayout(4, 2));
-        formPanel.add(new JLabel("Imię:"));
+        formPanel.add(new JLabel("Name:"));
         formPanel.add(firstNameField);
-        formPanel.add(new JLabel("Nazwisko:"));
+        formPanel.add(new JLabel("Surname:"));
         formPanel.add(lastNameField);
         formPanel.add(new JLabel("Email:"));
         formPanel.add(emailField);
-        formPanel.add(new JLabel("Hasło:"));
+        formPanel.add(new JLabel("Password:"));
         formPanel.add(passwordField);
 
         add(formPanel, BorderLayout.CENTER);
 
-        JButton saveButton = new JButton("Zapisz zmiany");
+        JButton saveButton = new JButton("Save changes");
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,7 +51,7 @@ public class EditAccountPanel extends JPanel {
                 }
             }
         });
-        JButton cancelButton = new JButton("Anuluj");
+        JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

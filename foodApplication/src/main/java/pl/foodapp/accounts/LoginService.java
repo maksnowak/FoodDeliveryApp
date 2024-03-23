@@ -10,8 +10,8 @@ public class LoginService {
     }
 
     public boolean login(String email, String password) {
-        // sprawdź czy konto o podanym emailu istnieje, jeśli nie to zwróć false
-        // jeśli istnieje to sprawdź czy hasło się zgadza
+        // check if account with given email exists, if not return false
+        // if it exists, check if password is correct
         AccountsEntity account = accountsDAO.getAccountByEmail(email);
         if (account == null) {
             return false;

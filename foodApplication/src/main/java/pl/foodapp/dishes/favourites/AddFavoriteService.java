@@ -12,15 +12,15 @@ public class AddFavoriteService {
     }
 
     public void addFavorite(int dishId, int customerId) {
-        // sprawdź czy dany klient już nie ma tego dania w ulubionych
+        // check if the customer already has this dish in favorites
         List<FavoritesEntity> customerFavorites = favoritesDAO.getFavoritesByCustomer(customerId);
         for (FavoritesEntity favorite : customerFavorites) {
             if (favorite.getDishId() == dishId) {
-                // jeśli tak, to rzuć wyjątek
+                // if so, throw an exception
                 throw new IllegalArgumentException("Dish is already in favorites");
             }
         }
-        // jeśli nie, to dodaj do ulubionych
+        // if not, add to favorites
         FavoritesEntity newFavorite = new FavoritesEntity();
         newFavorite.setDishId(dishId);
         newFavorite.setCustomer(customerId);
@@ -28,15 +28,15 @@ public class AddFavoriteService {
     }
 
     public void addFavorite(FavoritesDTO favourite) {
-        // sprawdź czy dany klient już nie ma tego dania w ulubionych
+        // check if the customer already has this dish in favorites
         List<FavoritesEntity> customerFavorites = favoritesDAO.getFavoritesByCustomer(favourite.getCustomer());
         for (FavoritesEntity favorite : customerFavorites) {
             if (favorite.getDishId() == favourite.getDishId()) {
-                // jeśli tak, to rzuć wyjątek
+                // if so, throw an exception
                 throw new IllegalArgumentException("Dish is already in favorites");
             }
         }
-        // jeśli nie, to dodaj do ulubionych
+        // if not, add to favorites
         FavoritesEntity newFavorite = new FavoritesEntity();
         newFavorite.setDishId(favourite.getDishId());
         newFavorite.setCustomer(favourite.getCustomer());

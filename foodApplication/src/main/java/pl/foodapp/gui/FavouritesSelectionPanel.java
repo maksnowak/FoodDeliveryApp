@@ -27,33 +27,33 @@ public class FavouritesSelectionPanel extends JPanel {
     DishListModel model = new DishListModel();
     JList<String> dishList = new JList<>(model);
     boolean isListenerActive = false;
-    JLabel titleLabel = new JLabel("Wybierz danie:");
+    JLabel titleLabel = new JLabel("Select dish:");
     JTextField searchField = new JTextField();
     JComboBox<String> favouritesTypeComboBox = new JComboBox<>();
     JTextField kcalMinField = new JTextField();
     JTextField kcalMaxField = new JTextField();
     JTextField priceMinField = new JTextField();
     JTextField priceMaxField = new JTextField();
-    JCheckBox vegetarianCheckBox = new JCheckBox("wege");
+    JCheckBox vegetarianCheckBox = new JCheckBox("Vegetarian");
     JComboBox<String> sortComboBox = new JComboBox<>();
     JLabel clockLabel;
 
     public FavouritesSelectionPanel(Callback callback) {
         setLayout(new BorderLayout());
 
-        favouritesTypeComboBox.addItem("Wszystkie");
-        favouritesTypeComboBox.addItem("Przystawka");
-        favouritesTypeComboBox.addItem("Zupa");
-        favouritesTypeComboBox.addItem("Danie główne");
-        favouritesTypeComboBox.addItem("Deser");
-        favouritesTypeComboBox.addItem("Dodatki");
-        favouritesTypeComboBox.addItem("Sałatki");
-        favouritesTypeComboBox.addItem("Napoje");
+        favouritesTypeComboBox.addItem("All");
+        favouritesTypeComboBox.addItem("Appetizer");
+        favouritesTypeComboBox.addItem("Soup");
+        favouritesTypeComboBox.addItem("Main course");
+        favouritesTypeComboBox.addItem("Dessert");
+        favouritesTypeComboBox.addItem("Side dishes");
+        favouritesTypeComboBox.addItem("Salads");
+        favouritesTypeComboBox.addItem("Beverages");
 
-        sortComboBox.addItem("Od najtańszych");
-        sortComboBox.addItem("Od najdroższych");
-        sortComboBox.addItem("Od najmniej kalorycznych");
-        sortComboBox.addItem("Od najbardziej kalorycznych");
+        sortComboBox.addItem("Price from the cheapest");
+        sortComboBox.addItem("Price from the most expensive");
+        sortComboBox.addItem("Caloric value from the least caloric");
+        sortComboBox.addItem("Caloric value from the most caloric");
 
         JPanel upperPanel = new JPanel();
         upperPanel.setLayout(new GridLayout(5, 1));
@@ -69,13 +69,13 @@ public class FavouritesSelectionPanel extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 1.0;
-        searchAndSortPanel.add(new JLabel("Wyszukaj: "), c);
+        searchAndSortPanel.add(new JLabel("Search: "), c);
         c.weightx = 15.0;
         searchAndSortPanel.add(searchField, c);
         c.weightx = 1.0;
         searchAndSortPanel.add(new JLabel(), c);
         c.weightx = 1.0;
-        searchAndSortPanel.add(new JLabel("Sortuj według:"), c);
+        searchAndSortPanel.add(new JLabel("Sort by:"), c);
         c.weightx = 1.0;
         searchAndSortPanel.add(sortComboBox, c);
         upperPanel.add(searchAndSortPanel);
@@ -83,14 +83,14 @@ public class FavouritesSelectionPanel extends JPanel {
         JPanel filterPanelUp = new JPanel();
         filterPanelUp.setLayout(new GridLayout(1, 4));
         filterPanelUp.add(favouritesTypeComboBox);
-        filterPanelUp.add(new JLabel("Kalorie: ", SwingConstants.RIGHT));
+        filterPanelUp.add(new JLabel("Calories: ", SwingConstants.RIGHT));
         filterPanelUp.add(kcalMinField);
         filterPanelUp.add(kcalMaxField);
 
         JPanel filterPanelDown = new JPanel();
         filterPanelDown.setLayout(new GridLayout(1, 4));
         filterPanelDown.add(vegetarianCheckBox);
-        filterPanelDown.add(new JLabel("Cena: ", SwingConstants.RIGHT));
+        filterPanelDown.add(new JLabel("Price: ", SwingConstants.RIGHT));
         filterPanelDown.add(priceMinField);
         filterPanelDown.add(priceMaxField);
 
@@ -149,7 +149,7 @@ public class FavouritesSelectionPanel extends JPanel {
 
         JPanel bottomPanel = new JPanel(new GridLayout(1, 1));
 
-        JButton backButton = new JButton("powrot");
+        JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
             isListenerActive = false;
             searchField.setText("");
@@ -167,7 +167,7 @@ public class FavouritesSelectionPanel extends JPanel {
 
     public void enter(RestaurantsEntity restaurant) {
         isListenerActive = true;
-        titleLabel.setText("podane dania z restauracji: " + restaurant.getName());
+        titleLabel.setText("Selected dishes from: " + restaurant.getName());
         selectedRestaurantsDishes = dishesDAO.getDishesByRestaurant(restaurant.getRestaurantId());
         searchAndFilterList();
     }

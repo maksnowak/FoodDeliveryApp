@@ -39,14 +39,14 @@ public class RegisterPanel extends JPanel {
                     try {
                         SS.signUp(account);
                     } catch (EmailAlreadyExistsException ex) {
-                        errorLabel.setText("Podany email jest zajęty");
+                        errorLabel.setText("Email already exists");
                         return;
                     } catch (IllegalArgumentException ex) {
                         errorLabel.setText(ex.getMessage());
                         return;
                     }
 
-                    JOptionPane.showMessageDialog(null, "Zarejestrowano!");
+                    JOptionPane.showMessageDialog(null, "Registered successfully");
                     loginField.setText("");
                     passwordField.setText("");
                     nameField.setText("");
@@ -70,7 +70,7 @@ public class RegisterPanel extends JPanel {
             });
 
             setLayout(new GridLayout(7, 2));
-            add(new JLabel("Zarejestruj nowe konto:"));
+            add(new JLabel("Register:"));
             add(employeeCheckbox);
             add(loginLabel);
             add(loginField);

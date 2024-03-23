@@ -19,14 +19,14 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
     public ModifyRestaurantDetailsPanel(Callback callback) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        // Dodanie tytułu
-        titleLabel = new JLabel("Zmień szczegóły restauracji: ");
+        // Add title
+        titleLabel = new JLabel("Change restaurant details");
         add(titleLabel);
         JPanel buttonPanel = new JPanel(new GridLayout(5, 1));
 
-        // Dodanie przycisku do dodawania dań
+        // Add dish button
         dishesDAO = new DishesDAO();
-        addDishButton = new JButton("Dodaj danie");
+        addDishButton = new JButton("Add dish");
         addDishButton.addActionListener(e -> {
             AddDishPanel addDishPanel = new AddDishPanel(new AddDish(dishesDAO), callback);
             ((App) callback).add(addDishPanel, "AddDish");
@@ -34,8 +34,8 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
         });
         buttonPanel.add(addDishButton);
 
-        // Dodanie przycisku do usuwania dań
-        removeDishButton = new JButton("Usuń danie");
+        // Remove dish button
+        removeDishButton = new JButton("Remove dish");
         removeDishButton.addActionListener(e -> {
             RemoveDishPanel removeDishPanel = new RemoveDishPanel(callback);
             ((App) callback).add(removeDishPanel, "RemoveDish");
@@ -43,8 +43,8 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
         });
         buttonPanel.add(removeDishButton);
 
-        // Dodanie przycisku do zmiany godzin otwarcia
-        changeOpensButton = new JButton("Zmień godziny otwarcia");
+        // Add button to change opening hours
+        changeOpensButton = new JButton("Change opening hours");
         changeOpensButton.addActionListener(e -> {
             ChangeHoursPanel changeHoursPanel = new ChangeHoursPanel(callback);
             RestaurantsEntity restaurant = ((App) callback).selectedRestaurant;
@@ -56,8 +56,8 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
         });
         buttonPanel.add(changeOpensButton);
 
-        //Dodanie przycisku do dodawania kodów rabatowych
-        JButton addDiscountButton = new JButton("Dodaj kod rabatowy");
+        // Add button to add discount codes
+        JButton addDiscountButton = new JButton("Add discount code");
         addDiscountButton.addActionListener(e -> {
             AddDiscountPanel addDiscountPanel = new AddDiscountPanel(callback);
             ((App) callback).add(addDiscountPanel, "AddDiscount");
@@ -65,8 +65,8 @@ public class ModifyRestaurantDetailsPanel extends JPanel {
         });
         buttonPanel.add(addDiscountButton);
 
-        // Dodanie przycisku powrotu
-        JButton backButton = new JButton("Powrót");
+        // Add back button
+        JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurants");
         });

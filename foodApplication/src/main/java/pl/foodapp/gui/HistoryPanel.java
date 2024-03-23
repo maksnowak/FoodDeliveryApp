@@ -30,7 +30,7 @@ public class HistoryPanel extends JPanel {
         Timer timer = new Timer(1000, e -> updateClock());
         upperPanel.add(clockLabel);
         timer.start();
-        JLabel titleLabel = new JLabel("Historia zamówień");
+        JLabel titleLabel = new JLabel("Order history:");
         upperPanel.add(titleLabel);
         add(upperPanel, BorderLayout.NORTH);
 
@@ -49,7 +49,7 @@ public class HistoryPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(orderList);
         add(scrollPane, BorderLayout.CENTER);
 
-        JButton backButton = new JButton("Powrót");
+        JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
             orderList.clearSelection();
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");

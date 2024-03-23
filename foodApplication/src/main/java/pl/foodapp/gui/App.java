@@ -62,7 +62,7 @@ public class App extends JFrame implements Callback {
     }
 
     public App() {
-        setTitle("PAP2023Z - Z09");
+        setTitle("FoodDeliveryApp");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         try {
@@ -216,7 +216,7 @@ public class App extends JFrame implements Callback {
         DeleteService DS = new DeleteService(ADAO, ODAO, PMDAO, FDAO, BDAO, WDAO, RDAO, DDAO, ODDAO, RvDAO);
         DS.deleteAccount(loggedAccount.getAccountId());
         loggedAccount = null;
-        JOptionPane.showMessageDialog(this, "Konto zostało usunięte.");
+        JOptionPane.showMessageDialog(this, "Account deleted.");
         cardLayout.show(getContentPane(), "Welcome");
     }
 
@@ -233,7 +233,7 @@ public class App extends JFrame implements Callback {
         basket.setCustomerId(loggedAccount.getAccountId());
         basket.setDishId(dish.getDishId());
         addBasket.addBasket(basket);
-        JOptionPane.showMessageDialog(this, "Dodano " + dish.getName() + " do koszyka.");
+        JOptionPane.showMessageDialog(this, "Added " + dish.getName() + " to basket.");
     }
     public void addToFavourites(DishesDTO dish) {
         FavoritesDTO favourite = new FavoritesDTO();
@@ -241,7 +241,7 @@ public class App extends JFrame implements Callback {
         favourite.setCustomer(loggedAccount.getAccountId());
         favourite.setDishId(dish.getDishId());
         addFav.addFavorite(favourite);
-        JOptionPane.showMessageDialog(this, "Dodano " + dish.getName() + " do ulubionych.");
+        JOptionPane.showMessageDialog(this, "Added " + dish.getName() + " to favourites.");
     }
 
     @Override
@@ -304,7 +304,7 @@ public class App extends JFrame implements Callback {
         ViewAccountTypeNameService VATNS = new ViewAccountTypeNameService(ATDAO);
         String type = VATNS.getAccountTypeName(loggedAccount.getType());
         mainMenuPanel.updateAccountLabel(loggedAccount.getEmail());
-        accountInfoPanel.updateAccountInfo("Imię: " + loggedAccount.getName() + "\nNazwisko: " + loggedAccount.getSurname() + "\nEmail: " + loggedAccount.getEmail() + "\nTyp: " + type);
+        accountInfoPanel.updateAccountInfo("Name: " + loggedAccount.getName() + "\nSurname: " + loggedAccount.getSurname() + "\nEmail: " + loggedAccount.getEmail() + "\nType: " + type);
         editAccountPanel.setFields(loggedAccount.getName(), loggedAccount.getSurname(), loggedAccount.getEmail(), loggedAccount.getPassword());
     }
 

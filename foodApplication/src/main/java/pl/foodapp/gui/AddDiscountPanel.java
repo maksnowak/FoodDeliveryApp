@@ -20,23 +20,23 @@ public class AddDiscountPanel extends JPanel {
         setLayout(new GridLayout(3, 2));
 
         // Add fields and labels
-        add(new JLabel("Nazwa:"));
+        add(new JLabel("Name:"));
         nameField = new JTextField();
         add(nameField);
 
-        add(new JLabel("Rabat:"));
+        add(new JLabel("Discount:"));
         discountField = new JTextField();
         add(discountField);
 
         // Add back button
-        JButton backButton = new JButton("Powrót");
+        JButton backButton = new JButton("Back");
         backButton.addActionListener(e2 -> {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
         });
         add(backButton);
 
         // Add button to add discount
-        addButton = new JButton("Dodaj rabat");
+        addButton = new JButton("Add discount");
         addButton.addActionListener(e -> {
             String name = nameField.getText();
             BigDecimal discount = new BigDecimal(discountField.getText());
@@ -47,7 +47,7 @@ public class AddDiscountPanel extends JPanel {
             discountsDAO.addDiscount(DiscountsEntity);
 
             // Show message about added discount and go back to modify restaurant details
-            JOptionPane.showMessageDialog(this, "Dodano rabat.");
+            JOptionPane.showMessageDialog(this, "Discount added");
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
         });
         add(addButton);

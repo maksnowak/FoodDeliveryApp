@@ -55,7 +55,7 @@ public class OrderDetailsPanel extends JPanel {
         Timer timer = new Timer(1000, e -> updateClock());
         upperPanel.add(clockLabel);
         timer.start();
-        JLabel titleLabel = new JLabel("Szczegóły zamówienia");
+        JLabel titleLabel = new JLabel("Order details:");
         upperPanel.add(titleLabel);
 
         upperPanel.add(statusLabel);
@@ -95,14 +95,14 @@ public class OrderDetailsPanel extends JPanel {
         add(listsPanel, BorderLayout.CENTER);
 
         JPanel buttonsPanel = new JPanel(new GridLayout(1, 2));
-        JButton backButton = new JButton("Powrót");
+        JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
             dishesJList.clearSelection();
             callback.enterHistoryPanel();
         });
         buttonsPanel.add(backButton);
 
-        JButton fastButton = new JButton("Zamów ponownie");
+        JButton fastButton = new JButton("Fast order");
         fastButton.addActionListener(e -> {
             dishesJList.clearSelection();
             ViewOrderDetailsService VODservice = new ViewOrderDetailsService(ordersDAO, orderedDishesDAO, dishesDAO);
@@ -138,7 +138,7 @@ public class OrderDetailsPanel extends JPanel {
             restaurantsListModel.addElement(restaurant.getName());
         }
 
-        statusLabel.setText("aktualny status: " + getStatusName(orderId));
+        statusLabel.setText("Current status: " + getStatusName(orderId));
         ViewOrderDetailsService service = new ViewOrderDetailsService(ordersDAO, orderedDishesDAO, dishesDAO);
 
         dishesList = service.getOrderedDishes(orderId);

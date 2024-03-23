@@ -48,7 +48,7 @@ public class FavouritesRestaurantChoicePanel extends JPanel {
         Timer timer = new Timer(1000, e -> updateClock());
         upperPanel.add(clockLabel);
         timer.start();
-        JLabel titleLabel = new JLabel("wybor ulubionych dan");
+        JLabel titleLabel = new JLabel("Select favorite dishes");
         upperPanel.add(titleLabel);
         upperPanel.add(searchField);
         add(upperPanel, BorderLayout.NORTH);
@@ -76,7 +76,7 @@ public class FavouritesRestaurantChoicePanel extends JPanel {
 
         JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
 
-        JButton backButton = new JButton("powrot");
+        JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
             restaurantList.clearSelection();
             searchField.setText("");

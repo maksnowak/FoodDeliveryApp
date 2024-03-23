@@ -21,12 +21,12 @@ public class ViewOrderDetailsService {
     }
 
     public OrdersDTO getOrderDetails(int orderId) {
-        // wyświetl szczegóły zamówienia o podanym id
+        // get order details for order with given id from database
         return OrdersDTO.fromEntity(ordersDAO.getOrderById(orderId));
     }
 
     public List<DishesDTO> getOrderedDishes(int orderId) {
-        // wyświetl listę dań w zamówieniu o podanym id
+        // get ordered dishes for order with given id from database
         List<OrderedDishesEntity> orderedDishes = orderedDishesDAO.getDishesByOrderId(orderId);
         ArrayList<DishesDTO> dtos = new ArrayList<>();
         for (OrderedDishesEntity orderedDish : orderedDishes) {

@@ -31,7 +31,7 @@ public class BasketPanel extends JPanel {
         Timer timer = new Timer(1000, e -> updateClock());
         upperPanel.add(clockLabel);
         timer.start();
-        JLabel titleLabel = new JLabel("Twój koszyk:");
+        JLabel titleLabel = new JLabel("Your basket:");
         upperPanel.add(titleLabel);
         add(upperPanel, BorderLayout.NORTH);
 
@@ -45,7 +45,7 @@ public class BasketPanel extends JPanel {
 
         bottomPanel.add(new JLabel());
 
-        JButton deleteButton = new JButton("Usuń danie");
+        JButton deleteButton = new JButton("Delete selected item");
         deleteButton.addActionListener(e -> {
             int selectedId = basketsJList.getSelectedIndex();
             if (selectedId != -1) {
@@ -64,14 +64,14 @@ public class BasketPanel extends JPanel {
         });
         bottomPanel.add(deleteButton);
 
-        JButton backButton = new JButton("Powrót");
+        JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
             basketsJList.clearSelection();
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
         });
         bottomPanel.add(backButton);
 
-        JButton orderButton = new JButton("Zapłać");
+        JButton orderButton = new JButton("Place order");
         orderButton.addActionListener(e -> {
             basketsJList.clearSelection();
             callback.enterPayment();
@@ -91,7 +91,7 @@ public class BasketPanel extends JPanel {
         DishesDAO dishesDAO = new DishesDAO();
         baskets = basketsDAO.getAllDishesOfClientId(accountId);
         for (BasketsEntity basket : baskets) {
-            DishesEntity dish = dishesDAO.getDishById(basket.getDishId()); // dish tylko dla nazwy
+            DishesEntity dish = dishesDAO.getDishById(basket.getDishId()); // dish only for name
             model.addElement(dish.getName());
         }
     }

@@ -21,7 +21,7 @@ public class RemoveDishPanel extends JPanel {
 
         setLayout(new BorderLayout());
 
-        // Dodanie listy dań
+        // Add list of dishes
         dishListModel = new DefaultListModel<>();
         dishList = new JList<>(dishListModel);
         dishList.setCellRenderer(new DefaultListCellRenderer() {
@@ -37,24 +37,24 @@ public class RemoveDishPanel extends JPanel {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
 
-        // Dodanie przycisku do usuwania dania
-        removeButton = new JButton("Usuń danie");
+        // Add button to remove dish
+        removeButton = new JButton("Remove dish");
         removeButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, removeButton.getPreferredSize().height));
         removeButton.addActionListener(e -> {
             DishesEntity selectedDish = dishList.getSelectedValue();
             if (selectedDish != null) {
-                int response = JOptionPane.showConfirmDialog(this, "Na pewno chesz usunąć " + selectedDish.getName() + "?", "Potwierdź", JOptionPane.YES_NO_OPTION);
+                int response = JOptionPane.showConfirmDialog(this, "Do you want to remove " + selectedDish.getName() + "?", "Confirm", JOptionPane.YES_NO_OPTION);
                 if (response == JOptionPane.YES_OPTION) {
                     dishesDAO.removeDish(selectedDish.getDishId());
-                    JOptionPane.showMessageDialog(this, "Usunięto danie.");
+                    JOptionPane.showMessageDialog(this, "Dish removed.");
                     refreshDishList(selectedRestaurant.getRestaurantId());
                 }
             }
         });
 
 
-        // Dodanie przycisku powrotu
-        backButton = new JButton("Powrót");
+        // Add back button
+        backButton = new JButton("Back");
         backButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, backButton.getPreferredSize().height));
         backButton.addActionListener(e -> {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");

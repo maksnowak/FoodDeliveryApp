@@ -32,14 +32,14 @@ public class DishSelectionPanel extends JPanel {
     DishListModel model = new DishListModel();
     JList<String> dishList = new JList<>(model);
     boolean isListenerActive = false;
-    JLabel titleLabel = new JLabel("Wybierz danie:");
+    JLabel titleLabel = new JLabel("Select a dish");
     JTextField searchField = new JTextField();
     JComboBox<String> typeComboBox = new JComboBox<>();
     JTextField kcalMinField = new JTextField();
     JTextField kcalMaxField = new JTextField();
     JTextField priceMinField = new JTextField();
     JTextField priceMaxField = new JTextField();
-    JCheckBox vegetarianCheckBox = new JCheckBox("wege");
+    JCheckBox vegetarianCheckBox = new JCheckBox("Vegetarian");
     JComboBox<String> sortComboBox = new JComboBox<>();
     JLabel clockLabel = new JLabel();
 
@@ -48,19 +48,19 @@ public class DishSelectionPanel extends JPanel {
     public DishSelectionPanel(Callback callback) {
         setLayout(new BorderLayout());
 
-        typeComboBox.addItem("Wszystkie");
-        typeComboBox.addItem("Przystawka");
-        typeComboBox.addItem("Zupa");
-        typeComboBox.addItem("Danie główne");
-        typeComboBox.addItem("Deser");
-        typeComboBox.addItem("Dodatki");
-        typeComboBox.addItem("Sałatki");
-        typeComboBox.addItem("Napoje");
+        typeComboBox.addItem("All");
+        typeComboBox.addItem("Appetizer");
+        typeComboBox.addItem("Soup");
+        typeComboBox.addItem("Main course");
+        typeComboBox.addItem("Dessert");
+        typeComboBox.addItem("Side dishes");
+        typeComboBox.addItem("Salads");
+        typeComboBox.addItem("Beverages");
 
-        sortComboBox.addItem("Od najtańszych");
-        sortComboBox.addItem("Od najdroższych");
-        sortComboBox.addItem("Od najmniej kalorycznych");
-        sortComboBox.addItem("Od najbardziej kalorycznych");
+        sortComboBox.addItem("Price from cheapest");
+        sortComboBox.addItem("Price from most expensive");
+        sortComboBox.addItem("Caloric value from least caloric");
+        sortComboBox.addItem("Caloric value from most caloric");
 
         JPanel upperPanel = new JPanel();
         upperPanel.setLayout(new GridLayout(5, 1));
@@ -76,13 +76,13 @@ public class DishSelectionPanel extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 1.0;
-        searchAndSortPanel.add(new JLabel("Wyszukaj: "), c);
+        searchAndSortPanel.add(new JLabel("Search: "), c);
         c.weightx = 15.0;
         searchAndSortPanel.add(searchField, c);
         c.weightx = 1.0;
         searchAndSortPanel.add(new JLabel(), c);
         c.weightx = 1.0;
-        searchAndSortPanel.add(new JLabel("Sortuj według:"), c);
+        searchAndSortPanel.add(new JLabel("Sort by: "), c);
         c.weightx = 1.0;
         searchAndSortPanel.add(sortComboBox, c);
         upperPanel.add(searchAndSortPanel);
@@ -90,14 +90,14 @@ public class DishSelectionPanel extends JPanel {
         JPanel filterPanelUp = new JPanel();
         filterPanelUp.setLayout(new GridLayout(1, 4));
         filterPanelUp.add(typeComboBox);
-        filterPanelUp.add(new JLabel("Kalorie: ", SwingConstants.RIGHT));
+        filterPanelUp.add(new JLabel("Calories: ", SwingConstants.RIGHT));
         filterPanelUp.add(kcalMinField);
         filterPanelUp.add(kcalMaxField);
 
         JPanel filterPanelDown = new JPanel();
         filterPanelDown.setLayout(new GridLayout(1, 4));
         filterPanelDown.add(vegetarianCheckBox);
-        filterPanelDown.add(new JLabel("Cena: ", SwingConstants.RIGHT));
+        filterPanelDown.add(new JLabel("Price: ", SwingConstants.RIGHT));
         filterPanelDown.add(priceMinField);
         filterPanelDown.add(priceMaxField);
 
@@ -156,7 +156,7 @@ public class DishSelectionPanel extends JPanel {
 
         JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
 
-        JButton backButton = new JButton("Powrót");
+        JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
             isListenerActive = false;
             searchField.setText("");
@@ -164,7 +164,7 @@ public class DishSelectionPanel extends JPanel {
         });
         bottomPanel.add(backButton);
 
-        JButton basketButton = new JButton("Koszyk");
+        JButton basketButton = new JButton("Basket");
         basketButton.addActionListener(e -> {
             isListenerActive = false;
             searchField.setText("");
@@ -181,7 +181,7 @@ public class DishSelectionPanel extends JPanel {
 
     public void enter(RestaurantsEntity restaurant) {
         isListenerActive = true;
-        titleLabel.setText("Wybierz danie w restauracji: " + restaurant.getName());
+        titleLabel.setText("Select a dish in restaurant: " + restaurant.getName());
         selectedRestaurantsDishes = dishesDAO.getDishesByRestaurant(restaurant.getRestaurantId());
         searchAndFilterList();
     }

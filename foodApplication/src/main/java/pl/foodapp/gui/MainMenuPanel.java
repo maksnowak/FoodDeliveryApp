@@ -9,13 +9,13 @@ import java.util.Date;
 
 public class MainMenuPanel extends JPanel {
     private JLabel clockLabel;
-    JButton orderButton = new JButton("Zamów");
-    JButton accountButton = new JButton("Konto");
-    JButton historyButton = new JButton("Historia zamówień");
-    JButton opinionButton = new JButton("Opinie");
-    JButton favouritesButton = new JButton("Dodaj do ulubionych");
-    JButton restaurantsButton = new JButton("Restauracje");
-    JLabel loggedAsLabel = new JLabel("Zalogowano jako: ");
+    JButton orderButton = new JButton("Order");
+    JButton accountButton = new JButton("Account");
+    JButton historyButton = new JButton("History");
+    JButton opinionButton = new JButton("Reviews");
+    JButton favouritesButton = new JButton("Add to favourites");
+    JButton restaurantsButton = new JButton("Restaurants");
+    JLabel loggedAsLabel = new JLabel("Logged in as:");
     public MainMenuPanel(Callback callback) {
         orderButton.addActionListener(new ActionListener() {
             @Override
@@ -60,7 +60,7 @@ public class MainMenuPanel extends JPanel {
 
 
         setLayout(new GridLayout(9, 1));
-        add(new JLabel("Food!! (main menu)", SwingConstants.CENTER));
+        add(new JLabel("FoodDeliveryApp", SwingConstants.CENTER));
         add(orderButton);
         add(accountButton);
         add(historyButton);
@@ -86,7 +86,7 @@ public class MainMenuPanel extends JPanel {
     }
 
     public void updateAccountLabel(String accountName) {
-        loggedAsLabel.setText("Zalogowano jako: " + accountName);
+        loggedAsLabel.setText("Logged in as: " + accountName);
         loggedAsLabel.setHorizontalAlignment(JLabel.CENTER);
     }
 

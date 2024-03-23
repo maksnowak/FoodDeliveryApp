@@ -47,7 +47,7 @@ public class OpinionRestaurantChoicePanel extends JPanel {
         Timer timer = new Timer(1000, e -> updateClock());
         upperPanel.add(clockLabel);
         timer.start();
-        JLabel titleLabel = new JLabel("Wybierz restaurację:");
+        JLabel titleLabel = new JLabel("Select restaurant");
         upperPanel.add(titleLabel);
         upperPanel.add(searchField);
         add(upperPanel, BorderLayout.NORTH);
@@ -71,7 +71,7 @@ public class OpinionRestaurantChoicePanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(restaurantList);
         add(scrollPane, BorderLayout.CENTER);
 
-        JButton backButton = new JButton("Powrót");
+        JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
             restaurantList.clearSelection();
             searchField.setText("");

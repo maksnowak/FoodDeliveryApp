@@ -18,11 +18,11 @@ public class ModifyCreditCardService {
         if (oldEntity == null) {
             throw new IllegalArgumentException("No such method");
         }
-        // sprawdź czy dane karty są poprawne i karta nie wygasła
+        // check if card data is correct and card is not expired
         creditCardValidationService.validateCardNumber(methodDTO.getCardNumber());
         creditCardValidationService.validateCvv(methodDTO.getCvv());
         creditCardValidationService.validateExpiryDate(methodDTO.getExpiryDate());
-        verifyIfCustomerAlreadyAddedCardService.verifyIfCustomerAlreadyAddedCard(methodDTO); // sprawdzanie czy użytkownik nie dodał już karty o podanym numerze
+        verifyIfCustomerAlreadyAddedCardService.verifyIfCustomerAlreadyAddedCard(methodDTO); // check if customer already added this card
         PaymentMethodsEntity entity = new PaymentMethodsEntity();
         entity.setMethodId(methodDTO.getMethodId());
         entity.setCardNumber(methodDTO.getCardNumber());

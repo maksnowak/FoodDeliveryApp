@@ -10,12 +10,12 @@ import pl.foodapp.accounts.LoginService;
 
 public class LoginPanel extends JPanel {
     public LoginPanel(Callback callback) {
-        JLabel loginLabel = new JLabel("Login:");
-        JLabel passwordLabel = new JLabel("Hasło:");
+        JLabel loginLabel = new JLabel("Email:");
+        JLabel passwordLabel = new JLabel("Password:");
         JTextField loginField = new JTextField(15);
         JPasswordField passwordField = new JPasswordField(15);
-        JButton loginButton = new JButton("Zaloguj");
-        JButton returnButton = new JButton("Powrót");
+        JButton loginButton = new JButton("Log in");
+        JButton returnButton = new JButton("Back");
         JLabel errorLabel = new JLabel();
 
         loginButton.addActionListener(new ActionListener() {
@@ -35,7 +35,7 @@ public class LoginPanel extends JPanel {
                     errorLabel.setText("");
                 }
                 else {
-                    errorLabel.setText("Nieprawidłowe dane logowania");
+                    errorLabel.setText("Incorrect email or password. Try again.");
                 }
             }
         });
@@ -51,7 +51,7 @@ public class LoginPanel extends JPanel {
         });
 
         setLayout(new GridLayout(5, 2));
-        add(new JLabel("Zaloguj się:"));
+        add(new JLabel("Log in:"));
         add(new JLabel());
         add(loginLabel);
         add(loginField);

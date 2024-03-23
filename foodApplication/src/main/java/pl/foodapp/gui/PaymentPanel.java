@@ -36,7 +36,7 @@ public class PaymentPanel extends JPanel {
     JTextField discountCodeField = new JTextField();
     JTextField tipField = new JTextField();
 
-    JButton orderButton = new JButton("ZAMÓW");
+    JButton orderButton = new JButton("Order");
     JButton returnButton = new JButton("Return");
     JLabel errorLabel = new JLabel();
 
@@ -47,25 +47,25 @@ public class PaymentPanel extends JPanel {
                 PaymentMethodsEntity paymentMethod;
                 int comboBoxSelection = paymentMethodComboBox.getSelectedIndex();
                 if (comboBoxSelection == -1) {
-                    errorLabel.setText("Wybierz metodę płatności");
+                    errorLabel.setText("Select payment method");
                     return;
                 } else {
                     paymentMethod = paymentMethods.get(paymentMethodComboBox.getSelectedIndex());
                 }
                 String street = streetField.getText();
                 if (street.isEmpty()) {
-                    errorLabel.setText("Podaj ulicę");
+                    errorLabel.setText("Enter street name");
                     return;
                 }
                 int streetNumber;
                 try {
                     streetNumber = Integer.parseInt(streetNumberField.getText());
                 } catch (NumberFormatException ex) {
-                    errorLabel.setText("Podaj numer domu");
+                    errorLabel.setText("Enter street number");
                     return;
                 }
                 if (streetNumber < 1) {
-                    errorLabel.setText("Podaj prawidłowy numer domu");
+                    errorLabel.setText("Enter valid street number");
                     return;
                 }
                 int apartment;
@@ -75,13 +75,13 @@ public class PaymentPanel extends JPanel {
                     try {
                         apartment = Integer.parseInt(apartmentField.getText());
                     } catch (NumberFormatException ex) {
-                        errorLabel.setText("Podaj prawidłowy numer mieszkania");
+                        errorLabel.setText("Enter valid apartment number");
                         return;
                     }
                 }
                 String city = cityField.getText();
                 if (city.equals("")) {
-                    errorLabel.setText("Podaj miasto");
+                    errorLabel.setText("Enter city name");
                     return;
                 }
                 Integer discountCode;
@@ -94,7 +94,7 @@ public class PaymentPanel extends JPanel {
                         discountCode = discountsDAO.getDiscountByCode(discountCodeField.getText()).getDiscountId();
                         discount = discountsDAO.getDiscountByCode(discountCodeField.getText()).getDiscount();
                     } catch (NullPointerException ex) {
-                        errorLabel.setText("Podaj prawidłowy kod rabatowy");
+                        errorLabel.setText("Enter correct discount code");
                         return;
                     }
                 }
@@ -105,7 +105,7 @@ public class PaymentPanel extends JPanel {
                     try {
                         tip = new BigDecimal(tipField.getText());
                     } catch (NumberFormatException ex) {
-                        errorLabel.setText("Podaj prawidłowy napiwek");
+                        errorLabel.setText("Enter correct tip amount");
                         return;
                     }
                 }
@@ -137,7 +137,7 @@ public class PaymentPanel extends JPanel {
                 discountCodeField.setText("");
                 tipField.setText("");
                 errorLabel.setText("");
-                JOptionPane.showMessageDialog(null, "Zamówienie zostało złożone.");
+                JOptionPane.showMessageDialog(null, "Order placed successfully");
                 ((App) callback).cardLayout.show(((App) callback).getContentPane(), "MainMenu");
             }
         });
@@ -160,21 +160,21 @@ public class PaymentPanel extends JPanel {
         });
 
         setLayout(new GridLayout(10, 2));
-        add(new JLabel("Zapłać:"));
+        add(new JLabel("Pay:"));
         add(new JLabel());
-        add(new JLabel("Metoda płatności:"));
+        add(new JLabel("Payment method:"));
         add(paymentMethodComboBox);
-        add(new JLabel("Ulica:"));
+        add(new JLabel("Street:"));
         add(streetField);
-        add(new JLabel("Numer domu:"));
+        add(new JLabel("Street number:"));
         add(streetNumberField);
-        add(new JLabel("Numer mieszkania:"));
+        add(new JLabel("Apartment:"));
         add(apartmentField);
-        add(new JLabel("Miasto:"));
+        add(new JLabel("City:"));
         add(cityField);
-        add(new JLabel("Kod rabatowy:"));
+        add(new JLabel("Discount code:"));
         add(discountCodeField);
-        add(new JLabel("Napiwek:"));
+        add(new JLabel("Tip:"));
         add(tipField);
         add(errorLabel);
         add(new JLabel());

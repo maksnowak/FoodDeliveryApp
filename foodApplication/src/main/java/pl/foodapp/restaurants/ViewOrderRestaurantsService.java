@@ -20,7 +20,7 @@ public class ViewOrderRestaurantsService {
     }
 
     public List<RestaurantsDTO> getRestaurantsFromOrder(int orderId) {
-        // wyświetl listę restauracji realizujących zamówienie o podanym id
+        // get all restaurants from order
         List<OrderedDishesEntity> orderedDishes = orderedDishesDAO.getDishesByOrderId(orderId);
         ArrayList<RestaurantsDTO> dtos = new ArrayList<>();
         for (OrderedDishesEntity orderedDish : orderedDishes) {

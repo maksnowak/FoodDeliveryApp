@@ -16,10 +16,10 @@ public class ComplaintPanel extends JPanel {
 
         public ComplaintPanel(Callback callback) {
             setLayout(new BorderLayout());
-            JLabel upperLabel = new JLabel("Złóż reklamację:");
+            JLabel upperLabel = new JLabel("Place a complaint:");
             JTextField complaintField = new JTextField();
-            JButton sendButton = new JButton("Wyślij");
-            JButton returnButton = new JButton("Powrót");
+            JButton sendButton = new JButton("Send");
+            JButton returnButton = new JButton("Back");
 
             sendButton.addActionListener(new ActionListener() {
                 @Override

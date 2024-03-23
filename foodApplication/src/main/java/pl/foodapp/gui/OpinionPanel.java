@@ -17,12 +17,12 @@ public class OpinionPanel extends JPanel {
         public OpinionPanel(Callback callback) {
             SpinnerModel sm = new SpinnerNumberModel(0, 0, 5, 1);
 
-            JLabel upperLabel = new JLabel("Wystaw opinię");
+            JLabel upperLabel = new JLabel("Review restaurant");
             JTextField opinionField = new JTextField();
-            JLabel starLabel = new JLabel("ocen nas * * * * *");
+            JLabel starLabel = new JLabel("Stars:");
             JSpinner starField = new JSpinner(sm);
-            JButton sendButton = new JButton("Wyślij");
-            JButton returnButton = new JButton("Powrót");
+            JButton sendButton = new JButton("Send");
+            JButton returnButton = new JButton("Back");
 
 
             sendButton.addActionListener(new ActionListener() {

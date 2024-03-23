@@ -10,7 +10,7 @@ public class VerifyIfCustomerAlreadyAddedCardService {
     }
 
     public void verifyIfCustomerAlreadyAddedCard(PaymentMethodsDTO DTO) throws CardAlreadyAddedException {
-        // sprawdzenie czy dany użytkownik dodał już kartę o podanym numerze
+        // check if the user has already added a card with the given number
         for (PaymentMethodsEntity method : paymentMethodsDAO.getMethodsByCustomerId(DTO.getCustomer())) {
             if (method.getCardNumber().equals(DTO.getCardNumber())) {
                 throw new CardAlreadyAddedException();

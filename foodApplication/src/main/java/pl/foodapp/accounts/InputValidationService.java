@@ -5,7 +5,7 @@ public class InputValidationService {
         if (email == null || email.isEmpty()) {
             throw new IllegalArgumentException("Email cannot be empty");
         }
-        String regex = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"; // wyrażenie regularne do sprawdzania poprawności adresu email
+        String regex = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"; // email regex
         if (!email.matches(regex)) {
             throw new IllegalArgumentException("Not a valid email address");
         }

@@ -17,36 +17,36 @@ public class ChangeHoursPanel extends JPanel {
 
     public ChangeHoursPanel(Callback callback) {
 
-        // Stworznie siatki 5x2
+        // Create a 5x2 grid
         setLayout(new GridLayout(5, 2));
 
-        // Dodanie pól tekstowych, etykiet i spinnerów
-        add(new JLabel("Otwarcie pon-pt:"));
+        // Add text fields, labels and spinners
+        add(new JLabel("Opening time mon-fri:"));
         openWeekdaysSpinner = new JSpinner(new SpinnerDateModel());
         JSpinner.DateEditor openWeekdaysEditor = new JSpinner.DateEditor(openWeekdaysSpinner, "HH:mm");
         openWeekdaysSpinner.setEditor(openWeekdaysEditor);
         add(openWeekdaysSpinner);
 
-        add(new JLabel("Zamknięcie pon-pt:"));
+        add(new JLabel("Closing time mon-fri:"));
         closeWeekdaysSpinner = new JSpinner(new SpinnerDateModel());
         JSpinner.DateEditor closeWeekdaysEditor = new JSpinner.DateEditor(closeWeekdaysSpinner, "HH:mm");
         closeWeekdaysSpinner.setEditor(closeWeekdaysEditor);
         add(closeWeekdaysSpinner);
 
-        add(new JLabel("Otwarcie weekendy:"));
+        add(new JLabel("Opening time weekends:"));
         openWeekendsSpinner = new JSpinner(new SpinnerDateModel());
         JSpinner.DateEditor openWeekendsEditor = new JSpinner.DateEditor(openWeekendsSpinner, "HH:mm");
         openWeekendsSpinner.setEditor(openWeekendsEditor);
         add(openWeekendsSpinner);
 
-        add(new JLabel("Zamknięcie weekendy:"));
+        add(new JLabel("Closing time weekends:"));
         closeWeekendsSpinner = new JSpinner(new SpinnerDateModel());
         JSpinner.DateEditor closeWeekendsEditor = new JSpinner.DateEditor(closeWeekendsSpinner, "HH:mm");
         closeWeekendsSpinner.setEditor(closeWeekendsEditor);
         add(closeWeekendsSpinner);
 
-        // Dodanie przycisku do zapisywania zmian
-        JButton saveButton = new JButton("Zapisz");
+        // Add a button to save changes
+        JButton saveButton = new JButton("Save changes");
         saveButton.addActionListener(e -> {
             java.util.Date openWeekdaysDate = (java.util.Date) openWeekdaysSpinner.getValue();
             java.sql.Time openWeekdaysTime = new java.sql.Time(openWeekdaysDate.getTime());
@@ -66,14 +66,14 @@ public class ChangeHoursPanel extends JPanel {
 
             restaurantsDAO.updateRestaurant(restaurant);
 
-            JOptionPane.showMessageDialog(this, "Zmieniono godziny otwarcia.");
+            JOptionPane.showMessageDialog(this, "Changes saved");
 
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
         });
 
 
-        // Dodanie przycisku powrotu
-        JButton backButton = new JButton("Powrót");
+        // Add a back button
+        JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
         });

@@ -30,7 +30,7 @@ public class PaymentMethodsPanel extends JPanel {
         Timer timer = new Timer(1000, e -> updateClock());
         upperPanel.add(clockLabel);
         timer.start();
-        JLabel titleLabel = new JLabel("Wybierz metodę płatności:");
+        JLabel titleLabel = new JLabel("Select payment method");
         upperPanel.add(titleLabel);
         add(upperPanel, BorderLayout.NORTH);
         
@@ -43,7 +43,7 @@ public class PaymentMethodsPanel extends JPanel {
 
         JPanel bottomPanel = new JPanel(new GridLayout(2, 2));
 
-        JButton deleteButton = new JButton("Usuń metodę płatności");
+        JButton deleteButton = new JButton("Remove payment method");
         deleteButton.addActionListener(e -> {
             int selectedId = paymentMethodsList.getSelectedIndex();
             if (selectedId != -1) {
@@ -52,12 +52,12 @@ public class PaymentMethodsPanel extends JPanel {
                 DeleteCreditCardService deleteCreditCardService = new DeleteCreditCardService(DAO);
                 deleteCreditCardService.deleteCreditCard(actualId);
                 refreshPaymentMethods();
-                JOptionPane.showMessageDialog(this, "Usunięto metodę płatności " + number + ".");
+                JOptionPane.showMessageDialog(this, "Removed payment method " + number + ".");
             }
         });
         bottomPanel.add(deleteButton);
 
-        JButton modifyButton = new JButton("Modyfikuj metodę płatności");
+        JButton modifyButton = new JButton("Modify payment method");
         modifyButton.addActionListener(e -> {
             int selectedId = paymentMethodsList.getSelectedIndex();
             if (selectedId != -1) {
@@ -67,14 +67,14 @@ public class PaymentMethodsPanel extends JPanel {
         });
         bottomPanel.add(modifyButton);
 
-        JButton backButton = new JButton("Powrót");
+        JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
             paymentMethodsList.clearSelection();
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "AccountInfo");
         });
         bottomPanel.add(backButton);
 
-        JButton basketButton = new JButton("Dodaj metodę płatności");
+        JButton basketButton = new JButton("Add payment method");
         basketButton.addActionListener(e -> {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "AddPaymentMethod");
         });

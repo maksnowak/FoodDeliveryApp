@@ -20,8 +20,8 @@ public class ModifyPaymentMethodPanel extends JPanel {
 
     public ModifyPaymentMethodPanel(Callback callback) {
 
-        JButton modifyButton = new JButton("Zmodyfikuj");
-        JButton returnButton = new JButton("Powrót");
+        JButton modifyButton = new JButton("Modify");
+        JButton returnButton = new JButton("Back");
 
         modifyButton.addActionListener(new ActionListener() {
             @Override
@@ -38,7 +38,7 @@ public class ModifyPaymentMethodPanel extends JPanel {
                     temp_date = formatter.parse(date_str);
                     date = new Date(temp_date.getTime());
                 } catch (java.text.ParseException ex) {
-                    JOptionPane.showMessageDialog(null, "Niepoprawny format daty");
+                    JOptionPane.showMessageDialog(null, "Incorrect date format");
                     return;
                 }
 
@@ -54,7 +54,7 @@ public class ModifyPaymentMethodPanel extends JPanel {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                     return;
                 }
-                JOptionPane.showMessageDialog(null, "Zmodyfikowano metodę płatności");
+                JOptionPane.showMessageDialog(null, "Payment method modified");
 
 
 

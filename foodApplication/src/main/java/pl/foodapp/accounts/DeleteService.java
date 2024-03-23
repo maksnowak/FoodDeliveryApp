@@ -46,49 +46,49 @@ public class DeleteService {
     public void deleteAccount(int id) {
         AccountsEntity account = accountsDAO.getAccountById(id);
         if (account != null) {
-            // we wszystkich zamówieniach złożonych przez klienta ustaw pole customer na null
+            // change customer field to null in all orders placed by the customer
             List<OrdersEntity> orders = ordersDAO.getAllOrdersFromAccountId(id);
             for (OrdersEntity order : orders) {
                 order.setCustomer(null);
                 ordersDAO.updateOrder(order);
             }
-            // usuń wszystkie metody płatności klienta
+            // remove all payment methods of the customer
             List<PaymentMethodsEntity> methods = paymentMethodsDAO.getMethodsByCustomerId(id);
             DeleteCreditCardService deleteCreditCardService = new DeleteCreditCardService(paymentMethodsDAO);
             for (PaymentMethodsEntity method : methods) {
                 deleteCreditCardService.deleteCreditCard(method.getMethodId());
             }
-            // usuń wszystkie ulubione dania klienta
+            // remove all favorite dishes of the customer
             List<FavoritesEntity> favorites = favoritesDAO.getFavoritesByCustomer(id);
             DeleteFavoriteService deleteFavoriteService = new DeleteFavoriteService(favoritesDAO);
             for (FavoritesEntity favorite : favorites) {
                 deleteFavoriteService.deleteFavorite(favorite.getId());
             }
-            // usuń wszystkie dania z koszyka klienta
+            // remove all dishes from the customer's basket
             List<BasketsEntity> baskets = basketsDAO.getAllDishesOfClientId(id);
             for (BasketsEntity basket : baskets) {
                 basketsDAO.deleteBasket(basket);
             }
-            // usuń wszystkie opinie klienta
+            // remove all reviews of the customer
             List<ReviewsEntity> reviews = reviewsDAO.getAllReviewsFromCustomerId(id);
             for (ReviewsEntity review : reviews) {
                 reviewsDAO.deleteReview(review);
             }
-            // jeśli to jest konto pracownika, usuń go z restauracji
+            // if it's a worker account, remove the worker from the restaurant
             List<WorkersEntity> workers = workersDAO.getWorkersByAccountId(id);
             for (WorkersEntity worker : workers) {
-                // sprawdź czy w restauracji pracuje tylko jeden pracownik
+                // check if there is only one worker in the restaurant
                 List<WorkersEntity> workersInRestaurant = workersDAO.getWorkersByRestaurantId(worker.getRestaurantId());
                 if (workersInRestaurant.size() == 1) {
-                    // jeśli tak, usuń restaurację
+                    // if so, remove the restaurant
                     RemoveRestaurant removeRestaurant = new RemoveRestaurant(restaurantsDAO, dishesDAO, orderedDishesDAO, basketsDAO, favoritesDAO, workersDAO, reviewsDAO);
                     removeRestaurant.removeRestaurant(worker.getRestaurantId());
                 } else {
-                    // jeśli nie, usuń pracownika
+                    // otherwise remove the worker
                     workersDAO.deleteWorker(worker.getId());
                 }
             }
-            // na koniec usuń konto klienta
+            // finally, remove the customer account
             accountsDAO.deleteAccount(account);
         }
     }

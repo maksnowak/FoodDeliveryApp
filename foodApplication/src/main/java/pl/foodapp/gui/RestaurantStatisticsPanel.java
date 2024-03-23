@@ -26,13 +26,13 @@ public class RestaurantStatisticsPanel extends JPanel {
 
         setLayout(new GridLayout(3, 1));
 
-        orderedDishesLabel = new JLabel("Liczba zamówionych dań: ");
+        orderedDishesLabel = new JLabel("Ordered dishes: ");
         add(orderedDishesLabel);
 
-        totalIncomeLabel = new JLabel("Całkowity dochód: ");
+        totalIncomeLabel = new JLabel("Total income: ");
         add(totalIncomeLabel);
 
-        backButton = new JButton("Powrót");
+        backButton = new JButton("Back");
         backButton.addActionListener(e -> {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurants");
         });
@@ -53,8 +53,8 @@ public class RestaurantStatisticsPanel extends JPanel {
             }
         }
 
-        orderedDishesLabel.setText("Liczba zamówionych dań: " + totalDishes);
-        totalIncomeLabel.setText("Całkowity dochód: " + totalIncome + " zł");
+        orderedDishesLabel.setText("Ordered dishes: " + totalDishes);
+        totalIncomeLabel.setText("Total income: " + totalIncome + " zł");
     }
 
 

@@ -20,30 +20,30 @@ public class AddDishPanel extends JPanel {
     public AddDishPanel(AddDish addDish, Callback callback) {
         this.addDish = addDish;
 
-        // Stworzenie siatki 6x2
+        // create a 6x2 grid
         setLayout(new GridLayout(6, 2));
 
-        // Dodanie pól tekstowych i etykiet
-        add(new JLabel("Nazwa:"));
+        // add fields and labels
+        add(new JLabel("Name:"));
         nameField = new JTextField();
         add(nameField);
 
-        add(new JLabel("Typ dania:"));
+        add(new JLabel("Dish type:"));
         typeComboBox = new JComboBox<>();
-        typeComboBox.addItem("Przystawka");
-        typeComboBox.addItem("Zupa");
-        typeComboBox.addItem("Danie główne");
-        typeComboBox.addItem("Deser");
-        typeComboBox.addItem("Dodatki");
-        typeComboBox.addItem("Sałatki");
-        typeComboBox.addItem("Napoje");
+        typeComboBox.addItem("Appetizer");
+        typeComboBox.addItem("Soup");
+        typeComboBox.addItem("Main course");
+        typeComboBox.addItem("Dessert");
+        typeComboBox.addItem("Side dish");
+        typeComboBox.addItem("Salad");
+        typeComboBox.addItem("Beverage");
         add(typeComboBox);
 
-        add(new JLabel("Wegetariańskie:"));
+        add(new JLabel("Vegetarian:"));
         vegetarianCheckBox = new JCheckBox();
         add(vegetarianCheckBox);
 
-        add(new JLabel("Cena:"));
+        add(new JLabel("Price:"));
         priceField = new JTextField();
         add(priceField);
 
@@ -51,15 +51,15 @@ public class AddDishPanel extends JPanel {
         kcalField = new JTextField();
         add(kcalField);
 
-        // Dodanie przycisku powrotu
-        JButton backButton = new JButton("Powrót");
+        // Add back button
+        JButton backButton = new JButton("Back");
         backButton.addActionListener(e2 -> {
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
         });
         add(backButton);
 
-        // Dodanie przycisku dodawania dania
-        addButton = new JButton("Dodaj danie");
+        // Add dish button
+        addButton = new JButton("Add dish");
         addButton.addActionListener(e -> {
             String name = nameField.getText();
             int typeId = typeComboBox.getSelectedIndex() + 1;
@@ -79,8 +79,8 @@ public class AddDishPanel extends JPanel {
             int dishId = addDish.addDish(dish);
             dish.setDishId(dishId);
 
-            // Wyświetlenie komunikatu o dodaniu dania i przejście do panelu modyfikacji restauracji
-            JOptionPane.showMessageDialog(this, "Dodano danie.");
+            // Show message about added dish and go back to modify restaurant details
+            JOptionPane.showMessageDialog(this, "Dish added.");
             ((App) callback).cardLayout.show(((App) callback).getContentPane(), "ModifyRestaurantDetails");
 
 
